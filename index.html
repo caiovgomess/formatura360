@@ -1,86 +1,159 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
-<meta charset="UTF-8">
+<meta charset="UTF-8" />
 <title>Formatura360</title>
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet">
 
 <style>
 :root{
-  --primary:#0f172a;
-  --secondary:#64748b;
-  --accent:#6366f1;
+  /* Identidade clean corporativa (medicina) */
+  --primary:#0f172a;        /* navy */
+  --secondary:#64748b;      /* slate */
+  --accent:#1d4ed8;         /* blue */
+  --accent2:#0ea5e9;        /* cyan */
   --border:#e5e7eb;
+  --surface:#ffffff;
+  --bg1:#f8fafc;
+  --bg2:#eef2ff;
   --danger:#ef4444;
+  --success:#16a34a;
+
   --percent:0deg;
 }
+
 *{box-sizing:border-box}
+html,body{height:100%}
 body{
   margin:0;
   font-family:Inter,sans-serif;
-  background:linear-gradient(180deg,#f8fafc,#eef2ff);
-  color:var(--primary)
+  background:linear-gradient(180deg,var(--bg1),var(--bg2));
+  color:var(--primary);
 }
+
 header{
-  background:rgba(255,255,255,.9);
+  background:rgba(255,255,255,.92);
   backdrop-filter:blur(10px);
-  padding:20px 40px;
+  padding:18px 34px;
   border-bottom:1px solid var(--border);
   display:flex;
   justify-content:space-between;
   align-items:center;
   position:sticky;
   top:0;
-  z-index:10
+  z-index:10;
 }
+
+.brand{
+  display:flex; gap:12px; align-items:center;
+}
+.brand-badge{
+  width:34px;height:34px;border-radius:10px;
+  background:linear-gradient(135deg,var(--accent),var(--accent2));
+  display:grid;place-items:center;
+  color:#fff;font-weight:800;
+  box-shadow:0 10px 20px rgba(29,78,216,.18);
+}
+.brand h2{margin:0;font-size:18px;letter-spacing:.2px}
+
+nav{
+  display:flex;
+  gap:8px;
+  align-items:center;
+  flex-wrap:wrap;
+}
+
 nav button{
-  margin-left:8px;
-  padding:10px 16px;
-  border-radius:10px;
-  border:none;
+  padding:10px 14px;
+  border-radius:12px;
+  border:1px solid transparent;
   background:transparent;
   cursor:pointer;
   color:var(--secondary);
-  font-weight:500
+  font-weight:600;
+  transition:background .2s ease,border-color .2s ease,transform .08s ease,color .2s ease, box-shadow .2s ease;
 }
+nav button:hover{
+  background:rgba(29,78,216,.08);
+  border-color:rgba(29,78,216,.18);
+  color:var(--primary);
+}
+nav button:active{transform:scale(.98)}
 nav button.active{
-  background:var(--accent);
-  color:#fff
+  background:linear-gradient(135deg,var(--accent),var(--accent2));
+  color:#fff;
+  border-color:rgba(255,255,255,.25);
+  box-shadow:0 12px 26px rgba(29,78,216,.22);
 }
+
 main{
   max-width:1200px;
   margin:auto;
-  padding:40px
+  padding:34px;
 }
+
 .hidden{display:none}
+
+section{
+  animation: fadeIn .16s ease;
+}
+@keyframes fadeIn{
+  from{opacity:.0; transform:translateY(4px)}
+  to{opacity:1; transform:translateY(0)}
+}
+
 .cards{
   display:grid;
   grid-template-columns:repeat(auto-fit,minmax(220px,1fr));
-  gap:20px
+  gap:18px;
 }
+
 .card{
-  background:#fff;
-  padding:24px;
+  background:var(--surface);
+  padding:22px;
   border-radius:16px;
   border:1px solid var(--border);
-  box-shadow:0 10px 24px rgba(0,0,0,.05)
+  box-shadow:0 10px 24px rgba(0,0,0,.05);
 }
+
+.card h3, .card h4{margin:0 0 10px 0}
+.card h4{color:var(--secondary); font-weight:600}
+.card strong{font-size:22px}
+
 .dashboard-grid{
   display:grid;
   grid-template-columns:1fr 1fr;
-  gap:24px;
-  margin-top:24px
+  gap:22px;
+  margin-top:22px
 }
+
+@media (max-width: 920px){
+  .dashboard-grid{grid-template-columns:1fr}
+  header{padding:14px 18px}
+  main{padding:22px}
+}
+
 .countdown-box{
   display:flex;
   justify-content:space-between;
-  align-items:center
+  align-items:center;
+  gap:16px;
 }
 .countdown-icon{
   font-size:64px;
-  opacity:.15
+  opacity:.12
 }
+
+/* 1) Contagem regressiva maior */
+.countdown-text{
+  margin:10px 0 0 0;
+  font-size:18px;
+  font-weight:800;
+  color:var(--primary);
+  letter-spacing:.2px;
+}
+
 .budget-circle{
   width:150px;
   height:150px;
@@ -93,50 +166,91 @@ main{
   display:flex;
   align-items:center;
   justify-content:center;
-  margin:16px auto
+  margin:14px auto 12px auto;
 }
 .budget-circle span{
   background:#fff;
-  width:90px;
-  height:90px;
+  width:92px;
+  height:92px;
   border-radius:50%;
   display:flex;
   align-items:center;
   justify-content:center;
-  font-weight:700
+  font-weight:800;
+  color:var(--primary);
 }
-input{
+
+label{
+  display:block;
+  font-size:12px;
+  color:var(--secondary);
+  margin-top:10px;
+  font-weight:600;
+}
+
+input, select{
   width:100%;
-  padding:12px;
-  border-radius:10px;
+  padding:12px 12px;
+  border-radius:12px;
   border:1px solid var(--border);
-  margin-top:8px
+  margin-top:8px;
+  font-family:inherit;
+  outline:none;
+  transition:border-color .2s ease, box-shadow .2s ease;
+  background:#fff;
 }
+input:focus, select:focus{
+  border-color:rgba(29,78,216,.55);
+  box-shadow:0 0 0 4px rgba(29,78,216,.12);
+}
+
+.actions-row{
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:16px;
+}
+@media (max-width: 920px){
+  .actions-row{grid-template-columns:1fr}
+}
+
 button.primary{
   margin-top:12px;
-  background:var(--accent);
+  background:linear-gradient(135deg,var(--accent),var(--accent2));
   color:#fff;
   border:none;
-  border-radius:10px;
-  padding:12px;
-  font-weight:600;
-  cursor:pointer
+  border-radius:12px;
+  padding:12px 14px;
+  font-weight:800;
+  cursor:pointer;
+  transition:transform .08s ease, filter .2s ease, box-shadow .2s ease;
+  box-shadow:0 12px 26px rgba(29,78,216,.20);
+}
+button.primary:hover{filter:brightness(1.02)}
+button.primary:active{transform:scale(.98)}
+
+.table-wrap{
+  margin-top:22px;
+  border-radius:16px;
+  overflow:hidden;
+  border:1px solid var(--border);
+  box-shadow:0 10px 24px rgba(0,0,0,.05);
+  background:#fff;
 }
 table{
   width:100%;
-  margin-top:24px;
   border-collapse:collapse;
-  background:#fff;
-  border-radius:16px;
-  overflow:hidden
 }
 th,td{
   padding:14px;
-  border-bottom:1px solid var(--border)
+  border-bottom:1px solid var(--border);
 }
 th{
   background:#f1f5f9;
-  color:var(--secondary)
+  color:var(--secondary);
+  text-align:left;
+  font-weight:700;
+  font-size:13px;
+  letter-spacing:.2px;
 }
 td button{
   background:none;
@@ -145,100 +259,296 @@ td button{
   cursor:pointer;
   font-size:16px
 }
+td input[type="checkbox"]{
+  transform:scale(1.15);
+  cursor:pointer;
+}
+
+/* 3) Checkbox centralizada */
+td.center{
+  text-align:center;
+  vertical-align:middle;
+}
+td.center input[type="checkbox"]{
+  margin:0;
+  display:inline-block;
+}
+
+.badge{
+  display:inline-flex;
+  align-items:center;
+  gap:8px;
+  padding:6px 10px;
+  border-radius:999px;
+  font-weight:700;
+  font-size:12px;
+  border:1px solid var(--border);
+  background:#f8fafc;
+  color:var(--primary);
+}
+.badge.blue{border-color:rgba(29,78,216,.25); background:rgba(29,78,216,.06)}
+.badge.cyan{border-color:rgba(14,165,233,.25); background:rgba(14,165,233,.06)}
+.badge.gray{border-color:rgba(100,116,139,.25); background:rgba(100,116,139,.06)}
+
+/* 2) Configurações maior */
+.config-line{
+  display:flex;
+  align-items:center;
+  gap:10px;
+  flex-wrap:wrap;
+  margin-bottom:10px;
+}
+.config-line .config-value{
+  font-size:14px;
+  font-weight:800;
+  color:var(--primary);
+}
+.badge.big{
+  padding:8px 12px;
+  font-size:13px;
+}
+
+/* 4) Convidados: números maiores em confirmados/restantes */
+.guest-stats{
+  margin-top:12px;
+  display:flex;
+  gap:12px;
+  flex-wrap:wrap;
+  align-items:baseline;
+}
+.guest-stats .label{
+  font-size:12px;
+  font-weight:800;
+  color:var(--secondary);
+}
+.guest-stats .num{
+  font-size:20px;
+  font-weight:900;
+  color:var(--primary);
+  letter-spacing:.2px;
+}
+
+.hint{
+  margin-top:10px;
+  font-size:12px;
+  color:var(--secondary);
+}
+
+.toast{
+  position:fixed;
+  right:18px;
+  bottom:18px;
+  min-width:240px;
+  max-width:320px;
+  background:#0b1220;
+  color:#fff;
+  border-radius:14px;
+  padding:12px 14px;
+  border:1px solid rgba(255,255,255,.08);
+  box-shadow:0 18px 40px rgba(0,0,0,.25);
+  opacity:0;
+  transform:translateY(8px);
+  pointer-events:none;
+  transition:opacity .18s ease, transform .18s ease;
+  z-index:999;
+}
+.toast.show{opacity:1; transform:translateY(0)}
+.toast small{display:block; opacity:.8; margin-top:4px}
+.toast.success{background:linear-gradient(135deg,#071a41,#0f172a)}
+.toast.error{background:linear-gradient(135deg,#2a0b0b,#240b0b)}
 </style>
 </head>
 
 <body>
 
 <header>
-  <h2>🎓 Formatura360</h2>
+  <div class="brand">
+    <div class="brand-badge" aria-label="Formatura">
+      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+        <path d="M12 3L1.5 8.25 12 13.5 22.5 8.25 12 3Z" fill="white"/>
+        <path d="M5.5 10.2V15.2C5.5 16.9 8.4 18.3 12 18.3C15.6 18.3 18.5 16.9 18.5 15.2V10.2L12 13.5L5.5 10.2Z" fill="white" opacity="0.95"/>
+        <path d="M22.5 8.25V13.8" stroke="white" stroke-width="1.7" stroke-linecap="round"/>
+        <circle cx="22.5" cy="14.9" r="1.1" fill="white"/>
+      </svg>
+    </div>
+
+    <div class="brand-title">FORMATURA360 JAMILE</div>
+  </div>
+
+  <!-- aqui continua seu <nav> ... -->
+
+
   <nav>
     <button id="btn-dashboard" class="active" onclick="showPage('dashboard')">Dashboard</button>
     <button id="btn-items" onclick="showPage('items')">Itens</button>
     <button id="btn-finance" onclick="showPage('finance')">Financeiro</button>
+    <button id="btn-guests" onclick="showPage('guests')">Convidados</button>
     <button onclick="logout()">Sair</button>
   </nav>
 </header>
 
 <main id="app" class="hidden">
 
-<!-- DASHBOARD -->
-<section id="dashboardSection">
-  <div class="cards">
-    <div class="card"><h4>Total de Itens</h4><strong id="totalItems">0</strong></div>
-    <div class="card"><h4>Pendências</h4><strong id="pendingItems">0</strong></div>
-    <div class="card"><h4>Total Gasto</h4><strong id="totalSpent">R$ 0,00</strong></div>
-    <div class="card"><h4>Disponível</h4><strong id="available">R$ 0,00</strong></div>
-  </div>
+  <!-- DASHBOARD -->
+  <section id="dashboardSection">
+    <div class="cards">
+      <div class="card"><h4>Total de Itens</h4><strong id="totalItems">0</strong></div>
+      <div class="card"><h4>Pendências</h4><strong id="pendingItems">0</strong></div>
+      <div class="card"><h4>Total Gasto</h4><strong id="totalSpent">R$ 0,00</strong></div>
+      <div class="card"><h4>Disponível</h4><strong id="available">R$ 0,00</strong></div>
+    </div>
 
-  <div class="dashboard-grid">
-    <div>
-      <div class="card">
-        <div class="countdown-box">
-          <div>
-            <h3>Contagem Regressiva</h3>
-            <input type="date" id="date">
-            <p id="countdown"></p>
+    <div class="dashboard-grid">
+      <div>
+        <div class="card">
+          <div class="countdown-box">
+            <div>
+              <h3>Contagem Regressiva</h3>
+              <input type="date" id="date">
+              <!-- 1) maior -->
+              <p id="countdown" class="countdown-text"></p>
+            </div>
+            <div class="countdown-icon">🎓</div>
           </div>
-          <div class="countdown-icon">🎓</div>
+        </div>
+
+        <div class="card" style="margin-top:16px">
+          <h3>Configurações</h3>
+          <div class="hint">
+            <!-- 2) maior -->
+            <div class="config-line">
+              <span class="badge big blue">💰 Orçamento</span>
+              <span id="budgetConfigHint" class="config-value"></span>
+            </div>
+
+            <div class="config-line">
+              <span class="badge big cyan">🎟 Senhas</span>
+              <span id="guestConfigHint" class="config-value"></span>
+            </div>
+
+            <div class="hint" style="margin-top:10px;">
+              Cadastro do orçamento fica em <b>Financeiro</b>. Controle de senhas fica em <b>Convidados</b>.
+            </div>
+          </div>
         </div>
       </div>
 
-      <div class="card" style="margin-top:16px">
-        <h3>Orçamento Total</h3>
-        <input type="number" id="budgetInput" placeholder="Ex: 15000">
-        <button class="primary" onclick="setBudget()">Salvar</button>
+      <div class="card">
+        <h3>Visão Geral do Orçamento</h3>
+        <div class="budget-circle">
+          <span id="budgetPercent">0%</span>
+        </div>
+        <p><strong>Total:</strong> <span id="budgetTotalView"></span></p>
+        <p><strong>Comprometido:</strong> <span id="budgetUsedView"></span></p>
+        <p><strong>Livre:</strong> <span id="budgetFreeView"></span></p>
       </div>
     </div>
+  </section>
 
+  <!-- ITENS -->
+  <section id="itemsSection" class="hidden">
     <div class="card">
-      <h3>Visão Geral do Orçamento</h3>
-      <div class="budget-circle">
-        <span id="budgetPercent">0%</span>
-      </div>
-      <p><strong>Total:</strong> <span id="budgetTotalView"></span></p>
-      <p><strong>Comprometido:</strong> <span id="budgetUsedView"></span></p>
-      <p><strong>Livre:</strong> <span id="budgetFreeView"></span></p>
+      <h3>Adicionar Item</h3>
+      <label>Item</label>
+      <input id="itemName" placeholder="Ex: Becas, Buffet, Fotos">
+      <label>Fornecedor</label>
+      <input id="itemSupplier" placeholder="Ex: Empresa X">
+      <label>Valor</label>
+      <input id="itemValue" type="number" placeholder="Ex: 1200">
+      <button class="primary" onclick="addItem()">Adicionar</button>
+      <div class="hint">Dica: marque como <b>Pago</b> para entrar no total gasto.</div>
     </div>
-  </div>
-</section>
 
-<!-- ITENS -->
-<section id="itemsSection" class="hidden">
-  <div class="card">
-    <h3>Adicionar Item</h3>
-    <input id="itemName" placeholder="Item">
-    <input id="itemSupplier" placeholder="Fornecedor">
-    <input id="itemValue" type="number" placeholder="Valor">
-    <button class="primary" onclick="addItem()">Adicionar</button>
-  </div>
+    <div class="table-wrap">
+      <table>
+        <thead>
+          <tr><th>Item</th><th>Fornecedor</th><th>Valor</th><th>Pago</th><th></th></tr>
+        </thead>
+        <tbody id="itemsTable"></tbody>
+      </table>
+    </div>
+  </section>
 
-  <table>
-    <thead>
-      <tr><th>Item</th><th>Fornecedor</th><th>Valor</th><th>Pago</th><th></th></tr>
-    </thead>
-    <tbody id="itemsTable"></tbody>
-  </table>
-</section>
+  <!-- FINANCEIRO -->
+  <section id="financeSection" class="hidden">
+    <div class="actions-row">
+      <div class="card">
+        <h3>Orçamento Total</h3>
+        <label>Defina seu orçamento</label>
+        <input type="number" id="budgetInputFinance" placeholder="Ex: 15000">
+        <button class="primary" onclick="setBudget()">Salvar Orçamento</button>
+        <div class="hint">Esse valor alimenta o círculo e os indicadores do <b>Dashboard</b>.</div>
+      </div>
 
-<!-- FINANCEIRO -->
-<section id="financeSection" class="hidden">
-  <div class="card">
-    <h3>Adicionar Despesa</h3>
-    <input id="financeName" placeholder="Descrição">
-    <input id="financeValue" type="number" placeholder="Valor">
-    <button class="primary" onclick="addFinance()">Adicionar</button>
-  </div>
+      <div class="card">
+        <h3>Adicionar Despesa</h3>
+        <label>Descrição</label>
+        <input id="financeName" placeholder="Ex: Taxa, Convite, Reserva">
+        <label>Valor</label>
+        <input id="financeValue" type="number" placeholder="Ex: 300">
+        <button class="primary" onclick="addFinance()">Adicionar</button>
+        <div class="hint">Despesas entram automaticamente no total gasto.</div>
+      </div>
+    </div>
 
-  <table>
-    <thead>
-      <tr><th>Descrição</th><th>Valor</th><th></th></tr>
-    </thead>
-    <tbody id="financeTable"></tbody>
-  </table>
-</section>
+    <div class="table-wrap">
+      <table>
+        <thead>
+          <tr><th>Descrição</th><th>Valor</th><th></th></tr>
+        </thead>
+        <tbody id="financeTable"></tbody>
+      </table>
+    </div>
+  </section>
+
+  <!-- CONVIDADOS -->
+  <section id="guestsSection" class="hidden">
+    <div class="actions-row">
+      <div class="card">
+        <h3>Senhas Disponíveis</h3>
+        <label>Total de senhas</label>
+        <input type="number" id="guestLimit" placeholder="Ex: 120">
+        <button class="primary" onclick="setGuestLimit()">Salvar Senhas</button>
+
+        <!-- 4) números maiores -->
+        <div class="guest-stats">
+          <span class="label">Confirmados</span>
+          <span id="guestConfirmedCount" class="num">0</span>
+          <span class="label">Restantes</span>
+          <span id="guestRemaining" class="num">—</span>
+        </div>
+
+        <div class="hint">Se o total não estiver definido, exibimos <b>—</b> e não bloqueamos confirmações.</div>
+      </div>
+
+      <div class="card">
+        <h3>Adicionar Convidado</h3>
+        <label>Nome</label>
+        <input id="guestName" placeholder="Ex: Maria Silva">
+        <label>Etiqueta</label>
+        <select id="guestTag">
+          <option value="Família">Família</option>
+          <option value="Amigo">Amigo</option>
+          <option value="Acompanhante">Acompanhante</option>
+        </select>
+        <button class="primary" onclick="addGuest()">Adicionar</button>
+        <div class="hint">Marque <b>Confirmado</b> para consumir 1 senha (se o total estiver definido).</div>
+      </div>
+    </div>
+
+    <div class="table-wrap">
+      <table>
+        <thead>
+          <tr><th>Nome</th><th>Etiqueta</th><th>Confirmado</th><th></th></tr>
+        </thead>
+        <tbody id="guestsTable"></tbody>
+      </table>
+    </div>
+  </section>
 
 </main>
+
+<div id="toast" class="toast"></div>
 
 <script type="module">
 import { initializeApp } from "https://www.gstatic.com/firebasejs/12.8.0/firebase-app.js";
@@ -253,50 +563,170 @@ const firebaseConfig = {
   messagingSenderId: "527762396386",
   appId: "1:527762396386:web:e0ebaa9dbf62c125e9fabb"
 };
+
 const app = initializeApp(firebaseConfig);
 const auth = getAuth(app);
 const db = getFirestore(app);
 
-const appEl = document.getElementById("app");
-const money = v => v.toLocaleString("pt-BR",{style:"currency",currency:"BRL"});
-// ===== ELEMENTOS DO DOM (OBRIGATÓRIO) =====
-const dashboardSection = document.getElementById("dashboardSection");
-const itemsSection = document.getElementById("itemsSection");
-const financeSection = document.getElementById("financeSection");
+const $ = (id) => document.getElementById(id);
 
-const btnDashboard = document.getElementById("btn-dashboard");
-const btnItems = document.getElementById("btn-items");
-const btnFinance = document.getElementById("btn-finance");
+const el = {
+  app: $("app"),
 
-let state = { budget:0, date:"", items:[], finances:[] };
+  // nav
+  btnDashboard: $("btn-dashboard"),
+  btnItems: $("btn-items"),
+  btnFinance: $("btn-finance"),
+  btnGuests: $("btn-guests"),
+
+  // sections
+  dashboardSection: $("dashboardSection"),
+  itemsSection: $("itemsSection"),
+  financeSection: $("financeSection"),
+  guestsSection: $("guestsSection"),
+
+  // dashboard
+  totalItems: $("totalItems"),
+  pendingItems: $("pendingItems"),
+  totalSpent: $("totalSpent"),
+  available: $("available"),
+  date: $("date"),
+  countdown: $("countdown"),
+  budgetPercent: $("budgetPercent"),
+  budgetTotalView: $("budgetTotalView"),
+  budgetUsedView: $("budgetUsedView"),
+  budgetFreeView: $("budgetFreeView"),
+  budgetConfigHint: $("budgetConfigHint"),
+  guestConfigHint: $("guestConfigHint"),
+
+  // items
+  itemName: $("itemName"),
+  itemSupplier: $("itemSupplier"),
+  itemValue: $("itemValue"),
+  itemsTable: $("itemsTable"),
+
+  // finance
+  budgetInputFinance: $("budgetInputFinance"),
+  financeName: $("financeName"),
+  financeValue: $("financeValue"),
+  financeTable: $("financeTable"),
+
+  // guests
+  guestLimit: $("guestLimit"),
+  guestName: $("guestName"),
+  guestTag: $("guestTag"),
+  guestRemaining: $("guestRemaining"),
+  guestConfirmedCount: $("guestConfirmedCount"),
+  guestsTable: $("guestsTable"),
+
+  // toast
+  toast: $("toast"),
+};
+
+const money = (v) => {
+  const n = Number(v);
+  return (Number.isFinite(n) ? n : 0).toLocaleString("pt-BR", { style: "currency", currency: "BRL" });
+};
+
+const defaults = {
+  budget: 0,
+  date: "",
+  items: [],
+  finances: [],
+  guests: [],
+  guestLimit: 0, // 0 => não definido
+};
+
+let state = { ...defaults };
 let userRef = null;
 
+/* toast */
+let toastTimer = null;
+function showToast(message, type = "success") {
+  if (!el.toast) return;
+  el.toast.className = "toast";
+  el.toast.classList.add(type === "error" ? "error" : "success");
+  el.toast.innerHTML = `<div style="font-weight:800;">${message}</div><small>Formatura360</small>`;
+  el.toast.classList.add("show");
+  clearTimeout(toastTimer);
+  toastTimer = setTimeout(() => el.toast.classList.remove("show"), 2200);
+}
+
+/* normalize (document antigo sem campos novos) */
+function normalizeState(raw) {
+  const merged = { ...defaults, ...(raw || {}) };
+  merged.budget = Number(merged.budget) || 0;
+  merged.guestLimit = Number(merged.guestLimit) || 0;
+
+  merged.items = Array.isArray(merged.items) ? merged.items : [];
+  merged.finances = Array.isArray(merged.finances) ? merged.finances : [];
+  merged.guests = Array.isArray(merged.guests) ? merged.guests : [];
+
+  merged.items = merged.items.map(i => ({
+    name: String(i?.name ?? ""),
+    supplier: String(i?.supplier ?? ""),
+    value: Number(i?.value) || 0,
+    paid: Boolean(i?.paid),
+  }));
+
+  merged.finances = merged.finances.map(f => ({
+    name: String(f?.name ?? ""),
+    value: Number(f?.value) || 0,
+  }));
+
+  merged.guests = merged.guests.map(g => ({
+    name: String(g?.name ?? ""),
+    tag: String(g?.tag ?? "Amigo"),
+    confirmed: Boolean(g?.confirmed),
+  }));
+
+  return merged;
+}
+
 /* AUTH */
-onAuthStateChanged(auth, async user=>{
-  if(!user){ showLogin(); return; }
-  userRef = doc(db,"users",user.uid);
+onAuthStateChanged(auth, async (user) => {
+  if (!user) { showLogin(); return; }
+
+  userRef = doc(db, "users", user.uid);
   const snap = await getDoc(userRef);
-  if(snap.exists()) state = snap.data();
-  appEl.classList.remove("hidden");
+
+  state = normalizeState(snap.exists() ? snap.data() : defaults);
+
+  el.app.classList.remove("hidden");
   renderAll();
+  window.showPage("dashboard");
 });
 
 /* LOGIN */
-function showLogin(){
+function showLogin() {
   document.body.innerHTML = `
-    <div style="height:100vh;display:flex;align-items:center;justify-content:center">
-      <div class="card" style="width:320px">
-        <h2>🔐 Formatura360</h2>
-        <input id="email" placeholder="E-mail">
-        <input id="password" type="password" placeholder="Senha">
-        <button class="primary" id="loginBtn">Entrar</button>
+    <div style="min-height:100vh;display:flex;align-items:center;justify-content:center;padding:18px;background:linear-gradient(180deg,#f8fafc,#eef2ff)">
+      <div style="width:340px;background:#fff;border:1px solid #e5e7eb;border-radius:18px;box-shadow:0 18px 40px rgba(0,0,0,.08);padding:22px;font-family:Inter,sans-serif">
+        <div style="display:flex;gap:12px;align-items:center;margin-bottom:10px">
+          <div style="width:34px;height:34px;border-radius:10px;background:linear-gradient(135deg,#1d4ed8,#0ea5e9);display:grid;place-items:center;color:#fff;font-weight:800">⚕</div>
+          <div>
+            <div style="font-weight:900;color:#0f172a;font-size:18px">Formatura360</div>
+            <div style="color:#64748b;font-size:12px;font-weight:600">Acesso do painel</div>
+          </div>
+        </div>
+        <label style="display:block;font-size:12px;color:#64748b;font-weight:700;margin-top:12px">E-mail</label>
+        <input id="email" placeholder="seuemail@exemplo.com" style="width:100%;padding:12px;border-radius:12px;border:1px solid #e5e7eb;margin-top:8px;font-family:inherit;outline:none">
+        <label style="display:block;font-size:12px;color:#64748b;font-weight:700;margin-top:12px">Senha</label>
+        <input id="password" type="password" placeholder="••••••••" style="width:100%;padding:12px;border-radius:12px;border:1px solid #e5e7eb;margin-top:8px;font-family:inherit;outline:none">
+        <button id="loginBtn" style="margin-top:14px;width:100%;padding:12px;border-radius:12px;border:none;cursor:pointer;color:#fff;font-weight:900;background:linear-gradient(135deg,#1d4ed8,#0ea5e9);box-shadow:0 14px 30px rgba(29,78,216,.22)">Entrar</button>
+        <div style="margin-top:10px;color:#64748b;font-size:12px">Se não conseguir entrar, verifique usuário e senha.</div>
       </div>
-    </div>`;
+    </div>
+  `;
+
   document.getElementById("loginBtn").onclick = async () => {
+    const email = document.getElementById("email").value.trim();
+    const password = document.getElementById("password").value;
+
     try {
-      await signInWithEmailAndPassword(auth, email.value, password.value);
+      await signInWithEmailAndPassword(auth, email, password);
       location.reload();
-    } catch {
+    } catch (e) {
       alert("Usuário ou senha inválidos");
     }
   };
@@ -305,145 +735,281 @@ function showLogin(){
 window.logout = () => signOut(auth);
 
 /* SAVE */
-async function save(){
-  await setDoc(userRef, state);
+async function save() {
+  if (!userRef) return;
+  await setDoc(userRef, state, { merge: true });
   renderAll();
 }
 
-/* RENDER */
-function renderAll(){
-  totalItems.textContent = state.items.length;
-  pendingItems.textContent = state.items.filter(i=>!i.paid).length;
+/* DASHBOARD */
+function calcCountdown() {
+  if (!state.date) {
+    el.countdown.textContent = "Defina a data da formatura.";
+    return;
+  }
+  const today = new Date();
+  const target = new Date(state.date + "T00:00:00");
+  const diff = Math.ceil((target - today) / 86400000);
+  el.countdown.textContent = diff >= 0
+    ? `Faltam ${diff} dia${diff === 1 ? "" : "s"} para a formatura`
+    : "Data passada 🎉";
+}
 
-  const spentItems = state.items.filter(i=>i.paid).reduce((s,i)=>s+i.value,0);
-  const spentFinance = state.finances.reduce((s,f)=>s+f.value,0);
+/* RENDER */
+function renderAll() {
+  const spentItems = state.items.filter(i => i.paid).reduce((s, i) => s + (Number(i.value) || 0), 0);
+  const spentFinance = state.finances.reduce((s, f) => s + (Number(f.value) || 0), 0);
   const spent = spentItems + spentFinance;
 
-  totalSpent.textContent = money(spent);
-  available.textContent = money(state.budget - spent);
+  el.totalItems.textContent = String(state.items.length);
+  el.pendingItems.textContent = String(state.items.filter(i => !i.paid).length);
+  el.totalSpent.textContent = money(spent);
+  el.available.textContent = money(state.budget - spent);
 
-  budgetTotalView.textContent = money(state.budget);
-  budgetUsedView.textContent = money(spent);
-  budgetFreeView.textContent = money(state.budget - spent);
+  el.budgetTotalView.textContent = state.budget > 0 ? money(state.budget) : "—";
+  el.budgetUsedView.textContent = money(spent);
+  el.budgetFreeView.textContent = state.budget > 0 ? money(state.budget - spent) : "—";
 
-  const pct = state.budget ? Math.min((spent/state.budget)*360,360) : 0;
-  document.documentElement.style.setProperty("--percent", pct+"deg");
-  budgetPercent.textContent = state.budget ? Math.round((spent/state.budget)*100)+"%" : "0%";
+  const pct = state.budget > 0 ? Math.min((spent / state.budget) * 360, 360) : 0;
+  document.documentElement.style.setProperty("--percent", pct + "deg");
+  el.budgetPercent.textContent = state.budget > 0 ? Math.round((spent / state.budget) * 100) + "%" : "0%";
+
+  el.budgetConfigHint.textContent = state.budget > 0 ? money(state.budget) : "Não definido";
+  const confirmedGuests = state.guests.filter(g => g.confirmed).length;
+  if (state.guestLimit > 0) {
+    el.guestConfigHint.textContent = `${Math.max(state.guestLimit - confirmedGuests, 0)} restantes`;
+  } else {
+    el.guestConfigHint.textContent = "Não definido";
+  }
+
+  el.date.value = state.date || "";
+  calcCountdown();
+
+  el.budgetInputFinance.value = state.budget ? String(state.budget) : "";
+  el.guestLimit.value = state.guestLimit ? String(state.guestLimit) : "";
 
   renderItems();
   renderFinance();
-  calc();
+  renderGuests();
 }
 
-/* DASH */
-window.setBudget = ()=>{
-  state.budget = Number(budgetInput.value);
+/* ACTIONS: budget/date */
+window.setBudget = () => {
+  const value = Number(el.budgetInputFinance.value);
+  if (!Number.isFinite(value) || value < 0) {
+    showToast("Informe um orçamento válido.", "error");
+    return;
+  }
+  state.budget = value;
+  showToast("Orçamento salvo.");
   save();
 };
 
-date.onchange = ()=>{
-  state.date = date.value;
+el.date.addEventListener("change", () => {
+  state.date = el.date.value;
   save();
-};
-
-function calc(){
-  if(!state.date) return;
-  const d = Math.ceil((new Date(state.date)-new Date())/86400000);
-  countdown.textContent = d>=0
-    ? `Faltam ${d} dias para a formatura`
-    : "Data passada";
-}
+});
 
 /* ITEMS */
-window.addItem = ()=>{
-  state.items.push({
-    name:itemName.value,
-    supplier:itemSupplier.value,
-    value:Number(itemValue.value),
-    paid:false
-  });
-  itemName.value=itemSupplier.value=itemValue.value="";
+window.addItem = () => {
+  const name = el.itemName.value.trim();
+  const supplier = el.itemSupplier.value.trim();
+  const value = Number(el.itemValue.value);
+
+  if (!name) { showToast("Informe o nome do item.", "error"); return; }
+  if (!Number.isFinite(value) || value <= 0) { showToast("Informe um valor válido.", "error"); return; }
+
+  state.items.push({ name, supplier, value, paid: false });
+  el.itemName.value = "";
+  el.itemSupplier.value = "";
+  el.itemValue.value = "";
+  showToast("Item adicionado.");
   save();
 };
 
-window.toggleItem = i=>{
+window.toggleItem = (i) => {
+  if (!state.items[i]) return;
   state.items[i].paid = !state.items[i].paid;
   save();
 };
 
-window.removeItem = i=>{
-  state.items.splice(i,1);
+window.removeItem = (i) => {
+  if (!state.items[i]) return;
+  state.items.splice(i, 1);
+  showToast("Item removido.");
   save();
 };
 
-function renderItems(){
-  itemsTable.innerHTML="";
-  state.items.forEach((i,x)=>{
-    itemsTable.innerHTML+=`
+function renderItems() {
+  el.itemsTable.innerHTML = "";
+  state.items.forEach((it, idx) => {
+    el.itemsTable.insertAdjacentHTML("beforeend", `
       <tr>
-        <td>${i.name}</td>
-        <td>${i.supplier}</td>
-        <td>${money(i.value)}</td>
-        <td><input type="checkbox" ${i.paid?"checked":""} onchange="toggleItem(${x})"></td>
-        <td><button onclick="removeItem(${x})">🗑</button></td>
-      </tr>`;
+        <td>${escapeHtml(it.name)}</td>
+        <td>${escapeHtml(it.supplier || "—")}</td>
+        <td>${money(it.value)}</td>
+        <td class="center"><input type="checkbox" ${it.paid ? "checked" : ""} onchange="toggleItem(${idx})"></td>
+        <td><button title="Remover" onclick="removeItem(${idx})">🗑</button></td>
+      </tr>
+    `);
   });
 }
 
 /* FINANCE */
-window.addFinance = ()=>{
-  state.finances.push({
-    name:financeName.value,
-    value:Number(financeValue.value)
-  });
-  financeName.value=financeValue.value="";
+window.addFinance = () => {
+  const name = el.financeName.value.trim();
+  const value = Number(el.financeValue.value);
+
+  if (!name) { showToast("Informe a descrição.", "error"); return; }
+  if (!Number.isFinite(value) || value <= 0) { showToast("Informe um valor válido.", "error"); return; }
+
+  state.finances.push({ name, value });
+  el.financeName.value = "";
+  el.financeValue.value = "";
+  showToast("Despesa adicionada.");
   save();
 };
 
-window.removeFinance = i=>{
-  state.finances.splice(i,1);
+window.removeFinance = (i) => {
+  if (!state.finances[i]) return;
+  state.finances.splice(i, 1);
+  showToast("Despesa removida.");
   save();
 };
 
-function renderFinance(){
-  financeTable.innerHTML="";
-  state.finances.forEach((f,i)=>{
-    financeTable.innerHTML+=`
+function renderFinance() {
+  el.financeTable.innerHTML = "";
+  state.finances.forEach((f, i) => {
+    el.financeTable.insertAdjacentHTML("beforeend", `
       <tr>
-        <td>${f.name}</td>
+        <td>${escapeHtml(f.name)}</td>
         <td>${money(f.value)}</td>
-        <td><button onclick="removeFinance(${i})">🗑</button></td>
-      </tr>`;
+        <td><button title="Remover" onclick="removeFinance(${i})">🗑</button></td>
+      </tr>
+    `);
+  });
+}
+
+/* GUESTS */
+window.setGuestLimit = () => {
+  const value = Number(el.guestLimit.value);
+  if (!Number.isFinite(value) || value < 0) {
+    showToast("Informe um total de senhas válido.", "error");
+    return;
+  }
+  state.guestLimit = value;
+  showToast("Senhas salvas.");
+  save();
+};
+
+window.addGuest = () => {
+  const name = el.guestName.value.trim();
+  const tag = el.guestTag.value;
+
+  if (!name) { showToast("Informe o nome do convidado.", "error"); return; }
+
+  state.guests.push({ name, tag, confirmed: false });
+  el.guestName.value = "";
+  showToast("Convidado adicionado.");
+  save();
+};
+
+window.toggleGuest = (i) => {
+  const g = state.guests[i];
+  if (!g) return;
+
+  const willConfirm = !g.confirmed;
+
+  if (willConfirm && state.guestLimit > 0) {
+    const confirmedCount = state.guests.filter(x => x.confirmed).length;
+    const remaining = state.guestLimit - confirmedCount;
+    if (remaining <= 0) {
+      showToast("Sem senhas disponíveis para confirmar.", "error");
+      renderGuests();
+      return;
+    }
+  }
+
+  g.confirmed = willConfirm;
+  save();
+};
+
+window.removeGuest = (i) => {
+  if (!state.guests[i]) return;
+  state.guests.splice(i, 1);
+  showToast("Convidado removido.");
+  save();
+};
+
+function renderGuests() {
+  el.guestsTable.innerHTML = "";
+
+  const confirmed = state.guests.filter(g => g.confirmed).length;
+  el.guestConfirmedCount.textContent = String(confirmed);
+
+  if (state.guestLimit > 0) {
+    el.guestRemaining.textContent = String(Math.max(state.guestLimit - confirmed, 0));
+  } else {
+    el.guestRemaining.textContent = "—";
+  }
+
+  state.guests.forEach((g, i) => {
+    const badgeClass =
+      g.tag === "Família" ? "blue" :
+      g.tag === "Acompanhante" ? "cyan" : "gray";
+
+    el.guestsTable.insertAdjacentHTML("beforeend", `
+      <tr>
+        <td>${escapeHtml(g.name)}</td>
+        <td><span class="badge ${badgeClass}">${escapeHtml(g.tag)}</span></td>
+        <td class="center"><input type="checkbox" ${g.confirmed ? "checked" : ""} onchange="toggleGuest(${i})"></td>
+        <td><button title="Remover" onclick="removeGuest(${i})">🗑</button></td>
+      </tr>
+    `);
   });
 }
 
 /* NAV */
-window.showPage = page=>{
-  dashboardSection.classList.add("hidden");
-  itemsSection.classList.add("hidden");
-  financeSection.classList.add("hidden");
+window.showPage = (page) => {
+  el.dashboardSection.classList.add("hidden");
+  el.itemsSection.classList.add("hidden");
+  el.financeSection.classList.add("hidden");
+  el.guestsSection.classList.add("hidden");
 
-  btnDashboard.classList.remove("active");
-  btnItems.classList.remove("active");
-  btnFinance.classList.remove("active");
+  el.btnDashboard.classList.remove("active");
+  el.btnItems.classList.remove("active");
+  el.btnFinance.classList.remove("active");
+  el.btnGuests.classList.remove("active");
 
-  if(page==="dashboard"){
-    dashboardSection.classList.remove("hidden");
-    btnDashboard.classList.add("active");
-  }
-  if(page==="items"){
-    itemsSection.classList.remove("hidden");
-    btnItems.classList.add("active");
-  }
-  if(page==="finance"){
-    financeSection.classList.remove("hidden");
-    btnFinance.classList.add("active");
+  if (page === "dashboard") {
+    el.dashboardSection.classList.remove("hidden");
+    el.btnDashboard.classList.add("active");
+  } else if (page === "items") {
+    el.itemsSection.classList.remove("hidden");
+    el.btnItems.classList.add("active");
+  } else if (page === "finance") {
+    el.financeSection.classList.remove("hidden");
+    el.btnFinance.classList.add("active");
+  } else if (page === "guests") {
+    el.guestsSection.classList.remove("hidden");
+    el.btnGuests.classList.add("active");
   }
 };
+
+/* helpers */
+function escapeHtml(str) {
+  return String(str || "")
+    .replaceAll("&", "&amp;")
+    .replaceAll("<", "&lt;")
+    .replaceAll(">", "&gt;")
+    .replaceAll('"', "&quot;")
+    .replaceAll("'", "&#039;");
+}
 </script>
 
 </body>
 </html>
+
 
 
 
