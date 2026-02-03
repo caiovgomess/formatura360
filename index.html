@@ -259,6 +259,14 @@ const db = getFirestore(app);
 
 const appEl = document.getElementById("app");
 const money = v => v.toLocaleString("pt-BR",{style:"currency",currency:"BRL"});
+// ===== ELEMENTOS DO DOM (OBRIGATÓRIO) =====
+const dashboardSection = document.getElementById("dashboardSection");
+const itemsSection = document.getElementById("itemsSection");
+const financeSection = document.getElementById("financeSection");
+
+const btnDashboard = document.getElementById("btn-dashboard");
+const btnItems = document.getElementById("btn-items");
+const btnFinance = document.getElementById("btn-finance");
 
 let state = { budget:0, date:"", items:[], finances:[] };
 let userRef = null;
@@ -436,6 +444,7 @@ window.showPage = page=>{
 
 </body>
 </html>
+
 
 
 
