@@ -1,0 +1,472 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<title>Formatura360</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet">
+
+<style>
+:root {
+  --bg: #f8fafc;
+  --card: #ffffff;
+  --primary: #0f172a;
+  --secondary: #64748b;
+  --accent: #6366f1;
+  --border: #e5e7eb;
+  --danger: #ef4444;
+  --percent: 0deg;
+}
+
+* { box-sizing: border-box; }
+
+body {
+  margin: 0;
+  font-family: 'Inter', sans-serif;
+  background: linear-gradient(180deg, #f8fafc, #eef2ff);
+  color: var(--primary);
+}
+
+/* HEADER */
+header {
+  background: rgba(255,255,255,0.85);
+  backdrop-filter: blur(12px);
+  padding: 20px 40px;
+  border-bottom: 1px solid var(--border);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  position: sticky;
+  top: 0;
+  z-index: 10;
+}
+
+header h2 {
+  font-weight: 700;
+}
+
+/* NAV */
+nav button {
+  margin-left: 10px;
+  padding: 10px 18px;
+  border-radius: 12px;
+  border: none;
+  background: transparent;
+  color: var(--secondary);
+  cursor: pointer;
+  font-weight: 500;
+  transition: all .2s;
+}
+
+nav button:hover {
+  background: #eef2ff;
+  color: var(--accent);
+}
+
+nav button.active {
+  background: var(--accent);
+  color: #fff;
+  box-shadow: 0 10px 20px rgba(99,102,241,.25);
+}
+
+/* MAIN */
+main {
+  padding: 48px 40px;
+  max-width: 1200px;
+  margin: auto;
+}
+
+.hidden { display: none; }
+
+/* CARDS */
+.cards {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 24px;
+}
+
+.card {
+  background: var(--card);
+  padding: 28px;
+  border-radius: 20px;
+  border: 1px solid var(--border);
+  box-shadow: 0 12px 24px rgba(0,0,0,.04);
+}
+
+.card h4 {
+  font-size: 14px;
+  color: var(--secondary);
+}
+
+.card strong {
+  font-size: 28px;
+}
+
+/* GRID */
+.dashboard-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 24px;
+  margin-top: 32px;
+}
+
+/* CONTAGEM */
+.countdown-box {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.countdown-icon {
+  font-size: 72px;
+  opacity: .15;
+}
+
+/* BUDGET VISUAL */
+.budget-circle {
+  width: 160px;
+  height: 160px;
+  border-radius: 50%;
+  background: conic-gradient(
+    var(--accent) 0deg,
+    var(--accent) var(--percent),
+    #e5e7eb var(--percent)
+  );
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 20px auto;
+}
+
+.budget-circle span {
+  background: #fff;
+  width: 100px;
+  height: 100px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 700;
+}
+
+/* INPUTS */
+input {
+  width: 100%;
+  padding: 12px;
+  border-radius: 12px;
+  border: 1px solid var(--border);
+  margin-top: 8px;
+}
+
+/* BUTTON */
+button.primary {
+  background: var(--accent);
+  color: white;
+  border: none;
+  border-radius: 12px;
+  padding: 12px 18px;
+  font-weight: 600;
+  cursor: pointer;
+  margin-top: 12px;
+}
+
+/* TABLE */
+table {
+  width: 100%;
+  background: #fff;
+  border-radius: 20px;
+  border-collapse: collapse;
+  overflow: hidden;
+  margin-top: 24px;
+}
+
+th, td {
+  padding: 16px;
+  border-bottom: 1px solid var(--border);
+}
+
+th {
+  background: #f1f5f9;
+  color: var(--secondary);
+}
+
+td button {
+  background: none;
+  border: none;
+  font-size: 18px;
+  cursor: pointer;
+  color: var(--danger);
+}
+</style>
+</head>
+
+<body>
+
+<header>
+  <h2>🎓 Formatura360</h2>
+  <nav>
+    <button class="active" onclick="show('dashboard')" id="btn-dashboard">Dashboard</button>
+    <button onclick="show('items')" id="btn-items">Itens</button>
+    <button onclick="show('finance')" id="btn-finance">Financeiro</button>
+  </nav>
+</header>
+
+<main>
+
+<!-- DASHBOARD -->
+<section id="dashboard">
+  <div class="cards">
+    <div class="card"><h4>Total de Itens</h4><strong id="totalItems">0</strong></div>
+    <div class="card"><h4>Pendências</h4><strong id="pendingItems">0</strong></div>
+    <div class="card"><h4>Total Gasto</h4><strong id="totalSpent">R$ 0,00</strong></div>
+    <div class="card"><h4>Disponível</h4><strong id="available">R$ 0,00</strong></div>
+  </div>
+
+  <div class="dashboard-grid">
+    <div>
+      <div class="card">
+        <div class="countdown-box">
+          <div>
+            <h3>Contagem Regressiva</h3>
+            <input type="date" id="date">
+            <p id="countdown"></p>
+          </div>
+          <div class="countdown-icon">🎓</div>
+        </div>
+      </div>
+
+      <div class="card" style="margin-top:24px">
+        <h3>Orçamento Total</h3>
+        <input type="number" id="budgetInput" placeholder="Ex: 15000">
+        <button class="primary" onclick="setBudget()">Salvar</button>
+      </div>
+    </div>
+
+    <div class="card">
+      <h3>Visão Geral do Orçamento</h3>
+      <div class="budget-circle">
+        <span id="budgetPercent">0%</span>
+      </div>
+      <p><strong>Total:</strong> <span id="budgetTotalView">R$ 0,00</span></p>
+      <p><strong>Comprometido:</strong> <span id="budgetUsedView">R$ 0,00</span></p>
+      <p><strong>Livre:</strong> <span id="budgetFreeView">R$ 0,00</span></p>
+    </div>
+  </div>
+</section>
+
+<!-- ITENS -->
+<section id="items" class="hidden">
+  <div class="card">
+    <h3>Adicionar Item</h3>
+    <input id="itemName" placeholder="Item">
+    <input id="itemSupplier" placeholder="Fornecedor">
+    <input id="itemValue" type="number" placeholder="Valor">
+    <button class="primary" onclick="addItem()">Adicionar</button>
+  </div>
+
+  <table>
+    <thead>
+      <tr>
+        <th>Item</th>
+        <th>Fornecedor</th>
+        <th>Valor</th>
+        <th>Pago</th>
+        <th>Ação</th>
+      </tr>
+    </thead>
+    <tbody id="itemsTable"></tbody>
+  </table>
+</section>
+
+<!-- FINANCEIRO -->
+<section id="finance" class="hidden">
+  <div class="card">
+    <h3>Adicionar Despesa Financeira</h3>
+    <input id="financeName" placeholder="Descrição">
+    <input id="financeValue" type="number" placeholder="Valor">
+    <button class="primary" onclick="addFinance()">Adicionar</button>
+  </div>
+
+  <table>
+    <thead>
+      <tr>
+        <th>Descrição</th>
+        <th>Valor</th>
+        <th>Ação</th>
+      </tr>
+    </thead>
+    <tbody id="financeTable"></tbody>
+  </table>
+</section>
+
+</main>
+
+<script>
+let budget = Number(localStorage.getItem("budget")) || 0;
+let items = JSON.parse(localStorage.getItem("items")) || [];
+let finances = JSON.parse(localStorage.getItem("finances")) || [];
+
+// NAV
+function show(page) {
+  dashboard.classList.add("hidden");
+  itemsSection.classList.add("hidden");
+  financeSection.classList.add("hidden");
+
+  btnDashboard.classList.remove("active");
+  btnItems.classList.remove("active");
+  btnFinance.classList.remove("active");
+
+  if (page === "dashboard") {
+    dashboard.classList.remove("hidden");
+    btnDashboard.classList.add("active");
+  } else if (page === "items") {
+    itemsSection.classList.remove("hidden");
+    btnItems.classList.add("active");
+  } else {
+    financeSection.classList.remove("hidden");
+    btnFinance.classList.add("active");
+  }
+}
+
+const dashboard = document.getElementById("dashboard");
+const itemsSection = document.getElementById("items");
+const financeSection = document.getElementById("finance");
+
+const btnDashboard = document.getElementById("btn-dashboard");
+const btnItems = document.getElementById("btn-items");
+const btnFinance = document.getElementById("btn-finance");
+
+// MONEY
+function money(v) {
+  return v.toLocaleString("pt-BR", { style: "currency", currency: "BRL" });
+}
+
+// UPDATE
+function update() {
+  const itemSpent = items.filter(i => i.paid).reduce((s, i) => s + i.value, 0);
+  const financeSpent = finances.reduce((s, f) => s + f.value, 0);
+  const used = itemSpent + financeSpent;
+  const free = budget - used;
+
+  totalItems.textContent = items.length;
+  pendingItems.textContent = items.filter(i => !i.paid).length;
+  totalSpent.textContent = money(used);
+  available.textContent = money(free);
+
+  const percent = budget > 0 ? Math.min((used / budget) * 360, 360) : 0;
+  document.documentElement.style.setProperty("--percent", percent + "deg");
+
+  budgetPercent.textContent = budget > 0 ? Math.round((used / budget) * 100) + "%" : "0%";
+  budgetTotalView.textContent = money(budget);
+  budgetUsedView.textContent = money(used);
+  budgetFreeView.textContent = money(free);
+}
+
+// BUDGET
+function setBudget() {
+  budget = Number(budgetInput.value);
+  localStorage.setItem("budget", budget);
+  update();
+}
+
+// ITEMS
+function addItem() {
+  items.push({
+    name: itemName.value,
+    supplier: itemSupplier.value,
+    value: Number(itemValue.value),
+    paid: false
+  });
+  save();
+  itemName.value = itemSupplier.value = itemValue.value = "";
+}
+
+function toggleItem(i) {
+  items[i].paid = !items[i].paid;
+  save();
+}
+
+function removeItem(i) {
+  items.splice(i, 1);
+  save();
+}
+
+function renderItems() {
+  itemsTable.innerHTML = "";
+  items.forEach((i, idx) => {
+    itemsTable.innerHTML += `
+      <tr>
+        <td>${i.name}</td>
+        <td>${i.supplier}</td>
+        <td>${money(i.value)}</td>
+        <td><input type="checkbox" ${i.paid ? "checked" : ""} onchange="toggleItem(${idx})"></td>
+        <td><button onclick="removeItem(${idx})">🗑</button></td>
+      </tr>
+    `;
+  });
+}
+
+// FINANCE
+function addFinance() {
+  finances.push({
+    name: financeName.value,
+    value: Number(financeValue.value)
+  });
+  saveFinance();
+  financeName.value = financeValue.value = "";
+}
+
+function removeFinance(i) {
+  finances.splice(i, 1);
+  saveFinance();
+}
+
+function renderFinance() {
+  financeTable.innerHTML = "";
+  finances.forEach((f, i) => {
+    financeTable.innerHTML += `
+      <tr>
+        <td>${f.name}</td>
+        <td>${money(f.value)}</td>
+        <td><button onclick="removeFinance(${i})">🗑</button></td>
+      </tr>
+    `;
+  });
+}
+
+// SAVE
+function save() {
+  localStorage.setItem("items", JSON.stringify(items));
+  renderItems();
+  update();
+}
+
+function saveFinance() {
+  localStorage.setItem("finances", JSON.stringify(finances));
+  renderFinance();
+  update();
+}
+
+// DATE
+date.onchange = () => {
+  localStorage.setItem("date", date.value);
+  calc();
+};
+
+function calc() {
+  if (!date.value) return;
+  const d = Math.ceil((new Date(date.value) - new Date()) / 86400000);
+  countdown.textContent = d >= 0 ? `Faltam ${d} dias para a formatura` : "Data passada";
+}
+
+date.value = localStorage.getItem("date") || "";
+calc();
+renderItems();
+renderFinance();
+update();
+</script>
+
+</body>
+</html>
+
