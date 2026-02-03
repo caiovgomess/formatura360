@@ -8,12 +8,17 @@
 
 <style>
 :root{
-  --primary:#0f172a;--secondary:#64748b;--accent:#6366f1;
-  --border:#e5e7eb;--danger:#ef4444;--percent:0deg
+  --primary:#0f172a;
+  --secondary:#64748b;
+  --accent:#6366f1;
+  --border:#e5e7eb;
+  --danger:#ef4444;
+  --percent:0deg;
 }
 *{box-sizing:border-box}
 body{
-  margin:0;font-family:Inter,sans-serif;
+  margin:0;
+  font-family:Inter,sans-serif;
   background:linear-gradient(180deg,#f8fafc,#eef2ff);
   color:var(--primary)
 }
@@ -22,63 +27,123 @@ header{
   backdrop-filter:blur(10px);
   padding:20px 40px;
   border-bottom:1px solid var(--border);
-  display:flex;justify-content:space-between;align-items:center;
-  position:sticky;top:0;z-index:10
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  position:sticky;
+  top:0;
+  z-index:10
 }
 nav button{
-  margin-left:8px;padding:10px 16px;border-radius:10px;
-  border:none;background:transparent;cursor:pointer;
-  color:var(--secondary);font-weight:500
+  margin-left:8px;
+  padding:10px 16px;
+  border-radius:10px;
+  border:none;
+  background:transparent;
+  cursor:pointer;
+  color:var(--secondary);
+  font-weight:500
 }
-nav button.active{background:var(--accent);color:#fff}
-main{max-width:1200px;margin:auto;padding:40px}
+nav button.active{
+  background:var(--accent);
+  color:#fff
+}
+main{
+  max-width:1200px;
+  margin:auto;
+  padding:40px
+}
 .hidden{display:none}
-.cards{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:20px}
+.cards{
+  display:grid;
+  grid-template-columns:repeat(auto-fit,minmax(220px,1fr));
+  gap:20px
+}
 .card{
-  background:#fff;padding:24px;border-radius:16px;
+  background:#fff;
+  padding:24px;
+  border-radius:16px;
   border:1px solid var(--border);
   box-shadow:0 10px 24px rgba(0,0,0,.05)
 }
 .dashboard-grid{
-  display:grid;grid-template-columns:1fr 1fr;
-  gap:24px;margin-top:24px
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:24px;
+  margin-top:24px
 }
-.countdown-box{display:flex;justify-content:space-between;align-items:center}
-.countdown-icon{font-size:64px;opacity:.15}
+.countdown-box{
+  display:flex;
+  justify-content:space-between;
+  align-items:center
+}
+.countdown-icon{
+  font-size:64px;
+  opacity:.15
+}
 .budget-circle{
-  width:150px;height:150px;border-radius:50%;
+  width:150px;
+  height:150px;
+  border-radius:50%;
   background:conic-gradient(
     var(--accent) 0deg,
     var(--accent) var(--percent),
     #e5e7eb var(--percent)
   );
-  display:flex;align-items:center;justify-content:center;
+  display:flex;
+  align-items:center;
+  justify-content:center;
   margin:16px auto
 }
 .budget-circle span{
-  background:#fff;width:90px;height:90px;
+  background:#fff;
+  width:90px;
+  height:90px;
   border-radius:50%;
-  display:flex;align-items:center;justify-content:center;
+  display:flex;
+  align-items:center;
+  justify-content:center;
   font-weight:700
 }
 input{
-  width:100%;padding:12px;border-radius:10px;
-  border:1px solid var(--border);margin-top:8px
+  width:100%;
+  padding:12px;
+  border-radius:10px;
+  border:1px solid var(--border);
+  margin-top:8px
 }
 button.primary{
-  margin-top:12px;background:var(--accent);
-  color:#fff;border:none;border-radius:10px;
-  padding:12px;font-weight:600;cursor:pointer
+  margin-top:12px;
+  background:var(--accent);
+  color:#fff;
+  border:none;
+  border-radius:10px;
+  padding:12px;
+  font-weight:600;
+  cursor:pointer
 }
 table{
-  width:100%;margin-top:24px;border-collapse:collapse;
-  background:#fff;border-radius:16px;overflow:hidden
+  width:100%;
+  margin-top:24px;
+  border-collapse:collapse;
+  background:#fff;
+  border-radius:16px;
+  overflow:hidden
 }
-th,td{padding:14px;border-bottom:1px solid var(--border)}
-th{background:#f1f5f9;color:var(--secondary)}
+th,td{
+  padding:14px;
+  border-bottom:1px solid var(--border)
+}
+th{
+  background:#f1f5f9;
+  color:var(--secondary)
+}
 td button{
-  background:none;border:none;color:var(--danger);
-  cursor:pointer;font-size:16px
+  background:none;
+  border:none;
+  color:var(--danger);
+  cursor:pointer;
+  font-size:16px
 }
 </style>
 </head>
@@ -88,16 +153,17 @@ td button{
 <header>
   <h2>🎓 Formatura360</h2>
   <nav>
-    <button id="btn-dashboard" class="active" onclick="show('dashboard')">Dashboard</button>
-    <button id="btn-items" onclick="show('items')">Itens</button>
-    <button id="btn-finance" onclick="show('finance')">Financeiro</button>
+    <button id="btn-dashboard" class="active" onclick="showPage('dashboard')">Dashboard</button>
+    <button id="btn-items" onclick="showPage('items')">Itens</button>
+    <button id="btn-finance" onclick="showPage('finance')">Financeiro</button>
     <button onclick="logout()">Sair</button>
   </nav>
 </header>
 
 <main id="app" class="hidden">
 
-<section id="dashboard">
+<!-- DASHBOARD -->
+<section id="dashboardSection">
   <div class="cards">
     <div class="card"><h4>Total de Itens</h4><strong id="totalItems">0</strong></div>
     <div class="card"><h4>Pendências</h4><strong id="pendingItems">0</strong></div>
@@ -137,7 +203,8 @@ td button{
   </div>
 </section>
 
-<section id="items" class="hidden">
+<!-- ITENS -->
+<section id="itemsSection" class="hidden">
   <div class="card">
     <h3>Adicionar Item</h3>
     <input id="itemName" placeholder="Item">
@@ -154,7 +221,8 @@ td button{
   </table>
 </section>
 
-<section id="finance" class="hidden">
+<!-- FINANCEIRO -->
+<section id="financeSection" class="hidden">
   <div class="card">
     <h3>Adicionar Despesa</h3>
     <input id="financeName" placeholder="Descrição">
@@ -177,7 +245,6 @@ import { initializeApp } from "https://www.gstatic.com/firebasejs/12.8.0/firebas
 import { getAuth, signInWithEmailAndPassword, onAuthStateChanged, signOut } from "https://www.gstatic.com/firebasejs/12.8.0/firebase-auth.js";
 import { getFirestore, doc, getDoc, setDoc } from "https://www.gstatic.com/firebasejs/12.8.0/firebase-firestore.js";
 
-/* 🔴 COLE AQUI SEU firebaseConfig */
 const firebaseConfig = {
   apiKey: "AIzaSyA2Ae7UIvQtga0bICPVunVwc_Tjaxiss6A",
   authDomain: "formatura-360.firebaseapp.com",
@@ -186,8 +253,6 @@ const firebaseConfig = {
   messagingSenderId: "527762396386",
   appId: "1:527762396386:web:e0ebaa9dbf62c125e9fabb"
 };
-
-
 const app = initializeApp(firebaseConfig);
 const auth = getAuth(app);
 const db = getFirestore(app);
@@ -210,29 +275,30 @@ onAuthStateChanged(auth, async user=>{
 
 /* LOGIN */
 function showLogin(){
-  document.body.innerHTML=`
-  <div style="height:100vh;display:flex;align-items:center;justify-content:center">
-    <div class="card" style="width:320px">
-      <h2>🔐 Formatura360</h2>
-      <input id="email" placeholder="E-mail">
-      <input id="password" type="password" placeholder="Senha">
-      <button class="primary" id="loginBtn">Entrar</button>
-    </div>
-  </div>`;
-  document.getElementById("loginBtn").onclick=async()=>{
-    try{
-      await signInWithEmailAndPassword(auth,email.value,password.value);
+  document.body.innerHTML = `
+    <div style="height:100vh;display:flex;align-items:center;justify-content:center">
+      <div class="card" style="width:320px">
+        <h2>🔐 Formatura360</h2>
+        <input id="email" placeholder="E-mail">
+        <input id="password" type="password" placeholder="Senha">
+        <button class="primary" id="loginBtn">Entrar</button>
+      </div>
+    </div>`;
+  document.getElementById("loginBtn").onclick = async () => {
+    try {
+      await signInWithEmailAndPassword(auth, email.value, password.value);
       location.reload();
-    }catch{
+    } catch {
       alert("Usuário ou senha inválidos");
     }
-  }
+  };
 }
-window.logout=()=>signOut(auth);
+
+window.logout = () => signOut(auth);
 
 /* SAVE */
 async function save(){
-  await setDoc(userRef,state);
+  await setDoc(userRef, state);
   renderAll();
 }
 
@@ -253,7 +319,7 @@ function renderAll(){
   budgetFreeView.textContent = money(state.budget - spent);
 
   const pct = state.budget ? Math.min((spent/state.budget)*360,360) : 0;
-  document.documentElement.style.setProperty("--percent",pct+"deg");
+  document.documentElement.style.setProperty("--percent", pct+"deg");
   budgetPercent.textContent = state.budget ? Math.round((spent/state.budget)*100)+"%" : "0%";
 
   renderItems();
@@ -344,21 +410,32 @@ function renderFinance(){
 }
 
 /* NAV */
-window.show = page=>{
-  dashboard.classList.add("hidden");
-  items.classList.add("hidden");
-  finance.classList.add("hidden");
+window.showPage = page=>{
+  dashboardSection.classList.add("hidden");
+  itemsSection.classList.add("hidden");
+  financeSection.classList.add("hidden");
 
   btnDashboard.classList.remove("active");
   btnItems.classList.remove("active");
   btnFinance.classList.remove("active");
 
-  if(page==="dashboard"){dashboard.classList.remove("hidden");btnDashboard.classList.add("active")}
-  if(page==="items"){items.classList.remove("hidden");btnItems.classList.add("active")}
-  if(page==="finance"){finance.classList.remove("hidden");btnFinance.classList.add("active")}
+  if(page==="dashboard"){
+    dashboardSection.classList.remove("hidden");
+    btnDashboard.classList.add("active");
+  }
+  if(page==="items"){
+    itemsSection.classList.remove("hidden");
+    btnItems.classList.add("active");
+  }
+  if(page==="finance"){
+    financeSection.classList.remove("hidden");
+    btnFinance.classList.add("active");
+  }
 };
 </script>
 
 </body>
 </html>
+
+
 
