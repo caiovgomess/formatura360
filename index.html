@@ -4,19 +4,20 @@
 <meta charset="UTF-8" />
 <title>Formatura360</title>
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Plus+Jakarta+Sans:wght@500;600;700;800&display=swap" rel="stylesheet">
 
 <style>
 :root{
-  /* Identidade clean corporativa (medicina) */
-  --primary:#0f172a;        /* navy */
-  --secondary:#64748b;      /* slate */
-  --accent:#1d4ed8;         /* blue */
-  --accent2:#0ea5e9;        /* cyan */
-  --border:#e5e7eb;
+  /* Identidade formatura medicina — verde esmeralda */
+  --primary:#0b2a23;        /* verde escuro quase preto */
+  --secondary:#5b7c72;      /* sage */
+  --accent:#047857;         /* esmeralda */
+  --accent2:#10b981;        /* esmeralda claro */
+  --accent-deep:#065f46;    /* esmeralda profundo */
+  --border:#e3eae7;
   --surface:#ffffff;
-  --bg1:#f8fafc;
-  --bg2:#eef2ff;
+  --bg1:#f4f9f7;
+  --bg2:#eaf5f0;
   --danger:#ef4444;
   --success:#16a34a;
 
@@ -31,66 +32,133 @@ body{
   background:linear-gradient(180deg,var(--bg1),var(--bg2));
   color:var(--primary);
 }
+h1,h2,h3,h4,.brand-title,.dash-greeting{
+  font-family:'Plus Jakarta Sans',Inter,sans-serif;
+}
 
-header{
-  background:rgba(255,255,255,.92);
-  backdrop-filter:blur(10px);
-  padding:18px 34px;
-  border-bottom:1px solid var(--border);
+/* ===== SIDEBAR (menu lateral escuro) ===== */
+:root{
+  --sidebar-w:248px;
+  --sidebar-bg:#06251d;       /* verde escuro profundo */
+  --sidebar-bg2:#0a3329;
+  --sidebar-text:#a7c4ba;     /* sage claro */
+}
+
+.sidebar{
+  position:fixed;
+  top:0; left:0;
+  width:var(--sidebar-w);
+  height:100vh;
+  background:linear-gradient(180deg,var(--sidebar-bg),var(--sidebar-bg2));
+  border-right:1px solid rgba(255,255,255,.06);
   display:flex;
-  justify-content:space-between;
-  align-items:center;
-  position:sticky;
-  top:0;
-  z-index:10;
+  flex-direction:column;
+  padding:22px 16px;
+  z-index:50;
+  transition:transform .26s ease;
 }
 
 .brand{
   display:flex; gap:12px; align-items:center;
+  padding:6px 8px 22px 8px;
+  margin-bottom:8px;
+  border-bottom:1px solid rgba(255,255,255,.07);
 }
 .brand-badge{
-  width:34px;height:34px;border-radius:10px;
+  width:38px;height:38px;border-radius:11px;
   background:linear-gradient(135deg,var(--accent),var(--accent2));
   display:grid;place-items:center;
-  color:#fff;font-weight:800;
-  box-shadow:0 10px 20px rgba(29,78,216,.18);
+  color:#fff;font-weight:800;flex-shrink:0;
+  box-shadow:0 10px 20px rgba(29,78,216,.30);
 }
-.brand h2{margin:0;font-size:18px;letter-spacing:.2px}
+.brand-title{
+  margin:0;font-size:15px;font-weight:800;
+  color:#fff;letter-spacing:.3px;line-height:1.2;
+}
+.brand h2{margin:0;font-size:18px;letter-spacing:.2px;color:#fff}
 
 nav{
   display:flex;
-  gap:8px;
-  align-items:center;
-  flex-wrap:wrap;
+  flex-direction:column;
+  gap:6px;
+  margin-top:14px;
+  flex:1;
 }
 
 nav button{
-  padding:10px 14px;
+  display:flex;
+  align-items:center;
+  gap:12px;
+  width:100%;
+  text-align:left;
+  padding:12px 14px;
   border-radius:12px;
   border:1px solid transparent;
   background:transparent;
   cursor:pointer;
-  color:var(--secondary);
+  color:var(--sidebar-text);
   font-weight:600;
-  transition:background .2s ease,border-color .2s ease,transform .08s ease,color .2s ease, box-shadow .2s ease;
+  font-size:14.5px;
+  font-family:inherit;
+  transition:background .2s ease,color .2s ease,transform .08s ease;
+}
+nav button .nav-ico{
+  font-size:17px;width:20px;text-align:center;flex-shrink:0;
 }
 nav button:hover{
-  background:rgba(29,78,216,.08);
-  border-color:rgba(29,78,216,.18);
-  color:var(--primary);
+  background:rgba(255,255,255,.06);
+  color:#fff;
 }
 nav button:active{transform:scale(.98)}
 nav button.active{
   background:linear-gradient(135deg,var(--accent),var(--accent2));
   color:#fff;
-  border-color:rgba(255,255,255,.25);
-  box-shadow:0 12px 26px rgba(29,78,216,.22);
+  box-shadow:0 12px 26px rgba(29,78,216,.30);
+}
+.nav-logout{
+  margin-top:auto;
+  color:#fca5a5 !important;
+}
+.nav-logout:hover{
+  background:rgba(239,68,68,.12) !important;
+  color:#fecaca !important;
 }
 
+/* Topbar mobile (hambúrguer) */
+.topbar{
+  display:none;
+  position:sticky;top:0;z-index:40;
+  align-items:center;gap:14px;
+  padding:14px 18px;
+  background:rgba(255,255,255,.92);
+  backdrop-filter:blur(10px);
+  border-bottom:1px solid var(--border);
+}
+.hamburger{
+  width:42px;height:42px;border-radius:11px;
+  border:1px solid var(--border);
+  background:#fff;cursor:pointer;
+  display:grid;place-items:center;
+  font-size:20px;color:var(--primary);
+}
+.topbar-title{font-weight:800;font-size:16px}
+
+/* overlay escuro quando sidebar abre no mobile */
+.sidebar-overlay{
+  display:none;
+  position:fixed;inset:0;
+  background:rgba(0,0,0,.45);
+  z-index:45;
+}
+.sidebar-overlay.show{display:block}
+
 main{
-  max-width:1200px;
+  margin-left:var(--sidebar-w);
+  padding:40px 48px;
+}
+.main-inner{
+  max-width:1700px;
   margin:auto;
-  padding:34px;
 }
 
 .hidden{display:none}
@@ -124,14 +192,22 @@ section{
 .dashboard-grid{
   display:grid;
   grid-template-columns:1fr 1fr;
-  gap:22px;
-  margin-top:22px
+  gap:30px;
+  margin-top:0
 }
 
 @media (max-width: 920px){
   .dashboard-grid{grid-template-columns:1fr}
-  header{padding:14px 18px}
-  main{padding:22px}
+  .hero{grid-template-columns:1fr}
+  .config-grid{grid-template-columns:1fr}
+  .page-grid{grid-template-columns:1fr}
+  .fin-top{grid-template-columns:1fr}
+  .form-card{position:static}
+  .mini-stats.cols-3,.mini-stats.cols-2{grid-template-columns:1fr}
+  main{padding:18px;margin-left:0}
+  .sidebar{transform:translateX(-100%)}
+  .sidebar.open{transform:translateX(0)}
+  .topbar{display:flex}
 }
 
 .countdown-box{
@@ -154,31 +230,359 @@ section{
   letter-spacing:.2px;
 }
 
-.budget-circle{
-  width:150px;
-  height:150px;
+/* ===== DASHBOARD MODERNO ===== */
+
+/* Hero / banner */
+.hero{
+  display:grid;
+  grid-template-columns:1.5fr 1fr;
+  gap:26px;
+  margin-bottom:30px;
+}
+.hero-left{
+  background:linear-gradient(135deg,var(--accent-deep),var(--accent) 55%,var(--accent2));
+  border-radius:24px;
+  padding:42px 46px;
+  color:#fff;
+  position:relative;
+  overflow:hidden;
+  box-shadow:0 18px 40px rgba(4,120,87,.22);
+}
+.hero-left::after{
+  content:"";
+  position:absolute;
+  right:-60px;top:-60px;
+  width:220px;height:220px;
+  background:radial-gradient(circle,rgba(255,255,255,.16),transparent 70%);
   border-radius:50%;
+}
+.hero-eyebrow{
+  margin:0;
+  text-transform:uppercase;
+  letter-spacing:1.4px;
+  font-size:11.5px;
+  font-weight:700;
+  color:rgba(255,255,255,.82);
+}
+.dash-greeting{
+  margin:10px 0 8px;
+  font-size:38px;
+  font-weight:800;
+  line-height:1.1;
+}
+.hero-quote{
+  margin:0 0 18px;
+  font-style:italic;
+  color:rgba(255,255,255,.88);
+  font-size:14.5px;
+}
+.hero-countpill{
+  display:inline-flex;
+  align-items:center;
+  gap:9px;
+  background:rgba(255,255,255,.16);
+  border:1px solid rgba(255,255,255,.22);
+  padding:9px 15px;
+  border-radius:999px;
+  font-size:13.5px;
+  font-weight:600;
+  backdrop-filter:blur(4px);
+}
+.hero-countpill-ico{font-size:15px}
+
+.hero-card{
+  background:var(--surface);
+  border:1px solid var(--border);
+  border-radius:24px;
+  padding:26px;
+  box-shadow:0 14px 34px rgba(11,42,35,.06);
+  display:flex;
+  flex-direction:column;
+  gap:12px;
+  justify-content:center;
+}
+.hero-card-head{
+  display:flex;align-items:center;gap:12px;
+  margin-bottom:4px;
+}
+.hero-avatar{
+  width:52px;height:52px;border-radius:14px;flex-shrink:0;
+  background:linear-gradient(135deg,var(--accent),var(--accent2));
+  display:grid;place-items:center;
+  box-shadow:0 10px 20px rgba(4,120,87,.25);
+}
+.hero-card-title{font-weight:800;font-size:15px;color:var(--primary)}
+.hero-card-sub{font-size:12.5px;color:var(--secondary)}
+
+.quick-btn{
+  display:flex;align-items:center;gap:11px;
+  width:100%;text-align:left;
+  padding:13px 14px;
+  border-radius:14px;
+  border:1px solid var(--border);
+  background:var(--bg1);
+  cursor:pointer;
+  font-family:inherit;font-size:14px;font-weight:600;
+  color:var(--primary);
+  transition:transform .08s ease,background .18s ease,border-color .18s ease;
+}
+.quick-btn span{font-size:16px}
+.quick-btn i{margin-left:auto;font-style:normal;font-size:20px;color:var(--accent);font-weight:700}
+.quick-btn:hover{background:#fff;border-color:var(--accent2);transform:translateX(2px)}
+.quick-btn:active{transform:scale(.99)}
+
+/* Stat cards */
+.cards{
+  display:grid;
+  grid-template-columns:repeat(auto-fit,minmax(240px,1fr));
+  gap:22px;
+  margin-bottom:30px;
+}
+.stat-card{
+  background:var(--surface);
+  border:1px solid var(--border);
+  border-radius:20px;
+  padding:24px;
+  display:flex;align-items:center;gap:16px;
+  box-shadow:0 10px 26px rgba(11,42,35,.05);
+  transition:transform .12s ease,box-shadow .18s ease;
+}
+.stat-card:hover{transform:translateY(-2px);box-shadow:0 16px 32px rgba(11,42,35,.09)}
+.stat-ico{
+  width:48px;height:48px;border-radius:14px;flex-shrink:0;
+  display:grid;place-items:center;font-size:22px;
+}
+.s-emerald{background:#d1fae5}
+.s-amber{background:#fef3c7}
+.s-rose{background:#ffe4e6}
+.s-teal{background:#ccfbf1}
+.stat-info{display:flex;flex-direction:column;min-width:0}
+.stat-label{font-size:12.5px;color:var(--secondary);font-weight:600}
+.stat-info strong{font-size:23px;font-weight:800;color:var(--primary);line-height:1.2}
+.stat-pct{font-size:11.5px;color:var(--accent);font-weight:700;margin-top:2px}
+
+/* Panels */
+.panel{
+  background:var(--surface);
+  border:1px solid var(--border);
+  border-radius:22px;
+  padding:28px;
+  box-shadow:0 10px 26px rgba(11,42,35,.05);
+}
+.dash-col{display:flex;flex-direction:column;gap:30px}
+.panel-title{margin:0;font-size:16px;font-weight:800;color:var(--primary)}
+.panel-head{display:flex;align-items:center;justify-content:space-between;margin-bottom:14px}
+.panel-count{
+  background:#d1fae5;color:var(--accent-deep);
+  font-weight:800;font-size:13px;
+  padding:3px 11px;border-radius:999px;
+}
+.panel-count.amber{background:#fef3c7;color:#92400e}
+
+/* Budget */
+.budget-flex{display:flex;align-items:center;gap:22px;flex-wrap:wrap}
+.budget-lines{display:flex;flex-direction:column;gap:10px;flex:1;min-width:160px}
+.budget-line{display:flex;align-items:center;gap:9px;font-size:14px;color:var(--secondary)}
+.budget-line b{margin-left:auto;color:var(--primary);font-weight:800}
+.dot{width:10px;height:10px;border-radius:50%;flex-shrink:0}
+.d-total{background:var(--secondary)}
+.d-used{background:var(--accent)}
+.d-free{background:var(--accent2)}
+
+/* Config */
+.config-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:14px}
+.config-pill{
+  display:flex;align-items:center;gap:11px;
+  background:var(--bg1);border:1px solid var(--border);
+  border-radius:14px;padding:12px 14px;
+}
+.config-pill-ico{font-size:20px}
+.config-pill small{display:block;font-size:11.5px;color:var(--secondary);font-weight:600}
+.config-pill b{font-size:14px;color:var(--primary)}
+.config-actions{display:flex;gap:10px;flex-wrap:wrap}
+.ghost-btn{
+  flex:1;min-width:130px;
+  padding:11px 12px;border-radius:12px;
+  border:1px solid var(--accent2);background:transparent;
+  color:var(--accent-deep);font-family:inherit;font-weight:700;font-size:13px;
+  cursor:pointer;transition:background .18s ease;
+}
+.ghost-btn:hover{background:#d1fae5}
+.date-row{margin-top:14px;padding-top:14px;border-top:1px solid var(--border)}
+.date-row label{margin:0 0 6px;font-weight:700;color:var(--primary)}
+.date-row input{width:100%}
+
+/* Todo list */
+.todo-add{display:flex;gap:8px;margin-bottom:14px}
+.todo-add input{flex:1}
+.primary.mini{padding:0 16px;font-size:20px;line-height:1}
+.todo-list,.pending-list{list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:8px}
+.todo-item{
+  display:flex;align-items:center;gap:11px;
+  background:var(--bg1);border:1px solid var(--border);
+  border-radius:12px;padding:11px 13px;
+}
+.todo-item input[type=checkbox]{width:18px;height:18px;accent-color:var(--accent);cursor:pointer;flex-shrink:0}
+.todo-item span{flex:1;font-size:14px;color:var(--primary)}
+.todo-item.done span{text-decoration:line-through;color:var(--secondary)}
+.todo-item button{
+  background:none;border:none;cursor:pointer;font-size:15px;opacity:.5;flex-shrink:0;
+}
+.todo-item button:hover{opacity:1}
+.empty-msg{font-size:13.5px;color:var(--secondary);padding:8px 2px;font-style:italic}
+.pending-item{
+  display:flex;align-items:center;gap:11px;
+  background:var(--bg1);border:1px solid var(--border);
+  border-radius:12px;padding:11px 13px;font-size:14px;
+}
+.pending-item .pi-name{font-weight:700;color:var(--primary)}
+.pending-item .pi-val{margin-left:auto;font-weight:800;color:#92400e}
+
+.budget-circle{
+  width:130px;
+  height:130px;
+  border-radius:50%;
+  flex-shrink:0;
   background:conic-gradient(
     var(--accent) 0deg,
     var(--accent) var(--percent),
-    #e5e7eb var(--percent)
+    #e3eae7 var(--percent)
   );
   display:flex;
   align-items:center;
   justify-content:center;
-  margin:14px auto 12px auto;
 }
 .budget-circle span{
   background:#fff;
-  width:92px;
-  height:92px;
+  width:96px;
+  height:96px;
   border-radius:50%;
   display:flex;
   align-items:center;
   justify-content:center;
   font-weight:800;
+  font-size:22px;
   color:var(--primary);
 }
+
+/* ===== TELAS INTERNAS (itens/financeiro/convidados) ===== */
+.page-header{
+  display:flex;align-items:flex-end;justify-content:space-between;
+  gap:18px;flex-wrap:wrap;margin-bottom:26px;
+}
+.page-header h1{
+  margin:0;font-size:28px;font-weight:800;color:var(--primary);
+}
+.page-header p{
+  margin:4px 0 0;color:var(--secondary);font-size:14px;
+}
+.page-grid{
+  display:grid;
+  grid-template-columns:340px 1fr;
+  gap:26px;
+  align-items:start;
+}
+.form-card{
+  background:var(--surface);
+  border:1px solid var(--border);
+  border-radius:22px;
+  padding:26px;
+  box-shadow:0 10px 26px rgba(11,42,35,.05);
+  position:sticky;
+  top:24px;
+}
+.form-card h3{margin:0 0 4px;font-size:17px;font-weight:800;color:var(--primary)}
+.form-card .sub{margin:0 0 16px;font-size:13px;color:var(--secondary)}
+
+/* mini stats row */
+.mini-stats{display:grid;gap:14px;margin-bottom:22px}
+.mini-stats.cols-3{grid-template-columns:repeat(3,1fr)}
+.mini-stats.cols-2{grid-template-columns:repeat(2,1fr)}
+.mini-stat{
+  background:var(--surface);border:1px solid var(--border);
+  border-radius:16px;padding:18px 20px;
+  box-shadow:0 8px 20px rgba(11,42,35,.04);
+}
+.mini-stat .ms-label{font-size:12.5px;color:var(--secondary);font-weight:600}
+.mini-stat .ms-value{font-size:24px;font-weight:800;color:var(--primary);margin-top:3px}
+.mini-stat .ms-value.green{color:var(--accent)}
+.mini-stat .ms-value.amber{color:#b45309}
+.mini-stat .ms-value.rose{color:#be123c}
+
+/* content card que envolve tabela + toolbar */
+.content-card{
+  background:var(--surface);
+  border:1px solid var(--border);
+  border-radius:22px;
+  padding:22px;
+  box-shadow:0 10px 26px rgba(11,42,35,.05);
+}
+.toolbar{
+  display:flex;align-items:center;gap:12px;flex-wrap:wrap;
+  margin-bottom:16px;
+}
+.toolbar h3{margin:0;font-size:17px;font-weight:800;color:var(--primary);margin-right:auto}
+.search-box{
+  position:relative;flex:1;min-width:180px;max-width:320px;
+}
+.search-box input{margin:0;padding-left:38px}
+.search-box::before{
+  content:"🔍";position:absolute;left:13px;top:50%;transform:translateY(-50%);
+  font-size:13px;opacity:.6;pointer-events:none;
+}
+.filter-chips{display:flex;gap:7px;flex-wrap:wrap}
+.chip{
+  padding:8px 14px;border-radius:999px;cursor:pointer;
+  border:1px solid var(--border);background:var(--bg1);
+  font-family:inherit;font-size:13px;font-weight:600;color:var(--secondary);
+  transition:all .16s ease;
+}
+.chip:hover{border-color:var(--accent2)}
+.chip.active{background:var(--accent);color:#fff;border-color:var(--accent)}
+
+/* tabela moderna */
+.tbl{width:100%;border-collapse:separate;border-spacing:0}
+.tbl thead th{
+  background:transparent;color:var(--secondary);
+  text-align:left;font-weight:700;font-size:12px;
+  text-transform:uppercase;letter-spacing:.5px;
+  padding:10px 14px;border-bottom:2px solid var(--border);
+  cursor:pointer;user-select:none;white-space:nowrap;
+}
+.tbl thead th.no-sort{cursor:default}
+.tbl thead th .arrow{opacity:.4;font-size:10px;margin-left:3px}
+.tbl thead th.sorted .arrow{opacity:1;color:var(--accent)}
+.tbl tbody td{
+  padding:14px;border-bottom:1px solid var(--border);
+  font-size:14px;color:var(--primary);vertical-align:middle;
+}
+.tbl tbody tr{transition:background .14s ease}
+.tbl tbody tr:hover{background:var(--bg1)}
+.tbl tbody tr:last-child td{border-bottom:none}
+.tbl .center{text-align:center}
+.tbl .val{font-weight:800;white-space:nowrap}
+.tbl .row-del{
+  background:none;border:none;color:var(--danger);
+  cursor:pointer;font-size:16px;opacity:.55;
+}
+.tbl .row-del:hover{opacity:1}
+.tbl input[type=checkbox]{width:19px;height:19px;accent-color:var(--accent);cursor:pointer}
+.status-pill{
+  display:inline-flex;align-items:center;gap:6px;
+  padding:4px 11px;border-radius:999px;font-size:12px;font-weight:700;
+}
+.status-pill.paid{background:#d1fae5;color:#065f46}
+.status-pill.pending{background:#fef3c7;color:#92400e}
+.tbl-empty{padding:34px;text-align:center;color:var(--secondary);font-style:italic;font-size:14px}
+
+/* gráfico */
+.chart-card{
+  background:var(--surface);border:1px solid var(--border);
+  border-radius:22px;padding:24px;box-shadow:0 10px 26px rgba(11,42,35,.05);
+}
+.chart-card h3{margin:0 0 16px;font-size:17px;font-weight:800;color:var(--primary)}
+.chart-holder{position:relative;height:260px}
+.fin-top{display:grid;grid-template-columns:1fr 1fr;gap:26px;margin-bottom:26px;align-items:start}
 
 label{
   display:block;
@@ -200,8 +604,8 @@ input, select{
   background:#fff;
 }
 input:focus, select:focus{
-  border-color:rgba(29,78,216,.55);
-  box-shadow:0 0 0 4px rgba(29,78,216,.12);
+  border-color:rgba(4,120,87,.55);
+  box-shadow:0 0 0 4px rgba(4,120,87,.12);
 }
 
 .actions-row{
@@ -223,7 +627,7 @@ button.primary{
   font-weight:800;
   cursor:pointer;
   transition:transform .08s ease, filter .2s ease, box-shadow .2s ease;
-  box-shadow:0 12px 26px rgba(29,78,216,.20);
+  box-shadow:0 12px 26px rgba(4,120,87,.20);
 }
 button.primary:hover{filter:brightness(1.02)}
 button.primary:active{transform:scale(.98)}
@@ -286,9 +690,9 @@ td.center input[type="checkbox"]{
   background:#f8fafc;
   color:var(--primary);
 }
-.badge.blue{border-color:rgba(29,78,216,.25); background:rgba(29,78,216,.06)}
-.badge.cyan{border-color:rgba(14,165,233,.25); background:rgba(14,165,233,.06)}
-.badge.gray{border-color:rgba(100,116,139,.25); background:rgba(100,116,139,.06)}
+.badge.blue{border-color:rgba(4,120,87,.25); background:rgba(4,120,87,.08); color:#065f46}
+.badge.cyan{border-color:rgba(16,185,129,.3); background:rgba(16,185,129,.1); color:#047857}
+.badge.gray{border-color:rgba(100,116,139,.25); background:rgba(100,116,139,.08); color:#475569}
 
 /* 2) Configurações maior */
 .config-line{
@@ -361,140 +765,291 @@ td.center input[type="checkbox"]{
 
 <body>
 
-<header>
+<aside class="sidebar" id="sidebar">
   <div class="brand">
     <div class="brand-badge" aria-label="Formatura">
-      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" aria-hidden="true">
         <path d="M12 3L1.5 8.25 12 13.5 22.5 8.25 12 3Z" fill="white"/>
         <path d="M5.5 10.2V15.2C5.5 16.9 8.4 18.3 12 18.3C15.6 18.3 18.5 16.9 18.5 15.2V10.2L12 13.5L5.5 10.2Z" fill="white" opacity="0.95"/>
         <path d="M22.5 8.25V13.8" stroke="white" stroke-width="1.7" stroke-linecap="round"/>
         <circle cx="22.5" cy="14.9" r="1.1" fill="white"/>
       </svg>
     </div>
-
-    <div class="brand-title">FORMATURA360 JAMILE</div>
+    <div class="brand-title">Formatura360</div>
   </div>
 
-  <!-- aqui continua seu <nav> ... -->
-
-
   <nav>
-    <button id="btn-dashboard" class="active" onclick="showPage('dashboard')">Dashboard</button>
-    <button id="btn-items" onclick="showPage('items')">Itens</button>
-    <button id="btn-finance" onclick="showPage('finance')">Financeiro</button>
-    <button id="btn-guests" onclick="showPage('guests')">Convidados</button>
-    <button onclick="logout()">Sair</button>
+    <button id="btn-dashboard" class="active" onclick="showPage('dashboard')"><span class="nav-ico">📊</span> Dashboard</button>
+    <button id="btn-items" onclick="showPage('items')"><span class="nav-ico">📦</span> Itens</button>
+    <button id="btn-finance" onclick="showPage('finance')"><span class="nav-ico">💰</span> Financeiro</button>
+    <button id="btn-guests" onclick="showPage('guests')"><span class="nav-ico">👥</span> Convidados</button>
+    <button class="nav-logout" onclick="logout()"><span class="nav-ico">🚪</span> Sair</button>
   </nav>
-</header>
+</aside>
+
+<div class="sidebar-overlay" id="sidebarOverlay" onclick="toggleSidebar(false)"></div>
+
+<div class="topbar">
+  <button class="hamburger" onclick="toggleSidebar(true)" aria-label="Abrir menu">☰</button>
+  <div class="topbar-title">Formatura360</div>
+</div>
 
 <main id="app" class="hidden">
+<div class="main-inner">
 
   <!-- DASHBOARD -->
   <section id="dashboardSection">
-    <div class="cards">
-      <div class="card"><h4>Total de Itens</h4><strong id="totalItems">0</strong></div>
-      <div class="card"><h4>Pendências</h4><strong id="pendingItems">0</strong></div>
-      <div class="card"><h4>Total Gasto</h4><strong id="totalSpent">R$ 0,00</strong></div>
-      <div class="card"><h4>Disponível</h4><strong id="available">R$ 0,00</strong></div>
+
+    <!-- BANNER DE BOAS-VINDAS -->
+    <div class="hero">
+      <div class="hero-left">
+        <p class="hero-eyebrow">Acompanhe sua formatura</p>
+        <h1 class="dash-greeting"><span id="greetingText">Olá</span> 🎓</h1>
+        <p class="hero-quote">"Cada passo te aproxima do grande dia."</p>
+        <div class="hero-countpill">
+          <span class="hero-countpill-ico">⏳</span>
+          <span id="heroCountdown">Defina a data da formatura</span>
+        </div>
+      </div>
+
+      <div class="hero-card">
+        <div class="hero-card-head">
+          <div class="hero-avatar" aria-hidden="true">
+            <svg viewBox="0 0 64 64" width="46" height="46" fill="none">
+              <circle cx="32" cy="32" r="32" fill="#ffffff" opacity="0.18"/>
+              <path d="M32 18L13 26l19 8 15-6.3V40h3V26L32 18Z" fill="#fff"/>
+              <path d="M20 34v6c0 3.3 5.4 6 12 6s12-2.7 12-6v-6l-12 5-12-5Z" fill="#fff" opacity="0.92"/>
+              <circle cx="32" cy="50" r="2.4" fill="#fff"/>
+            </svg>
+          </div>
+          <div>
+            <div class="hero-card-title">Atalhos rápidos</div>
+            <div class="hero-card-sub">O que você quer fazer agora?</div>
+          </div>
+        </div>
+        <button class="quick-btn" onclick="showPage('items')"><span>➕</span> Adicionar item <i>›</i></button>
+        <button class="quick-btn" onclick="showPage('finance')"><span>💰</span> Checar financeiro <i>›</i></button>
+        <button class="quick-btn" onclick="showPage('guests')"><span>👥</span> Ver lista de convidados <i>›</i></button>
+      </div>
     </div>
 
+    <!-- CARDS DE MÉTRICAS -->
+    <div class="cards">
+      <div class="stat-card">
+        <div class="stat-ico s-emerald">📦</div>
+        <div class="stat-info">
+          <span class="stat-label">Total de Itens</span>
+          <strong id="totalItems">0</strong>
+        </div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-ico s-amber">⏱</div>
+        <div class="stat-info">
+          <span class="stat-label">Pendências</span>
+          <strong id="pendingItems">0</strong>
+        </div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-ico s-rose">💸</div>
+        <div class="stat-info">
+          <span class="stat-label">Total Gasto</span>
+          <strong id="totalSpent">R$ 0,00</strong>
+          <span class="stat-pct" id="spentPct">0% do orçamento</span>
+        </div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-ico s-teal">✅</div>
+        <div class="stat-info">
+          <span class="stat-label">Disponível</span>
+          <strong id="available">R$ 0,00</strong>
+        </div>
+      </div>
+    </div>
+
+    <!-- GRID PRINCIPAL -->
     <div class="dashboard-grid">
-      <div>
-        <div class="card">
-          <div class="countdown-box">
-            <div>
-              <h3>Contagem Regressiva</h3>
-              <input type="date" id="date">
-              <!-- 1) maior -->
-              <p id="countdown" class="countdown-text"></p>
+
+      <!-- COLUNA ESQUERDA -->
+      <div class="dash-col">
+        <!-- Orçamento -->
+        <div class="panel">
+          <h3 class="panel-title">Visão geral do orçamento</h3>
+          <div class="budget-flex">
+            <div class="budget-circle"><span id="budgetPercent">0%</span></div>
+            <div class="budget-lines">
+              <div class="budget-line"><span class="dot d-total"></span> Total <b id="budgetTotalView">—</b></div>
+              <div class="budget-line"><span class="dot d-used"></span> Comprometido <b id="budgetUsedView">—</b></div>
+              <div class="budget-line"><span class="dot d-free"></span> Livre <b id="budgetFreeView">—</b></div>
             </div>
-            <div class="countdown-icon">🎓</div>
           </div>
         </div>
 
-        <div class="card" style="margin-top:16px">
-          <h3>Configurações</h3>
-          <div class="hint">
-            <!-- 2) maior -->
-            <div class="config-line">
-              <span class="badge big blue">💰 Orçamento</span>
-              <span id="budgetConfigHint" class="config-value"></span>
+        <!-- Configurações rápidas -->
+        <div class="panel">
+          <h3 class="panel-title">Configurações</h3>
+          <div class="config-grid">
+            <div class="config-pill">
+              <span class="config-pill-ico">💰</span>
+              <div>
+                <small>Orçamento</small>
+                <b id="budgetConfigHint">Não definido</b>
+              </div>
             </div>
-
-            <div class="config-line">
-              <span class="badge big cyan">🎟 Senhas</span>
-              <span id="guestConfigHint" class="config-value"></span>
+            <div class="config-pill">
+              <span class="config-pill-ico">🎟</span>
+              <div>
+                <small>Senhas restantes</small>
+                <b id="guestConfigHint">Não definido</b>
+              </div>
             </div>
-
-            <div class="hint" style="margin-top:10px;">
-              Cadastro do orçamento fica em <b>Financeiro</b>. Controle de senhas fica em <b>Convidados</b>.
-            </div>
+          </div>
+          <div class="config-actions">
+            <button class="ghost-btn" onclick="showPage('finance')">Definir orçamento</button>
+            <button class="ghost-btn" onclick="showPage('guests')">Definir senhas</button>
+          </div>
+          <div class="date-row">
+            <label for="date">📅 Data da formatura</label>
+            <input type="date" id="date">
           </div>
         </div>
       </div>
 
-      <div class="card">
-        <h3>Visão Geral do Orçamento</h3>
-        <div class="budget-circle">
-          <span id="budgetPercent">0%</span>
+      <!-- COLUNA DIREITA -->
+      <div class="dash-col">
+        <!-- Checklist de afazeres -->
+        <div class="panel">
+          <div class="panel-head">
+            <h3 class="panel-title">Afazeres</h3>
+            <span class="panel-count" id="todoCount">0</span>
+          </div>
+          <div class="todo-add">
+            <input id="todoInput" placeholder="Ex: Fechar contrato do buffet" onkeydown="if(event.key==='Enter')addTodo()">
+            <button class="primary mini" onclick="addTodo()">＋</button>
+          </div>
+          <ul class="todo-list" id="todoList"></ul>
         </div>
-        <p><strong>Total:</strong> <span id="budgetTotalView"></span></p>
-        <p><strong>Comprometido:</strong> <span id="budgetUsedView"></span></p>
-        <p><strong>Livre:</strong> <span id="budgetFreeView"></span></p>
+
+        <!-- Pendências dos itens -->
+        <div class="panel">
+          <div class="panel-head">
+            <h3 class="panel-title">Itens pendentes</h3>
+            <span class="panel-count amber" id="pendingCount">0</span>
+          </div>
+          <ul class="pending-list" id="pendingList"></ul>
+        </div>
       </div>
     </div>
   </section>
 
   <!-- ITENS -->
   <section id="itemsSection" class="hidden">
-    <div class="card">
-      <h3>Adicionar Item</h3>
-      <label>Item</label>
-      <input id="itemName" placeholder="Ex: Becas, Buffet, Fotos">
-      <label>Fornecedor</label>
-      <input id="itemSupplier" placeholder="Ex: Empresa X">
-      <label>Valor</label>
-      <input id="itemValue" type="number" placeholder="Ex: 1200">
-      <button class="primary" onclick="addItem()">Adicionar</button>
-      <div class="hint">Dica: marque como <b>Pago</b> para entrar no total gasto.</div>
+    <div class="page-header">
+      <div>
+        <h1>Itens da formatura</h1>
+        <p>Cadastre tudo que precisa contratar e acompanhe os pagamentos.</p>
+      </div>
     </div>
 
-    <div class="table-wrap">
-      <table>
-        <thead>
-          <tr><th>Item</th><th>Fornecedor</th><th>Valor</th><th>Pago</th><th></th></tr>
-        </thead>
-        <tbody id="itemsTable"></tbody>
-      </table>
+    <div class="mini-stats cols-3">
+      <div class="mini-stat"><div class="ms-label">Itens cadastrados</div><div class="ms-value" id="msItemsTotal">0</div></div>
+      <div class="mini-stat"><div class="ms-label">Pagos</div><div class="ms-value green" id="msItemsPaid">0</div></div>
+      <div class="mini-stat"><div class="ms-label">Pendentes</div><div class="ms-value amber" id="msItemsPending">0</div></div>
+    </div>
+
+    <div class="page-grid">
+      <div class="form-card">
+        <h3>Adicionar item</h3>
+        <p class="sub">Becas, buffet, fotos, decoração...</p>
+        <label>Item</label>
+        <input id="itemName" placeholder="Ex: Buffet">
+        <label>Fornecedor</label>
+        <input id="itemSupplier" placeholder="Ex: Empresa X">
+        <label>Valor (R$)</label>
+        <input id="itemValue" type="number" placeholder="Ex: 1200">
+        <button class="primary" onclick="addItem()">Adicionar item</button>
+        <div class="hint">Marque como <b>Pago</b> na tabela para entrar no total gasto.</div>
+      </div>
+
+      <div class="content-card">
+        <div class="toolbar">
+          <h3>Lista de itens</h3>
+          <div class="search-box"><input id="itemSearch" placeholder="Buscar item ou fornecedor..." oninput="renderItems()"></div>
+          <div class="filter-chips" id="itemChips">
+            <button class="chip active" data-f="all" onclick="setItemFilter('all')">Todos</button>
+            <button class="chip" data-f="paid" onclick="setItemFilter('paid')">Pagos</button>
+            <button class="chip" data-f="pending" onclick="setItemFilter('pending')">Pendentes</button>
+          </div>
+        </div>
+        <table class="tbl">
+          <thead>
+            <tr>
+              <th onclick="sortItems('name')" data-c="name">Item <span class="arrow">▾</span></th>
+              <th onclick="sortItems('supplier')" data-c="supplier">Fornecedor <span class="arrow">▾</span></th>
+              <th onclick="sortItems('value')" data-c="value">Valor <span class="arrow">▾</span></th>
+              <th class="no-sort center">Status</th>
+              <th class="no-sort"></th>
+            </tr>
+          </thead>
+          <tbody id="itemsTable"></tbody>
+        </table>
+      </div>
     </div>
   </section>
 
   <!-- FINANCEIRO -->
   <section id="financeSection" class="hidden">
-    <div class="actions-row">
-      <div class="card">
-        <h3>Orçamento Total</h3>
-        <label>Defina seu orçamento</label>
-        <input type="number" id="budgetInputFinance" placeholder="Ex: 15000">
-        <button class="primary" onclick="setBudget()">Salvar Orçamento</button>
-        <div class="hint">Esse valor alimenta o círculo e os indicadores do <b>Dashboard</b>.</div>
-      </div>
-
-      <div class="card">
-        <h3>Adicionar Despesa</h3>
-        <label>Descrição</label>
-        <input id="financeName" placeholder="Ex: Taxa, Convite, Reserva">
-        <label>Valor</label>
-        <input id="financeValue" type="number" placeholder="Ex: 300">
-        <button class="primary" onclick="addFinance()">Adicionar</button>
-        <div class="hint">Despesas entram automaticamente no total gasto.</div>
+    <div class="page-header">
+      <div>
+        <h1>Financeiro</h1>
+        <p>Defina o orçamento e acompanhe pra onde o dinheiro está indo.</p>
       </div>
     </div>
 
-    <div class="table-wrap">
-      <table>
+    <div class="mini-stats cols-3">
+      <div class="mini-stat"><div class="ms-label">Orçamento total</div><div class="ms-value" id="msBudget">R$ 0,00</div></div>
+      <div class="mini-stat"><div class="ms-label">Total gasto</div><div class="ms-value rose" id="msSpent">R$ 0,00</div></div>
+      <div class="mini-stat"><div class="ms-label">Disponível</div><div class="ms-value green" id="msFree">R$ 0,00</div></div>
+    </div>
+
+    <div class="fin-top">
+      <div class="chart-card">
+        <h3>Distribuição do orçamento</h3>
+        <div class="chart-holder"><canvas id="budgetChart"></canvas></div>
+      </div>
+
+      <div class="dash-col">
+        <div class="form-card" style="position:static">
+          <h3>Orçamento total</h3>
+          <p class="sub">Esse valor alimenta o dashboard.</p>
+          <label>Defina seu orçamento (R$)</label>
+          <input type="number" id="budgetInputFinance" placeholder="Ex: 15000">
+          <button class="primary" onclick="setBudget()">Salvar orçamento</button>
+        </div>
+
+        <div class="form-card" style="position:static">
+          <h3>Adicionar despesa</h3>
+          <p class="sub">Taxas, convites, reservas...</p>
+          <label>Descrição</label>
+          <input id="financeName" placeholder="Ex: Taxa de reserva">
+          <label>Valor (R$)</label>
+          <input id="financeValue" type="number" placeholder="Ex: 300">
+          <button class="primary" onclick="addFinance()">Adicionar despesa</button>
+        </div>
+      </div>
+    </div>
+
+    <div class="content-card">
+      <div class="toolbar">
+        <h3>Despesas avulsas</h3>
+        <div class="search-box"><input id="financeSearch" placeholder="Buscar despesa..." oninput="renderFinance()"></div>
+      </div>
+      <table class="tbl">
         <thead>
-          <tr><th>Descrição</th><th>Valor</th><th></th></tr>
+          <tr>
+            <th onclick="sortFinance('name')" data-c="name">Descrição <span class="arrow">▾</span></th>
+            <th onclick="sortFinance('value')" data-c="value">Valor <span class="arrow">▾</span></th>
+            <th class="no-sort"></th>
+          </tr>
         </thead>
         <tbody id="financeTable"></tbody>
       </table>
@@ -503,53 +1058,82 @@ td.center input[type="checkbox"]{
 
   <!-- CONVIDADOS -->
   <section id="guestsSection" class="hidden">
-    <div class="actions-row">
-      <div class="card">
-        <h3>Senhas Disponíveis</h3>
-        <label>Total de senhas</label>
-        <input type="number" id="guestLimit" placeholder="Ex: 120">
-        <button class="primary" onclick="setGuestLimit()">Salvar Senhas</button>
-
-        <!-- 4) números maiores -->
-        <div class="guest-stats">
-          <span class="label">Confirmados</span>
-          <span id="guestConfirmedCount" class="num">0</span>
-          <span class="label">Restantes</span>
-          <span id="guestRemaining" class="num">—</span>
-        </div>
-
-        <div class="hint">Se o total não estiver definido, exibimos <b>—</b> e não bloqueamos confirmações.</div>
-      </div>
-
-      <div class="card">
-        <h3>Adicionar Convidado</h3>
-        <label>Nome</label>
-        <input id="guestName" placeholder="Ex: Maria Silva">
-        <label>Etiqueta</label>
-        <select id="guestTag">
-          <option value="Família">Família</option>
-          <option value="Amigo">Amigo</option>
-          <option value="Acompanhante">Acompanhante</option>
-        </select>
-        <button class="primary" onclick="addGuest()">Adicionar</button>
-        <div class="hint">Marque <b>Confirmado</b> para consumir 1 senha (se o total estiver definido).</div>
+    <div class="page-header">
+      <div>
+        <h1>Convidados</h1>
+        <p>Controle as senhas e quem já confirmou presença.</p>
       </div>
     </div>
 
-    <div class="table-wrap">
-      <table>
+    <div class="mini-stats cols-3">
+      <div class="mini-stat"><div class="ms-label">Total de senhas</div><div class="ms-value" id="msGuestLimit">—</div></div>
+      <div class="mini-stat"><div class="ms-label">Confirmados</div><div class="ms-value green" id="guestConfirmedCount">0</div></div>
+      <div class="mini-stat"><div class="ms-label">Senhas restantes</div><div class="ms-value amber" id="guestRemaining">—</div></div>
+    </div>
+
+    <div class="fin-top">
+      <div class="chart-card">
+        <h3>Convidados por etiqueta</h3>
+        <div class="chart-holder"><canvas id="guestChart"></canvas></div>
+      </div>
+
+      <div class="dash-col">
+        <div class="form-card" style="position:static">
+          <h3>Senhas disponíveis</h3>
+          <p class="sub">Defina o total de senhas da formatura.</p>
+          <label>Total de senhas</label>
+          <input type="number" id="guestLimit" placeholder="Ex: 120">
+          <button class="primary" onclick="setGuestLimit()">Salvar senhas</button>
+          <div class="hint">Sem total definido, mostramos <b>—</b> e não bloqueamos confirmações.</div>
+        </div>
+
+        <div class="form-card" style="position:static">
+          <h3>Adicionar convidado</h3>
+          <p class="sub">Cadastre e marque a presença depois.</p>
+          <label>Nome</label>
+          <input id="guestName" placeholder="Ex: Maria Silva">
+          <label>Etiqueta</label>
+          <select id="guestTag">
+            <option value="Família">Família</option>
+            <option value="Amigo">Amigo</option>
+            <option value="Acompanhante">Acompanhante</option>
+          </select>
+          <button class="primary" onclick="addGuest()">Adicionar convidado</button>
+        </div>
+      </div>
+    </div>
+
+    <div class="content-card">
+      <div class="toolbar">
+        <h3>Lista de convidados</h3>
+        <div class="search-box"><input id="guestSearch" placeholder="Buscar convidado..." oninput="renderGuests()"></div>
+        <div class="filter-chips" id="guestChips">
+          <button class="chip active" data-f="all" onclick="setGuestFilter('all')">Todos</button>
+          <button class="chip" data-f="Família" onclick="setGuestFilter('Família')">Família</button>
+          <button class="chip" data-f="Amigo" onclick="setGuestFilter('Amigo')">Amigos</button>
+          <button class="chip" data-f="Acompanhante" onclick="setGuestFilter('Acompanhante')">Acompanhantes</button>
+        </div>
+      </div>
+      <table class="tbl">
         <thead>
-          <tr><th>Nome</th><th>Etiqueta</th><th>Confirmado</th><th></th></tr>
+          <tr>
+            <th onclick="sortGuests('name')" data-c="name">Nome <span class="arrow">▾</span></th>
+            <th class="no-sort">Etiqueta</th>
+            <th class="no-sort center">Confirmado</th>
+            <th class="no-sort"></th>
+          </tr>
         </thead>
         <tbody id="guestsTable"></tbody>
       </table>
     </div>
   </section>
 
+</div>
 </main>
 
 <div id="toast" class="toast"></div>
 
+<script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.1/dist/chart.umd.min.js"></script>
 <script type="module">
 import { initializeApp } from "https://www.gstatic.com/firebasejs/12.8.0/firebase-app.js";
 import { getAuth, signInWithEmailAndPassword, onAuthStateChanged, signOut } from "https://www.gstatic.com/firebasejs/12.8.0/firebase-auth.js";
@@ -621,6 +1205,28 @@ const el = {
 
   // toast
   toast: $("toast"),
+
+  // dashboard novo
+  greetingText: $("greetingText"),
+  heroCountdown: $("heroCountdown"),
+  spentPct: $("spentPct"),
+  todoInput: $("todoInput"),
+  todoList: $("todoList"),
+  todoCount: $("todoCount"),
+  pendingList: $("pendingList"),
+  pendingCount: $("pendingCount"),
+
+  // telas internas
+  msItemsTotal: $("msItemsTotal"),
+  msItemsPaid: $("msItemsPaid"),
+  msItemsPending: $("msItemsPending"),
+  itemSearch: $("itemSearch"),
+  msBudget: $("msBudget"),
+  msSpent: $("msSpent"),
+  msFree: $("msFree"),
+  financeSearch: $("financeSearch"),
+  msGuestLimit: $("msGuestLimit"),
+  guestSearch: $("guestSearch"),
 };
 
 const money = (v) => {
@@ -634,11 +1240,20 @@ const defaults = {
   items: [],
   finances: [],
   guests: [],
+  todos: [],
   guestLimit: 0, // 0 => não definido
 };
 
 let state = { ...defaults };
 let userRef = null;
+
+/* estado de UI: filtros, busca, ordenação */
+const ui = {
+  itemFilter: "all", itemSort: { col: null, dir: 1 },
+  financeSort: { col: null, dir: 1 },
+  guestFilter: "all", guestSort: { col: null, dir: 1 },
+};
+let budgetChart = null, guestChart = null;
 
 /* toast */
 let toastTimer = null;
@@ -661,6 +1276,7 @@ function normalizeState(raw) {
   merged.items = Array.isArray(merged.items) ? merged.items : [];
   merged.finances = Array.isArray(merged.finances) ? merged.finances : [];
   merged.guests = Array.isArray(merged.guests) ? merged.guests : [];
+  merged.todos = Array.isArray(merged.todos) ? merged.todos : [];
 
   merged.items = merged.items.map(i => ({
     name: String(i?.name ?? ""),
@@ -678,6 +1294,11 @@ function normalizeState(raw) {
     name: String(g?.name ?? ""),
     tag: String(g?.tag ?? "Amigo"),
     confirmed: Boolean(g?.confirmed),
+  }));
+
+  merged.todos = merged.todos.map(t => ({
+    text: String(t?.text ?? ""),
+    done: Boolean(t?.done),
   }));
 
   return merged;
@@ -700,36 +1321,49 @@ onAuthStateChanged(auth, async (user) => {
 /* LOGIN */
 function showLogin() {
   document.body.innerHTML = `
-    <div style="min-height:100vh;display:flex;align-items:center;justify-content:center;padding:18px;background:linear-gradient(180deg,#f8fafc,#eef2ff)">
-      <div style="width:340px;background:#fff;border:1px solid #e5e7eb;border-radius:18px;box-shadow:0 18px 40px rgba(0,0,0,.08);padding:22px;font-family:Inter,sans-serif">
-        <div style="display:flex;gap:12px;align-items:center;margin-bottom:10px">
-          <div style="width:34px;height:34px;border-radius:10px;background:linear-gradient(135deg,#1d4ed8,#0ea5e9);display:grid;place-items:center;color:#fff;font-weight:800">⚕</div>
-          <div>
-            <div style="font-weight:900;color:#0f172a;font-size:18px">Formatura360</div>
-            <div style="color:#64748b;font-size:12px;font-weight:600">Acesso do painel</div>
+    <div style="min-height:100vh;display:flex;align-items:center;justify-content:center;padding:18px;background:linear-gradient(135deg,#06251d,#065f46 60%,#047857);font-family:'Plus Jakarta Sans',Inter,sans-serif">
+      <div style="width:380px;max-width:100%;background:#fff;border-radius:24px;box-shadow:0 30px 70px rgba(0,0,0,.28);padding:36px 32px;font-family:Inter,sans-serif">
+        <div style="display:flex;flex-direction:column;align-items:center;text-align:center;margin-bottom:22px">
+          <div style="width:62px;height:62px;border-radius:18px;background:linear-gradient(135deg,#047857,#10b981);display:grid;place-items:center;box-shadow:0 14px 30px rgba(4,120,87,.32);margin-bottom:14px">
+            <svg viewBox="0 0 64 64" width="38" height="38" fill="none">
+              <path d="M32 16L10 25l22 9 18-7.4V42h3.5V25L32 16Z" fill="#fff"/>
+              <path d="M18 33v7c0 3.8 6.3 7 14 7s14-3.2 14-7v-7l-14 5.7L18 33Z" fill="#fff" opacity="0.92"/>
+              <circle cx="53.5" cy="44" r="1.6" fill="#fff"/>
+            </svg>
           </div>
+          <div style="font-family:'Plus Jakarta Sans',Inter,sans-serif;font-weight:800;color:#0b2a23;font-size:24px">Formatura360</div>
+          <div style="color:#5b7c72;font-size:13px;font-weight:600;margin-top:2px">Organize a sua formatura</div>
         </div>
-        <label style="display:block;font-size:12px;color:#64748b;font-weight:700;margin-top:12px">E-mail</label>
-        <input id="email" placeholder="seuemail@exemplo.com" style="width:100%;padding:12px;border-radius:12px;border:1px solid #e5e7eb;margin-top:8px;font-family:inherit;outline:none">
-        <label style="display:block;font-size:12px;color:#64748b;font-weight:700;margin-top:12px">Senha</label>
-        <input id="password" type="password" placeholder="••••••••" style="width:100%;padding:12px;border-radius:12px;border:1px solid #e5e7eb;margin-top:8px;font-family:inherit;outline:none">
-        <button id="loginBtn" style="margin-top:14px;width:100%;padding:12px;border-radius:12px;border:none;cursor:pointer;color:#fff;font-weight:900;background:linear-gradient(135deg,#1d4ed8,#0ea5e9);box-shadow:0 14px 30px rgba(29,78,216,.22)">Entrar</button>
-        <div style="margin-top:10px;color:#64748b;font-size:12px">Se não conseguir entrar, verifique usuário e senha.</div>
+
+        <label style="display:block;font-size:12px;color:#5b7c72;font-weight:700;margin-top:6px">E-mail</label>
+        <input id="email" placeholder="seuemail@exemplo.com" style="width:100%;padding:13px;border-radius:13px;border:1px solid #e3eae7;margin-top:7px;font-family:inherit;outline:none;font-size:14px">
+        <label style="display:block;font-size:12px;color:#5b7c72;font-weight:700;margin-top:14px">Senha</label>
+        <input id="password" type="password" placeholder="••••••••" style="width:100%;padding:13px;border-radius:13px;border:1px solid #e3eae7;margin-top:7px;font-family:inherit;outline:none;font-size:14px">
+        <button id="loginBtn" style="margin-top:20px;width:100%;padding:14px;border-radius:13px;border:none;cursor:pointer;color:#fff;font-weight:800;font-size:15px;font-family:inherit;background:linear-gradient(135deg,#047857,#10b981);box-shadow:0 14px 30px rgba(4,120,87,.30)">Entrar</button>
+        <div style="margin-top:14px;color:#94a3b8;font-size:12px;text-align:center">Se não conseguir entrar, verifique e-mail e senha.</div>
       </div>
     </div>
   `;
 
-  document.getElementById("loginBtn").onclick = async () => {
+  const loginBtn = document.getElementById("loginBtn");
+  const doLogin = async () => {
     const email = document.getElementById("email").value.trim();
     const password = document.getElementById("password").value;
-
+    loginBtn.textContent = "Entrando...";
+    loginBtn.style.opacity = ".7";
     try {
       await signInWithEmailAndPassword(auth, email, password);
       location.reload();
     } catch (e) {
       alert("Usuário ou senha inválidos");
+      loginBtn.textContent = "Entrar";
+      loginBtn.style.opacity = "1";
     }
   };
+  loginBtn.onclick = doLogin;
+  document.getElementById("password").addEventListener("keydown", (ev) => {
+    if (ev.key === "Enter") doLogin();
+  });
 }
 
 window.logout = () => signOut(auth);
@@ -742,17 +1376,28 @@ async function save() {
 }
 
 /* DASHBOARD */
+function setGreeting() {
+  const h = new Date().getHours();
+  let saud = "Boa noite";
+  if (h >= 5 && h < 12) saud = "Bom dia";
+  else if (h >= 12 && h < 18) saud = "Boa tarde";
+  if (el.greetingText) el.greetingText.textContent = saud + "!";
+}
+
 function calcCountdown() {
   if (!state.date) {
-    el.countdown.textContent = "Defina a data da formatura.";
+    if (el.heroCountdown) el.heroCountdown.textContent = "Defina a data da formatura";
     return;
   }
   const today = new Date();
   const target = new Date(state.date + "T00:00:00");
   const diff = Math.ceil((target - today) / 86400000);
-  el.countdown.textContent = diff >= 0
-    ? `Faltam ${diff} dia${diff === 1 ? "" : "s"} para a formatura`
-    : "Data passada 🎉";
+  let txt;
+  if (diff > 1) txt = `Faltam ${diff} dias para a formatura`;
+  else if (diff === 1) txt = "Falta 1 dia para a formatura!";
+  else if (diff === 0) txt = "É hoje! 🎉";
+  else txt = "Formatura realizada 🎓";
+  if (el.heroCountdown) el.heroCountdown.textContent = txt;
 }
 
 /* RENDER */
@@ -765,6 +1410,12 @@ function renderAll() {
   el.pendingItems.textContent = String(state.items.filter(i => !i.paid).length);
   el.totalSpent.textContent = money(spent);
   el.available.textContent = money(state.budget - spent);
+
+  if (el.spentPct) {
+    el.spentPct.textContent = state.budget > 0
+      ? Math.round((spent / state.budget) * 100) + "% do orçamento"
+      : "Orçamento não definido";
+  }
 
   el.budgetTotalView.textContent = state.budget > 0 ? money(state.budget) : "—";
   el.budgetUsedView.textContent = money(spent);
@@ -783,7 +1434,10 @@ function renderAll() {
   }
 
   el.date.value = state.date || "";
+  setGreeting();
   calcCountdown();
+  renderTodos();
+  renderPending();
 
   el.budgetInputFinance.value = state.budget ? String(state.budget) : "";
   el.guestLimit.value = state.guestLimit ? String(state.guestLimit) : "";
@@ -840,19 +1494,62 @@ window.removeItem = (i) => {
   save();
 };
 
+window.setItemFilter = (f) => {
+  ui.itemFilter = f;
+  document.querySelectorAll("#itemChips .chip").forEach(c =>
+    c.classList.toggle("active", c.dataset.f === f));
+  renderItems();
+};
+window.sortItems = (col) => {
+  if (ui.itemSort.col === col) ui.itemSort.dir *= -1;
+  else { ui.itemSort.col = col; ui.itemSort.dir = 1; }
+  renderItems();
+};
+
 function renderItems() {
-  el.itemsTable.innerHTML = "";
-  state.items.forEach((it, idx) => {
-    el.itemsTable.insertAdjacentHTML("beforeend", `
-      <tr>
-        <td>${escapeHtml(it.name)}</td>
-        <td>${escapeHtml(it.supplier || "—")}</td>
-        <td>${money(it.value)}</td>
-        <td class="center"><input type="checkbox" ${it.paid ? "checked" : ""} onchange="toggleItem(${idx})"></td>
-        <td><button title="Remover" onclick="removeItem(${idx})">🗑</button></td>
-      </tr>
-    `);
-  });
+  const total = state.items.length;
+  const paid = state.items.filter(i => i.paid).length;
+  if (el.msItemsTotal) el.msItemsTotal.textContent = String(total);
+  if (el.msItemsPaid) el.msItemsPaid.textContent = String(paid);
+  if (el.msItemsPending) el.msItemsPending.textContent = String(total - paid);
+
+  if (!el.itemsTable) return;
+  const q = (el.itemSearch?.value || "").toLowerCase().trim();
+
+  let rows = state.items.map((it, idx) => ({ ...it, idx }));
+  if (ui.itemFilter === "paid") rows = rows.filter(r => r.paid);
+  else if (ui.itemFilter === "pending") rows = rows.filter(r => !r.paid);
+  if (q) rows = rows.filter(r =>
+    (r.name || "").toLowerCase().includes(q) || (r.supplier || "").toLowerCase().includes(q));
+
+  if (ui.itemSort.col) {
+    const c = ui.itemSort.col, d = ui.itemSort.dir;
+    rows.sort((a, b) => {
+      let va = a[c], vb = b[c];
+      if (c === "value") return (va - vb) * d;
+      return String(va || "").localeCompare(String(vb || "")) * d;
+    });
+  }
+
+  syncArrows("itemsSection", ui.itemSort);
+
+  if (rows.length === 0) {
+    el.itemsTable.innerHTML = `<tr><td colspan="5" class="tbl-empty">Nenhum item encontrado.</td></tr>`;
+    return;
+  }
+  el.itemsTable.innerHTML = rows.map(r => `
+    <tr>
+      <td><b>${escapeHtml(r.name)}</b></td>
+      <td>${escapeHtml(r.supplier || "—")}</td>
+      <td class="val">${money(r.value)}</td>
+      <td class="center">
+        <span class="status-pill ${r.paid ? "paid" : "pending"}">${r.paid ? "Pago" : "Pendente"}</span>
+      </td>
+      <td class="center">
+        <input type="checkbox" ${r.paid ? "checked" : ""} onchange="toggleItem(${r.idx})" title="Marcar pago">
+        <button class="row-del" title="Remover" onclick="removeItem(${r.idx})">🗑</button>
+      </td>
+    </tr>`).join("");
 }
 
 /* FINANCE */
@@ -877,16 +1574,64 @@ window.removeFinance = (i) => {
   save();
 };
 
+window.sortFinance = (col) => {
+  if (ui.financeSort.col === col) ui.financeSort.dir *= -1;
+  else { ui.financeSort.col = col; ui.financeSort.dir = 1; }
+  renderFinance();
+};
+
 function renderFinance() {
-  el.financeTable.innerHTML = "";
-  state.finances.forEach((f, i) => {
-    el.financeTable.insertAdjacentHTML("beforeend", `
-      <tr>
-        <td>${escapeHtml(f.name)}</td>
-        <td>${money(f.value)}</td>
-        <td><button title="Remover" onclick="removeFinance(${i})">🗑</button></td>
-      </tr>
-    `);
+  const spentItems = state.items.filter(i => i.paid).reduce((s, i) => s + (Number(i.value) || 0), 0);
+  const spentFinance = state.finances.reduce((s, f) => s + (Number(f.value) || 0), 0);
+  const spent = spentItems + spentFinance;
+  const free = state.budget - spent;
+
+  if (el.msBudget) el.msBudget.textContent = state.budget > 0 ? money(state.budget) : "—";
+  if (el.msSpent) el.msSpent.textContent = money(spent);
+  if (el.msFree) el.msFree.textContent = state.budget > 0 ? money(free) : "—";
+
+  drawBudgetChart(spent, free);
+
+  if (!el.financeTable) return;
+  const q = (el.financeSearch?.value || "").toLowerCase().trim();
+  let rows = state.finances.map((f, i) => ({ ...f, idx: i }));
+  if (q) rows = rows.filter(r => (r.name || "").toLowerCase().includes(q));
+  if (ui.financeSort.col) {
+    const c = ui.financeSort.col, d = ui.financeSort.dir;
+    rows.sort((a, b) => c === "value"
+      ? (a.value - b.value) * d
+      : String(a.name || "").localeCompare(String(b.name || "")) * d);
+  }
+  syncArrows("financeSection", ui.financeSort);
+
+  if (rows.length === 0) {
+    el.financeTable.innerHTML = `<tr><td colspan="3" class="tbl-empty">Nenhuma despesa cadastrada.</td></tr>`;
+    return;
+  }
+  el.financeTable.innerHTML = rows.map(r => `
+    <tr>
+      <td><b>${escapeHtml(r.name)}</b></td>
+      <td class="val">${money(r.value)}</td>
+      <td class="center"><button class="row-del" title="Remover" onclick="removeFinance(${r.idx})">🗑</button></td>
+    </tr>`).join("");
+}
+
+function drawBudgetChart(spent, free) {
+  const cv = document.getElementById("budgetChart");
+  if (!cv || typeof Chart === "undefined") return;
+  const freeVal = state.budget > 0 ? Math.max(free, 0) : 0;
+  const over = state.budget > 0 && free < 0 ? Math.abs(free) : 0;
+  const data = state.budget > 0
+    ? { labels: ["Gasto", "Disponível"].concat(over ? ["Acima do orçamento"] : []),
+        values: [spent - over, freeVal].concat(over ? [over] : []),
+        colors: ["#047857", "#a7f3d0"].concat(over ? ["#ef4444"] : []) }
+    : { labels: ["Sem orçamento definido"], values: [1], colors: ["#e3eae7"] };
+
+  if (budgetChart) budgetChart.destroy();
+  budgetChart = new Chart(cv, {
+    type: "doughnut",
+    data: { labels: data.labels, datasets: [{ data: data.values, backgroundColor: data.colors, borderWidth: 0 }] },
+    options: { cutout: "66%", plugins: { legend: { position: "bottom", labels: { padding: 16, font: { family: "Inter" } } } } }
   });
 }
 
@@ -941,35 +1686,107 @@ window.removeGuest = (i) => {
   save();
 };
 
+window.setGuestFilter = (f) => {
+  ui.guestFilter = f;
+  document.querySelectorAll("#guestChips .chip").forEach(c =>
+    c.classList.toggle("active", c.dataset.f === f));
+  renderGuests();
+};
+window.sortGuests = (col) => {
+  if (ui.guestSort.col === col) ui.guestSort.dir *= -1;
+  else { ui.guestSort.col = col; ui.guestSort.dir = 1; }
+  renderGuests();
+};
+
 function renderGuests() {
-  el.guestsTable.innerHTML = "";
-
   const confirmed = state.guests.filter(g => g.confirmed).length;
-  el.guestConfirmedCount.textContent = String(confirmed);
-
-  if (state.guestLimit > 0) {
-    el.guestRemaining.textContent = String(Math.max(state.guestLimit - confirmed, 0));
-  } else {
-    el.guestRemaining.textContent = "—";
+  if (el.guestConfirmedCount) el.guestConfirmedCount.textContent = String(confirmed);
+  if (el.msGuestLimit) el.msGuestLimit.textContent = state.guestLimit > 0 ? String(state.guestLimit) : "—";
+  if (el.guestRemaining) {
+    el.guestRemaining.textContent = state.guestLimit > 0
+      ? String(Math.max(state.guestLimit - confirmed, 0)) : "—";
   }
 
-  state.guests.forEach((g, i) => {
-    const badgeClass =
-      g.tag === "Família" ? "blue" :
-      g.tag === "Acompanhante" ? "cyan" : "gray";
+  drawGuestChart();
 
-    el.guestsTable.insertAdjacentHTML("beforeend", `
-      <tr>
-        <td>${escapeHtml(g.name)}</td>
-        <td><span class="badge ${badgeClass}">${escapeHtml(g.tag)}</span></td>
-        <td class="center"><input type="checkbox" ${g.confirmed ? "checked" : ""} onchange="toggleGuest(${i})"></td>
-        <td><button title="Remover" onclick="removeGuest(${i})">🗑</button></td>
-      </tr>
-    `);
+  if (!el.guestsTable) return;
+  const q = (el.guestSearch?.value || "").toLowerCase().trim();
+  let rows = state.guests.map((g, i) => ({ ...g, idx: i }));
+  if (ui.guestFilter !== "all") rows = rows.filter(r => r.tag === ui.guestFilter);
+  if (q) rows = rows.filter(r => (r.name || "").toLowerCase().includes(q));
+  if (ui.guestSort.col === "name") {
+    const d = ui.guestSort.dir;
+    rows.sort((a, b) => String(a.name || "").localeCompare(String(b.name || "")) * d);
+  }
+  syncArrows("guestsSection", ui.guestSort);
+
+  if (rows.length === 0) {
+    el.guestsTable.innerHTML = `<tr><td colspan="4" class="tbl-empty">Nenhum convidado encontrado.</td></tr>`;
+    return;
+  }
+  el.guestsTable.innerHTML = rows.map(r => {
+    const badgeClass = r.tag === "Família" ? "blue" : r.tag === "Acompanhante" ? "cyan" : "gray";
+    return `
+    <tr>
+      <td><b>${escapeHtml(r.name)}</b></td>
+      <td><span class="badge ${badgeClass}">${escapeHtml(r.tag)}</span></td>
+      <td class="center"><input type="checkbox" ${r.confirmed ? "checked" : ""} onchange="toggleGuest(${r.idx})"></td>
+      <td class="center"><button class="row-del" title="Remover" onclick="removeGuest(${r.idx})">🗑</button></td>
+    </tr>`;
+  }).join("");
+}
+
+function drawGuestChart() {
+  const cv = document.getElementById("guestChart");
+  if (!cv || typeof Chart === "undefined") return;
+  const counts = { "Família": 0, "Amigo": 0, "Acompanhante": 0 };
+  state.guests.forEach(g => { if (counts[g.tag] != null) counts[g.tag]++; else counts[g.tag] = 1; });
+  const labels = Object.keys(counts);
+  const values = labels.map(l => counts[l]);
+  const has = values.some(v => v > 0);
+
+  if (guestChart) guestChart.destroy();
+  guestChart = new Chart(cv, {
+    type: "bar",
+    data: {
+      labels: has ? labels : ["Sem convidados"],
+      datasets: [{
+        data: has ? values : [0],
+        backgroundColor: ["#047857", "#10b981", "#6ee7b7"],
+        borderRadius: 8, barThickness: 46,
+      }]
+    },
+    options: {
+      plugins: { legend: { display: false } },
+      scales: {
+        y: { beginAtZero: true, ticks: { precision: 0, font: { family: "Inter" } }, grid: { color: "#eef2f0" } },
+        x: { grid: { display: false }, ticks: { font: { family: "Inter" } } }
+      }
+    }
+  });
+}
+
+/* atualiza setas de ordenação no cabeçalho */
+function syncArrows(sectionId, sortState) {
+  const sec = document.getElementById(sectionId);
+  if (!sec) return;
+  sec.querySelectorAll("th[data-c]").forEach(th => {
+    const isSorted = th.dataset.c === sortState.col;
+    th.classList.toggle("sorted", isSorted);
+    const arrow = th.querySelector(".arrow");
+    if (arrow) arrow.textContent = isSorted ? (sortState.dir === 1 ? "▴" : "▾") : "▾";
   });
 }
 
 /* NAV */
+window.toggleSidebar = (open) => {
+  const sb = document.getElementById("sidebar");
+  const ov = document.getElementById("sidebarOverlay");
+  if (!sb || !ov) return;
+  if (open) { sb.classList.add("open"); ov.classList.add("show"); }
+  else { sb.classList.remove("open"); ov.classList.remove("show"); }
+};
+
 window.showPage = (page) => {
   el.dashboardSection.classList.add("hidden");
   el.itemsSection.classList.add("hidden");
@@ -990,11 +1807,64 @@ window.showPage = (page) => {
   } else if (page === "finance") {
     el.financeSection.classList.remove("hidden");
     el.btnFinance.classList.add("active");
+    setTimeout(renderFinance, 30);
   } else if (page === "guests") {
     el.guestsSection.classList.remove("hidden");
     el.btnGuests.classList.add("active");
+    setTimeout(renderGuests, 30);
   }
+
+  /* fecha a sidebar no mobile ao navegar */
+  window.toggleSidebar(false);
 };
+
+/* TODOS (afazeres) */
+window.addTodo = () => {
+  const text = (el.todoInput.value || "").trim();
+  if (!text) { showToast("Escreva uma tarefa.", "error"); return; }
+  state.todos.push({ text, done: false });
+  el.todoInput.value = "";
+  showToast("Tarefa adicionada.");
+  save();
+};
+window.toggleTodo = (i) => {
+  if (state.todos[i]) { state.todos[i].done = !state.todos[i].done; save(); }
+};
+window.removeTodo = (i) => {
+  state.todos.splice(i, 1);
+  save();
+};
+function renderTodos() {
+  if (!el.todoList) return;
+  const pend = state.todos.filter(t => !t.done).length;
+  el.todoCount.textContent = String(pend);
+  if (state.todos.length === 0) {
+    el.todoList.innerHTML = `<li class="empty-msg">Nenhuma tarefa ainda. Adicione a primeira!</li>`;
+    return;
+  }
+  el.todoList.innerHTML = state.todos.map((t, i) => `
+    <li class="todo-item ${t.done ? "done" : ""}">
+      <input type="checkbox" ${t.done ? "checked" : ""} onclick="toggleTodo(${i})">
+      <span>${escapeHtml(t.text)}</span>
+      <button title="Remover" onclick="removeTodo(${i})">🗑</button>
+    </li>`).join("");
+}
+
+/* PENDÊNCIAS DOS ITENS (não pagos) */
+function renderPending() {
+  if (!el.pendingList) return;
+  const pend = state.items.filter(i => !i.paid);
+  el.pendingCount.textContent = String(pend.length);
+  if (pend.length === 0) {
+    el.pendingList.innerHTML = `<li class="empty-msg">Tudo em dia! Nenhum item pendente. 🎉</li>`;
+    return;
+  }
+  el.pendingList.innerHTML = pend.map(i => `
+    <li class="pending-item">
+      <span class="pi-name">${escapeHtml(i.name || "Item")}</span>
+      <span class="pi-val">${money(i.value)}</span>
+    </li>`).join("");
+}
 
 /* helpers */
 function escapeHtml(str) {
