@@ -174,18 +174,20 @@ main{margin-left:var(--sidebar-w);padding:0}
   background:var(--champagne);border:2px solid var(--surface);
 }
 .top-profile{
-  display:flex;align-items:center;gap:11px;
-  padding:6px 8px 6px 6px;border-radius:12px;cursor:pointer;
-  transition:background .18s;
+  display:flex;align-items:center;gap:12px;
+  padding:7px 14px 7px 8px;border-radius:14px;cursor:pointer;
+  background:var(--surface);border:1px solid var(--border);
+  transition:background .18s,box-shadow .18s;
 }
-.top-profile:hover{background:var(--surface)}
+.top-profile:hover{box-shadow:var(--shadow-soft)}
 .top-avatar{
-  width:38px;height:38px;border-radius:10px;flex-shrink:0;
+  width:40px;height:40px;border-radius:11px;flex-shrink:0;
   background:linear-gradient(135deg,var(--forest),var(--emerald));
-  display:grid;place-items:center;color:#fff;font-weight:600;font-size:14px;
+  display:grid;place-items:center;color:#fff;font-weight:600;font-size:15px;
 }
-.top-profile .pname{font-size:13.5px;font-weight:600;color:var(--charcoal);line-height:1.2;max-width:150px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
-.top-profile .prole{font-size:11.5px;color:var(--muted)}
+.top-profile-info{min-width:0}
+.top-profile .pname{font-size:14px;font-weight:600;color:var(--charcoal);line-height:1.25;max-width:200px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.top-profile .prole{font-size:12px;color:var(--muted);max-width:200px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
 
 /* ===== HEADER DE PÁGINA ===== */
 .page-head{display:flex;align-items:flex-start;justify-content:space-between;gap:26px;margin-bottom:30px;flex-wrap:wrap}
@@ -335,6 +337,44 @@ main{margin-left:var(--sidebar-w);padding:0}
 .sc-row-ico.gold{background:var(--gold-soft);color:#8a6d2f}
 .sc-row-ico.green{background:var(--emerald);color:#fff}
 .cfg-grid{display:grid;grid-template-columns:1fr 1fr 1fr;gap:0 28px}
+
+/* lembretes */
+.reminder-add{display:flex;align-items:center;gap:8px;flex-wrap:wrap;margin-bottom:16px}
+.reminder-add-label{font-size:13px;color:var(--muted);font-weight:500;margin-right:4px}
+.reminders-list{display:flex;flex-direction:column;gap:8px}
+.reminder-item{
+  display:flex;align-items:center;gap:12px;
+  padding:12px 14px;border-radius:12px;background:var(--bg);border:1px solid var(--border);
+}
+.reminder-item.fired{background:rgba(201,164,92,.1);border-color:var(--gold-soft)}
+.reminder-ico{width:34px;height:34px;border-radius:9px;background:var(--surface);border:1px solid var(--border);display:grid;place-items:center;color:var(--forest);flex-shrink:0}
+.reminder-ico svg{width:16px;height:16px}
+.reminder-info{flex:1;min-width:0}
+.reminder-info b{font-size:13.5px;color:var(--charcoal);display:block}
+.reminder-info small{font-size:11.5px;color:var(--muted)}
+.reminder-empty{font-size:13px;color:var(--muted);text-align:center;padding:14px}
+
+/* modal */
+.modal-overlay{
+  position:fixed;inset:0;z-index:1000;
+  background:rgba(1,46,39,.55);backdrop-filter:blur(4px);
+  display:flex;align-items:center;justify-content:center;padding:20px;
+  animation:fadeIn .2s ease;
+}
+.modal-overlay.hidden{display:none}
+.modal-card{
+  background:var(--surface);border-radius:24px;padding:38px 34px;
+  max-width:400px;width:100%;text-align:center;
+  box-shadow:0 40px 90px rgba(0,0,0,.35);border:1px solid var(--border);
+  animation:popIn .25s cubic-bezier(.2,.9,.3,1.2);
+}
+.modal-cap{display:grid;place-items:center;margin-bottom:14px}
+.modal-cap svg{width:64px;height:54px}
+.modal-eyebrow{font-size:11px;letter-spacing:2.5px;text-transform:uppercase;color:var(--champagne);font-weight:600;margin-bottom:10px}
+.modal-title{font-family:'Cormorant Garamond',serif;font-size:30px;font-weight:600;color:var(--charcoal);margin-bottom:8px}
+.modal-text{font-size:14px;color:var(--muted);line-height:1.6;margin:0 0 24px}
+@keyframes fadeIn{from{opacity:0}to{opacity:1}}
+@keyframes popIn{from{opacity:0;transform:scale(.92) translateY(10px)}to{opacity:1;transform:scale(1) translateY(0)}}
 @media (max-width:1100px){.dash-hero-row{grid-template-columns:1fr}.dash-bottom{grid-template-columns:1fr}.metric-strip{grid-template-columns:1fr 1fr}.cfg-grid{grid-template-columns:1fr}.ms-cell{border-right:none;border-bottom:1px solid #EFE7D6}.dash-hero-avatar{height:240px}}
 @media (max-width:640px){.dash-hero-avatar{display:none}.dash-hero{min-height:auto}}
 
@@ -705,9 +745,9 @@ main{margin-left:var(--sidebar-w);padding:0}
     <div class="top-bell"><span class="badge-dot"></span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><path d="M6 8a6 6 0 0 1 12 0c0 7 3 9 3 9H3s3-2 3-9"/><path d="M10.3 21a1.94 1.94 0 0 0 3.4 0"/></svg></div>
     <div class="top-profile">
       <div class="top-avatar" id="userInitial">F</div>
-      <div>
+      <div class="top-profile-info">
         <div class="pname" id="userEmail">Organizador</div>
-        <div class="prole">Organizador(a)</div>
+        <div class="prole" id="userRoleEmail">Organizador(a)</div>
       </div>
     </div>
   </div>
@@ -799,24 +839,41 @@ main{margin-left:var(--sidebar-w);padding:0}
       </div>
     </div>
 
+    <!-- LEMBRETES -->
+    <div class="section-card" style="margin-top:24px">
+      <div class="sc-head">
+        <div class="sc-title">Lembretes</div>
+        <span class="sc-pill" id="remindersCount">0 ativos</span>
+      </div>
+      <p class="page-sub" style="margin:-10px 0 16px">Receba um aviso quando faltar o tempo escolhido para a formatura.</p>
+      <div class="reminder-add">
+        <span class="reminder-add-label">Avisar quando faltar:</span>
+        <button class="chip" onclick="addReminder(7)">7 dias</button>
+        <button class="chip" onclick="addReminder(15)">15 dias</button>
+        <button class="chip" onclick="addReminder(30)">30 dias</button>
+        <button class="chip" style="border-style:dashed;color:var(--champagne)" onclick="addReminderCustom()">Personalizado</button>
+      </div>
+      <div id="remindersList" class="reminders-list"></div>
+    </div>
+
     <!-- CONFIGURAÇÕES RÁPIDAS -->
     <div class="section-card" style="margin-top:24px">
       <div class="sc-head"><div class="sc-title">Configurações rápidas</div></div>
       <div class="cfg-grid">
         <div class="cfg-row">
-          <div class="cfg-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><rect x="2" y="5" width="20" height="14" rx="2"/><path d="M2 10h20"/></svg></div>
-          <div class="cfg-info"><b>Orçamento definido</b><small id="budgetConfigHint">Não definido</small></div>
-          <button class="cfg-act" onclick="showPage('finance')">Editar <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="9 18 15 12 9 6"/></svg></button>
-        </div>
-        <div class="cfg-row">
-          <div class="cfg-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><path d="M2 9a3 3 0 0 1 0 6v2a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2v-2a3 3 0 0 1 0-6V7a2 2 0 0 0-2-2H4a2 2 0 0 0-2 2Z"/><path d="M13 5v14"/></svg></div>
-          <div class="cfg-info"><b>Senhas restantes</b><small id="guestConfigHint">Não definido</small></div>
-          <button class="cfg-act" onclick="showPage('guests')">Gerenciar <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="9 18 15 12 9 6"/></svg></button>
+          <div class="cfg-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg></div>
+          <div class="cfg-info"><b>Nome de exibição</b><small id="nameConfigHint">Não definido</small></div>
+          <button class="cfg-act" onclick="editDisplayName()">Alterar <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="9 18 15 12 9 6"/></svg></button>
         </div>
         <div class="cfg-row">
           <div class="cfg-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg></div>
           <div class="cfg-info"><b>Data da formatura</b><small>Usada na contagem regressiva</small></div>
           <input type="date" id="date" class="input" style="width:auto;padding:8px 12px">
+        </div>
+        <div class="cfg-row">
+          <div class="cfg-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><rect x="2" y="5" width="20" height="14" rx="2"/><path d="M2 10h20"/></svg></div>
+          <div class="cfg-info"><b>Orçamento definido</b><small id="budgetConfigHint">Não definido</small></div>
+          <button class="cfg-act" onclick="showPage('finance')">Editar <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="9 18 15 12 9 6"/></svg></button>
         </div>
       </div>
     </div>
@@ -1134,6 +1191,19 @@ main{margin-left:var(--sidebar-w);padding:0}
 </main>
 
 <div id="toast" class="toast"></div>
+
+<!-- MODAL DE LEMBRETE -->
+<div id="reminderModal" class="modal-overlay hidden" onclick="if(event.target===this)closeReminderModal()">
+  <div class="modal-card">
+    <div class="modal-cap" aria-hidden="true">
+      <svg width="64" height="54" viewBox="0 0 52 44" fill="none"><path d="M26 6 L48 16 L26 26 L4 16 Z" fill="#C9A45C"/><path d="M11 20 L11 30 C11 34 18 37 26 37 C34 37 41 34 41 30 L41 20 L26 26 Z" fill="#C9A45C"/></svg>
+    </div>
+    <div class="modal-eyebrow">Contagem regressiva</div>
+    <h2 class="modal-title" id="reminderModalTitle">Falta pouco!</h2>
+    <p class="modal-text" id="reminderModalText">Sua formatura está chegando.</p>
+    <button class="btn btn-primary btn-block" onclick="closeReminderModal()">Entendi, vamos lá!</button>
+  </div>
+</div>
 <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.1/dist/chart.umd.min.js"></script>
 <script type="module">
 import { initializeApp } from "https://www.gstatic.com/firebasejs/12.8.0/firebase-app.js";
@@ -1237,6 +1307,8 @@ const money = (v) => {
 const defaults = {
   budget: 0,
   date: "",
+  displayName: "",
+  reminders: [],
   items: [],
   finances: [],
   guests: [],
@@ -1317,6 +1389,13 @@ function normalizeState(raw) {
     ? merged.supplierCats.map(String)
     : ["Lembranças", "Drinks", "Gravação", "Decoração"];
 
+  merged.displayName = String(merged.displayName ?? "");
+  merged.reminders = Array.isArray(merged.reminders) ? merged.reminders.map(r => ({
+    days: Number(r?.days) || 0,
+    label: String(r?.label ?? ""),
+    notified: Boolean(r?.notified),
+  })) : [];
+
   return merged;
 }
 
@@ -1329,16 +1408,27 @@ onAuthStateChanged(auth, async (user) => {
 
   state = normalizeState(snap.exists() ? snap.data() : defaults);
 
-  const em = user.email || "Organizador";
-  const ue = document.getElementById("userEmail");
-  const ui_ = document.getElementById("userInitial");
-  if (ue) ue.textContent = em;
-  if (ui_) ui_.textContent = (em[0] || "F").toUpperCase();
+  currentEmail = user.email || "";
+  refreshHeader();
 
   el.app.classList.remove("hidden");
   renderAll();
   window.showPage("dashboard");
+  setTimeout(checkReminders, 800);
 });
+
+let currentEmail = "";
+function refreshHeader() {
+  const ue = document.getElementById("userEmail");
+  const re = document.getElementById("userRoleEmail");
+  const ui_ = document.getElementById("userInitial");
+  const nome = (state.displayName || "").trim();
+  const principal = nome || currentEmail || "Organizador";
+  if (ue) ue.textContent = principal;
+  // se há nome, mostra o e-mail embaixo; senão, mostra o papel
+  if (re) re.textContent = nome ? currentEmail : "Organizador(a)";
+  if (ui_) ui_.textContent = (principal[0] || "F").toUpperCase();
+}
 
 /* LOGIN */
 function showLogin() {
@@ -1420,7 +1510,8 @@ function setGreeting() {
     let s = "Boa noite";
     if (h >= 5 && h < 12) s = "Bom dia";
     else if (h >= 12 && h < 18) s = "Boa tarde";
-    el.greetingText.textContent = s + ".";
+    const nome = (state.displayName || "").trim();
+    el.greetingText.textContent = nome ? `${s}, ${nome}.` : `${s}.`;
   }
   // eyebrow com a data da formatura
   const hd = document.getElementById("heroDate");
@@ -1494,13 +1585,15 @@ function renderAll() {
   document.documentElement.style.setProperty("--percent", pct + "deg");
   el.budgetPercent.textContent = state.budget > 0 ? Math.round((spent / state.budget) * 100) + "%" : "0%";
 
-  el.budgetConfigHint.textContent = state.budget > 0 ? money(state.budget) : "Não definido";
+  if (el.budgetConfigHint) el.budgetConfigHint.textContent = state.budget > 0 ? money(state.budget) : "Não definido";
   const confirmedGuests = state.guests.filter(g => g.confirmed).length;
-  if (state.guestLimit > 0) {
-    el.guestConfigHint.textContent = `${Math.max(state.guestLimit - confirmedGuests, 0)} restantes`;
-  } else {
-    el.guestConfigHint.textContent = "Não definido";
+  if (el.guestConfigHint) {
+    el.guestConfigHint.textContent = state.guestLimit > 0
+      ? `${Math.max(state.guestLimit - confirmedGuests, 0)} restantes`
+      : "Não definido";
   }
+  const nch = document.getElementById("nameConfigHint");
+  if (nch) nch.textContent = state.displayName ? state.displayName : "Não definido";
 
   /* resumo de convidados no dashboard */
   const dGl = document.getElementById("dashGuestLimit");
@@ -1555,6 +1648,7 @@ function renderAll() {
   renderFinance();
   renderGuests();
   renderSuppliers();
+  renderReminders();
 }
 
 /* ACTIONS: budget/date */
@@ -2021,6 +2115,113 @@ window.setItemsTab = (tab) => {
 window.goToSuppliers = () => {
   window.showPage("items");
   window.setItemsTab("suppliers");
+};
+
+window.editDisplayName = () => {
+  const atual = state.displayName || "";
+  const novo = prompt("Como você quer ser chamado(a)?", atual);
+  if (novo === null) return;
+  state.displayName = novo.trim();
+  refreshHeader();
+  setGreeting();
+  const nch = document.getElementById("nameConfigHint");
+  if (nch) nch.textContent = state.displayName ? state.displayName : "Não definido";
+  showToast(state.displayName ? "Nome atualizado." : "Nome removido.");
+  save();
+};
+
+/* ===== LEMBRETES ===== */
+window.addReminder = (days) => {
+  if (!state.date) { showToast("Defina a data da formatura primeiro.", "error"); return; }
+  if (state.reminders.some(r => r.days === days)) { showToast("Esse lembrete já existe.", "error"); return; }
+  state.reminders.push({ days, label: `${days} dias antes`, notified: false });
+  state.reminders.sort((a, b) => b.days - a.days);
+  showToast("Lembrete adicionado.");
+  save();
+};
+window.addReminderCustom = () => {
+  if (!state.date) { showToast("Defina a data da formatura primeiro.", "error"); return; }
+  const v = prompt("Avisar quando faltar quantos dias?");
+  if (v === null) return;
+  const days = parseInt(v, 10);
+  if (!days || days <= 0) { showToast("Informe um número de dias válido.", "error"); return; }
+  if (state.reminders.some(r => r.days === days)) { showToast("Esse lembrete já existe.", "error"); return; }
+  state.reminders.push({ days, label: `${days} dias antes`, notified: false });
+  state.reminders.sort((a, b) => b.days - a.days);
+  showToast("Lembrete adicionado.");
+  save();
+};
+window.removeReminder = (i) => {
+  if (!state.reminders[i]) return;
+  state.reminders.splice(i, 1);
+  showToast("Lembrete removido.");
+  save();
+};
+
+function daysUntilGraduation() {
+  if (!state.date) return null;
+  const now = new Date(); now.setHours(0, 0, 0, 0);
+  const target = new Date(state.date + "T00:00:00");
+  return Math.ceil((target - now) / 86400000);
+}
+
+function renderReminders() {
+  const list = document.getElementById("remindersList");
+  const count = document.getElementById("remindersCount");
+  if (count) count.textContent = `${state.reminders.length} ${state.reminders.length === 1 ? "ativo" : "ativos"}`;
+  if (!list) return;
+  if (state.reminders.length === 0) {
+    list.innerHTML = `<div class="reminder-empty">Nenhum lembrete ainda. Escolha um aviso acima.</div>`;
+    return;
+  }
+  const left = daysUntilGraduation();
+  list.innerHTML = state.reminders.map((r, i) => {
+    const reached = left !== null && left <= r.days;
+    return `
+    <div class="reminder-item ${reached ? "fired" : ""}">
+      <div class="reminder-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><path d="M6 8a6 6 0 0 1 12 0c0 7 3 9 3 9H3s3-2 3-9"/><path d="M10.3 21a1.94 1.94 0 0 0 3.4 0"/></svg></div>
+      <div class="reminder-info"><b>Faltando ${r.days} dias</b><small>${reached ? "✓ Já alcançado" : (left !== null ? `faltam ${left} dias hoje` : "defina a data")}</small></div>
+      <button class="icon-btn" title="Remover" onclick="removeReminder(${i})"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><path d="M3 6h18"/><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"/></svg></button>
+    </div>`;
+  }).join("");
+}
+
+function checkReminders() {
+  const left = daysUntilGraduation();
+  if (left === null) return;
+  // encontra o lembrete já alcançado, ainda não notificado, mais próximo do prazo
+  let toFire = null;
+  state.reminders.forEach(r => {
+    if (left <= r.days && !r.notified) {
+      if (!toFire || r.days < toFire.days) toFire = r;
+    }
+  });
+  if (toFire) {
+    state.reminders.forEach(r => { if (left <= r.days) r.notified = true; });
+    showReminderModal(left);
+    save();
+  }
+}
+
+function showReminderModal(left) {
+  const modal = document.getElementById("reminderModal");
+  const title = document.getElementById("reminderModalTitle");
+  const text = document.getElementById("reminderModalText");
+  const nome = (state.displayName || "").trim();
+  if (title) {
+    if (left <= 0) title.textContent = nome ? `Chegou o grande dia, ${nome}! 🎓` : "Chegou o grande dia! 🎓";
+    else title.textContent = `Faltam ${left} ${left === 1 ? "dia" : "dias"}!`;
+  }
+  if (text) {
+    text.textContent = left <= 0
+      ? "Hoje é a sua formatura. Aproveite cada instante dessa conquista!"
+      : `Sua formatura está chegando. Confira se está tudo organizado para o grande dia.`;
+  }
+  if (modal) modal.classList.remove("hidden");
+}
+window.closeReminderModal = () => {
+  const modal = document.getElementById("reminderModal");
+  if (modal) modal.classList.add("hidden");
 };
 
 /* ===== FORNECEDORES ===== */
