@@ -265,7 +265,7 @@ main{margin-left:var(--sidebar-w);padding:0}
   content:"";position:absolute;right:-40px;top:-40px;width:200px;height:200px;
   border-radius:50%;background:radial-gradient(circle,rgba(201,164,92,.18),transparent 70%);
 }
-.dash-hero-content{position:relative;z-index:2;align-self:center}
+.dash-hero-content{position:relative;z-index:2;align-self:center;padding:8px 0}
 .dash-hero-avatar{
   position:relative;z-index:1;align-self:flex-end;
   height:330px;width:auto;margin:-34px -10px -34px 0;
@@ -339,7 +339,10 @@ main{margin-left:var(--sidebar-w);padding:0}
 .cfg-grid{display:grid;grid-template-columns:1fr 1fr 1fr;gap:0 28px}
 
 /* lembretes */
-.reminder-add{display:flex;align-items:center;gap:8px;flex-wrap:wrap;margin-bottom:16px}
+.reminder-form{display:flex;align-items:center;gap:10px;flex-wrap:wrap;margin-bottom:18px}
+.reminder-form .input{width:auto}
+.reminder-form #remName{flex:1;min-width:160px}
+.reminder-antec{display:inline-flex;align-items:center;gap:8px;font-size:13px;color:var(--muted);background:var(--bg);border:1px solid var(--border);border-radius:12px;padding:0 12px;height:44px}
 .reminder-add-label{font-size:13px;color:var(--muted);font-weight:500;margin-right:4px}
 .reminders-list{display:flex;flex-direction:column;gap:8px}
 .reminder-item{
@@ -347,6 +350,7 @@ main{margin-left:var(--sidebar-w);padding:0}
   padding:12px 14px;border-radius:12px;background:var(--bg);border:1px solid var(--border);
 }
 .reminder-item.fired{background:rgba(201,164,92,.1);border-color:var(--gold-soft)}
+.reminder-item.past{opacity:.6}
 .reminder-ico{width:34px;height:34px;border-radius:9px;background:var(--surface);border:1px solid var(--border);display:grid;place-items:center;color:var(--forest);flex-shrink:0}
 .reminder-ico svg{width:16px;height:16px}
 .reminder-info{flex:1;min-width:0}
@@ -372,7 +376,7 @@ main{margin-left:var(--sidebar-w);padding:0}
 .modal-cap svg{width:64px;height:54px}
 .modal-eyebrow{font-size:11px;letter-spacing:2.5px;text-transform:uppercase;color:var(--champagne);font-weight:600;margin-bottom:10px}
 .modal-title{font-family:'Cormorant Garamond',serif;font-size:30px;font-weight:600;color:var(--charcoal);margin-bottom:8px}
-.modal-text{font-size:14px;color:var(--muted);line-height:1.6;margin:0 0 24px}
+.modal-text{font-size:14px;color:var(--muted);line-height:1.6;margin:0 0 24px;white-space:pre-line}
 @keyframes fadeIn{from{opacity:0}to{opacity:1}}
 @keyframes popIn{from{opacity:0;transform:scale(.92) translateY(10px)}to{opacity:1;transform:scale(1) translateY(0)}}
 @media (max-width:1100px){.dash-hero-row{grid-template-columns:1fr}.dash-bottom{grid-template-columns:1fr}.metric-strip{grid-template-columns:1fr 1fr}.cfg-grid{grid-template-columns:1fr}.ms-cell{border-right:none;border-bottom:1px solid #EFE7D6}.dash-hero-avatar{height:240px}}
@@ -839,19 +843,25 @@ main{margin-left:var(--sidebar-w);padding:0}
       </div>
     </div>
 
-    <!-- LEMBRETES -->
+    <!-- LEMBRETES / COMPROMISSOS -->
     <div class="section-card" style="margin-top:24px">
       <div class="sc-head">
         <div class="sc-title">Lembretes</div>
         <span class="sc-pill" id="remindersCount">0 ativos</span>
       </div>
-      <p class="page-sub" style="margin:-10px 0 16px">Receba um aviso quando faltar o tempo escolhido para a formatura.</p>
-      <div class="reminder-add">
-        <span class="reminder-add-label">Avisar quando faltar:</span>
-        <button class="chip" onclick="addReminder(7)">7 dias</button>
-        <button class="chip" onclick="addReminder(15)">15 dias</button>
-        <button class="chip" onclick="addReminder(30)">30 dias</button>
-        <button class="chip" style="border-style:dashed;color:var(--champagne)" onclick="addReminderCustom()">Personalizado</button>
+      <p class="page-sub" style="margin:-10px 0 16px">Cadastre compromissos da formatura e receba um aviso antes de cada um.</p>
+      <div class="reminder-form">
+        <input class="input" id="remName" placeholder="Ex.: Provar o vestido">
+        <input class="input" id="remDate" type="date">
+        <div class="reminder-antec">
+          <span>Avisar</span>
+          <input class="input" id="remDays" type="number" min="1" placeholder="7" style="width:64px">
+          <span>dias antes</span>
+        </div>
+        <button class="btn btn-primary" onclick="addReminder()">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+          Adicionar
+        </button>
       </div>
       <div id="remindersList" class="reminders-list"></div>
     </div>
@@ -1320,6 +1330,8 @@ const defaults = {
 
 let state = { ...defaults };
 let userRef = null;
+let currentEmail = "";
+let editingSupplier = -1;
 
 /* estado de UI: filtros, busca, ordenação */
 const ui = {
@@ -1391,10 +1403,11 @@ function normalizeState(raw) {
 
   merged.displayName = String(merged.displayName ?? "");
   merged.reminders = Array.isArray(merged.reminders) ? merged.reminders.map(r => ({
-    days: Number(r?.days) || 0,
-    label: String(r?.label ?? ""),
+    name: String(r?.name ?? ""),
+    date: String(r?.date ?? ""),
+    daysBefore: Number(r?.daysBefore) || 0,
     notified: Boolean(r?.notified),
-  })) : [];
+  })).filter(r => r.name && r.date) : [];
 
   return merged;
 }
@@ -1417,7 +1430,6 @@ onAuthStateChanged(auth, async (user) => {
   setTimeout(checkReminders, 800);
 });
 
-let currentEmail = "";
 function refreshHeader() {
   const ue = document.getElementById("userEmail");
   const re = document.getElementById("userRoleEmail");
@@ -2130,27 +2142,25 @@ window.editDisplayName = () => {
   save();
 };
 
-/* ===== LEMBRETES ===== */
-window.addReminder = (days) => {
-  if (!state.date) { showToast("Defina a data da formatura primeiro.", "error"); return; }
-  if (state.reminders.some(r => r.days === days)) { showToast("Esse lembrete já existe.", "error"); return; }
-  state.reminders.push({ days, label: `${days} dias antes`, notified: false });
-  state.reminders.sort((a, b) => b.days - a.days);
+/* ===== LEMBRETES / COMPROMISSOS ===== */
+window.addReminder = () => {
+  const name = (document.getElementById("remName").value || "").trim();
+  const date = document.getElementById("remDate").value;
+  const daysBefore = parseInt(document.getElementById("remDays").value, 10) || 0;
+  if (!name) { showToast("Dê um nome ao compromisso.", "error"); return; }
+  if (!date) { showToast("Escolha a data do compromisso.", "error"); return; }
+  if (daysBefore <= 0) { showToast("Informe quantos dias antes avisar.", "error"); return; }
+
+  state.reminders.push({ name, date, daysBefore, notified: false });
+  state.reminders.sort((a, b) => new Date(a.date) - new Date(b.date));
+
+  document.getElementById("remName").value = "";
+  document.getElementById("remDate").value = "";
+  document.getElementById("remDays").value = "";
   showToast("Lembrete adicionado.");
   save();
 };
-window.addReminderCustom = () => {
-  if (!state.date) { showToast("Defina a data da formatura primeiro.", "error"); return; }
-  const v = prompt("Avisar quando faltar quantos dias?");
-  if (v === null) return;
-  const days = parseInt(v, 10);
-  if (!days || days <= 0) { showToast("Informe um número de dias válido.", "error"); return; }
-  if (state.reminders.some(r => r.days === days)) { showToast("Esse lembrete já existe.", "error"); return; }
-  state.reminders.push({ days, label: `${days} dias antes`, notified: false });
-  state.reminders.sort((a, b) => b.days - a.days);
-  showToast("Lembrete adicionado.");
-  save();
-};
+
 window.removeReminder = (i) => {
   if (!state.reminders[i]) return;
   state.reminders.splice(i, 1);
@@ -2158,11 +2168,17 @@ window.removeReminder = (i) => {
   save();
 };
 
-function daysUntilGraduation() {
-  if (!state.date) return null;
+function daysUntil(dateStr) {
+  if (!dateStr) return null;
   const now = new Date(); now.setHours(0, 0, 0, 0);
-  const target = new Date(state.date + "T00:00:00");
+  const target = new Date(dateStr + "T00:00:00");
   return Math.ceil((target - now) / 86400000);
+}
+
+function fmtDate(dateStr) {
+  if (!dateStr) return "";
+  const d = new Date(dateStr + "T00:00:00");
+  return d.toLocaleDateString("pt-BR", { day: "2-digit", month: "2-digit", year: "numeric" });
 }
 
 function renderReminders() {
@@ -2171,54 +2187,69 @@ function renderReminders() {
   if (count) count.textContent = `${state.reminders.length} ${state.reminders.length === 1 ? "ativo" : "ativos"}`;
   if (!list) return;
   if (state.reminders.length === 0) {
-    list.innerHTML = `<div class="reminder-empty">Nenhum lembrete ainda. Escolha um aviso acima.</div>`;
+    list.innerHTML = `<div class="reminder-empty">Nenhum compromisso ainda. Cadastre um acima.</div>`;
     return;
   }
-  const left = daysUntilGraduation();
   list.innerHTML = state.reminders.map((r, i) => {
-    const reached = left !== null && left <= r.days;
+    const left = daysUntil(r.date);
+    let statusTxt, cls = "";
+    if (left === null) { statusTxt = ""; }
+    else if (left < 0) { statusTxt = "Já passou"; cls = "past"; }
+    else if (left === 0) { statusTxt = "É hoje!"; cls = "fired"; }
+    else {
+      statusTxt = `faltam ${left} ${left === 1 ? "dia" : "dias"}`;
+      if (left <= r.daysBefore) cls = "fired";
+    }
     return `
-    <div class="reminder-item ${reached ? "fired" : ""}">
-      <div class="reminder-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><path d="M6 8a6 6 0 0 1 12 0c0 7 3 9 3 9H3s3-2 3-9"/><path d="M10.3 21a1.94 1.94 0 0 0 3.4 0"/></svg></div>
-      <div class="reminder-info"><b>Faltando ${r.days} dias</b><small>${reached ? "✓ Já alcançado" : (left !== null ? `faltam ${left} dias hoje` : "defina a data")}</small></div>
+    <div class="reminder-item ${cls}">
+      <div class="reminder-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg></div>
+      <div class="reminder-info">
+        <b>${escapeHtml(r.name)}</b>
+        <small>${fmtDate(r.date)} · avisar ${r.daysBefore} ${r.daysBefore === 1 ? "dia" : "dias"} antes${statusTxt ? " · " + statusTxt : ""}</small>
+      </div>
       <button class="icon-btn" title="Remover" onclick="removeReminder(${i})"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><path d="M3 6h18"/><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"/></svg></button>
     </div>`;
   }).join("");
 }
 
 function checkReminders() {
-  const left = daysUntilGraduation();
-  if (left === null) return;
-  // encontra o lembrete já alcançado, ainda não notificado, mais próximo do prazo
-  let toFire = null;
-  state.reminders.forEach(r => {
-    if (left <= r.days && !r.notified) {
-      if (!toFire || r.days < toFire.days) toFire = r;
+  let pending = [];
+  state.reminders.forEach((r, i) => {
+    const left = daysUntil(r.date);
+    if (left === null) return;
+    // dispara quando entrou na janela de aviso (left <= daysBefore) e ainda não passou muito
+    if (left <= r.daysBefore && left >= 0 && !r.notified) {
+      pending.push({ r, left, i });
     }
   });
-  if (toFire) {
-    state.reminders.forEach(r => { if (left <= r.days) r.notified = true; });
-    showReminderModal(left);
-    save();
-  }
+  if (pending.length === 0) return;
+  // marca todos como notificados e mostra o modal (o mais próximo primeiro)
+  pending.sort((a, b) => a.left - b.left);
+  pending.forEach(p => { state.reminders[p.i].notified = true; });
+  showReminderModal(pending.map(p => p.r), pending);
+  save();
 }
 
-function showReminderModal(left) {
+function showReminderModal(reminders, pending) {
   const modal = document.getElementById("reminderModal");
   const title = document.getElementById("reminderModalTitle");
   const text = document.getElementById("reminderModalText");
   const nome = (state.displayName || "").trim();
-  if (title) {
-    if (left <= 0) title.textContent = nome ? `Chegou o grande dia, ${nome}! 🎓` : "Chegou o grande dia! 🎓";
-    else title.textContent = `Faltam ${left} ${left === 1 ? "dia" : "dias"}!`;
-  }
-  if (text) {
-    text.textContent = left <= 0
-      ? "Hoje é a sua formatura. Aproveite cada instante dessa conquista!"
-      : `Sua formatura está chegando. Confira se está tudo organizado para o grande dia.`;
+
+  if (pending.length === 1) {
+    const { r, left } = pending[0];
+    if (title) title.textContent = left === 0 ? `${r.name} é hoje!` : `${r.name}`;
+    if (text) text.textContent = left === 0
+      ? `Hoje é o dia de "${r.name}". Não esqueça!`
+      : `Faltam ${left} ${left === 1 ? "dia" : "dias"} para "${r.name}" (${fmtDate(r.date)}). Prepare-se!`;
+  } else {
+    if (title) title.textContent = nome ? `${nome}, você tem compromissos chegando!` : "Compromissos chegando!";
+    const linhas = pending.map(p => `• ${p.r.name} — ${p.left === 0 ? "hoje" : "faltam " + p.left + (p.left === 1 ? " dia" : " dias")}`).join("\n");
+    if (text) text.textContent = linhas;
   }
   if (modal) modal.classList.remove("hidden");
 }
+
 window.closeReminderModal = () => {
   const modal = document.getElementById("reminderModal");
   if (modal) modal.classList.add("hidden");
@@ -2353,7 +2384,6 @@ window.addSupplier = () => {
 
 window.removeSupplier = (i) => { state.suppliers.splice(i, 1); save(); };
 
-let editingSupplier = -1;
 window.editSupplier = (i) => {
   const s = state.suppliers[i];
   if (!s) return;
