@@ -251,6 +251,83 @@ main{margin-left:var(--sidebar-w);padding:0}
 .dash-grid.bottom{margin-bottom:0}
 
 /* ===== BUDGET DONUT ===== */
+/* ===== DASHBOARD RADICAL ===== */
+.dash-hero-row{display:grid;grid-template-columns:1.5fr 1fr;gap:22px;margin-bottom:24px}
+.dash-hero{
+  background:linear-gradient(135deg,var(--forest) 0%,var(--deep) 100%);
+  border-radius:24px;padding:34px 36px;position:relative;overflow:hidden;
+}
+.dash-hero::before{
+  content:"";position:absolute;right:-40px;top:-40px;width:200px;height:200px;
+  border-radius:50%;background:radial-gradient(circle,rgba(201,164,92,.18),transparent 70%);
+}
+.dash-hero-cap{position:absolute;right:30px;bottom:24px;opacity:.13}
+.dash-hero-cap svg{width:120px;height:100px;max-width:none;max-height:none}
+.dash-hero-eyebrow{font-size:11px;letter-spacing:2.5px;text-transform:uppercase;color:var(--champagne);font-weight:600;margin-bottom:14px;position:relative}
+.dash-hero-title{font-family:'Cormorant Garamond',serif;font-size:34px;font-weight:600;color:#fff;line-height:1.1;margin-bottom:8px;position:relative}
+.dash-hero-sub{font-size:13.5px;color:rgba(255,255,255,.7);max-width:360px;line-height:1.6;margin:0 0 24px;position:relative}
+.dash-hero-clock{
+  display:inline-flex;gap:20px;align-items:flex-end;position:relative;
+  padding:18px 26px;border-radius:16px;
+  border:1px solid rgba(201,164,92,.35);background:rgba(255,255,255,.03);
+}
+.hc-unit{text-align:center}
+.hc-num{font-family:'Cormorant Garamond',serif;font-weight:600;color:#fff;line-height:1;font-variant-numeric:lining-nums tabular-nums;font-size:30px}
+.hc-unit:first-child .hc-num{font-size:42px}
+.hc-den{font-size:9px;letter-spacing:1.5px;text-transform:uppercase;color:rgba(255,255,255,.55);margin-top:4px}
+.hc-sep{color:rgba(201,164,92,.5);font-family:'Cormorant Garamond',serif;font-size:26px;align-self:center;margin-bottom:14px}
+
+.dash-progress{display:flex;flex-direction:column;justify-content:center}
+.dp-label{font-size:11px;letter-spacing:1.5px;text-transform:uppercase;color:var(--muted);font-weight:600;margin-bottom:18px}
+.dp-body{display:flex;align-items:center;gap:20px}
+.dp-ring{width:96px;height:96px;border-radius:50%;display:grid;place-items:center;flex-shrink:0;
+  background:conic-gradient(var(--champagne) 0deg, var(--champagne) var(--progress,0deg), #EFE7D6 var(--progress,0deg));}
+.dp-hole{width:70px;height:70px;border-radius:50%;background:var(--surface);display:grid;place-items:center}
+.dp-pct{font-family:'Cormorant Garamond',serif;font-size:24px;font-weight:600;color:var(--charcoal);font-variant-numeric:lining-nums}
+.dp-legend{flex:1;font-size:12px}
+.dp-row{display:flex;align-items:center;gap:8px;margin-bottom:9px;color:var(--muted)}
+.dp-row:last-child{margin-bottom:0}
+.dp-dot{width:7px;height:7px;border-radius:50%;flex-shrink:0}
+.dp-dot.a{background:var(--emerald)}.dp-dot.b{background:var(--champagne)}.dp-dot.c{background:var(--border)}
+
+.metric-strip{
+  background:var(--surface);border:1px solid var(--border);border-radius:20px;
+  padding:6px;display:grid;grid-template-columns:repeat(4,1fr);margin-bottom:24px;
+}
+.ms-cell{padding:20px 24px;border-right:1px solid #EFE7D6}
+.ms-cell:last-child{border-right:none}
+.ms-top{display:flex;align-items:center;gap:9px;margin-bottom:8px}
+.ms-top svg{width:16px;height:16px;stroke-width:1.7;color:var(--forest)}
+.ms-top span{font-size:10px;letter-spacing:1px;text-transform:uppercase;color:var(--muted);font-weight:600}
+.ms-value{font-family:'Cormorant Garamond',serif;font-size:30px;font-weight:600;color:var(--charcoal);line-height:1;font-variant-numeric:lining-nums}
+.ms-foot{font-size:11px;color:var(--muted);margin-top:3px}
+
+.dash-bottom{display:grid;grid-template-columns:1.3fr 1fr 1fr;gap:20px;align-items:start}
+.guest-blocks{display:flex;gap:10px;margin-bottom:14px}
+.gb{flex:1;text-align:center;background:var(--bg);border-radius:12px;padding:12px 6px}
+.gb.green{background:rgba(15,122,90,.1)}
+.gb.gold{background:var(--gold-soft)}
+.gb-num{font-family:'Cormorant Garamond',serif;font-size:24px;font-weight:600;color:var(--charcoal);font-variant-numeric:lining-nums;line-height:1}
+.gb.green .gb-num{color:var(--emerald)}
+.gb.gold .gb-num{color:#8a6d2f}
+.gb-lbl{font-size:9px;letter-spacing:.5px;text-transform:uppercase;color:var(--muted);font-weight:600;margin-top:4px}
+.gb.green .gb-lbl{color:var(--emerald)}
+.gb.gold .gb-lbl{color:#8a6d2f}
+.shortcuts .sc-row{
+  display:flex;align-items:center;gap:12px;width:100%;text-align:left;
+  padding:11px 0;border:none;border-bottom:1px solid #EFE7D6;background:none;cursor:pointer;
+  font-family:inherit;font-size:13.5px;font-weight:500;color:var(--charcoal);transition:padding .15s ease;
+}
+.shortcuts .sc-row:last-child{border-bottom:none}
+.shortcuts .sc-row:hover{padding-left:4px}
+.sc-row-ico{width:34px;height:34px;border-radius:9px;display:grid;place-items:center;flex-shrink:0}
+.sc-row-ico svg{width:15px;height:15px;stroke-width:1.8}
+.sc-row-ico.dark{background:var(--forest);color:#fff}
+.sc-row-ico.gold{background:var(--gold-soft);color:#8a6d2f}
+.sc-row-ico.green{background:var(--emerald);color:#fff}
+.cfg-grid{display:grid;grid-template-columns:1fr 1fr 1fr;gap:0 28px}
+@media (max-width:1100px){.dash-hero-row{grid-template-columns:1fr}.dash-bottom{grid-template-columns:1fr}.metric-strip{grid-template-columns:1fr 1fr}.cfg-grid{grid-template-columns:1fr}.ms-cell{border-right:none;border-bottom:1px solid #EFE7D6}}
+
 .budget-wrap{display:flex;align-items:center;gap:26px;flex-wrap:wrap}
 .donut{
   width:150px;height:150px;border-radius:50%;flex-shrink:0;
@@ -337,6 +414,7 @@ main{margin-left:var(--sidebar-w);padding:0}
 .icon-btn{background:none;border:none;cursor:pointer;color:var(--muted);padding:4px;display:grid;place-items:center;border-radius:8px;transition:all .15s}
 .icon-btn:hover{color:var(--danger);background:var(--danger-soft)}
 .icon-btn svg{width:16px;height:16px;stroke-width:1.6}
+.icon-btn.edit:hover{color:var(--emerald);background:rgba(15,122,90,.1)}
 
 /* progress bar (convidados resumo) */
 .progress{height:7px;border-radius:999px;background:var(--gold-soft);overflow:hidden;margin-top:4px}
@@ -430,8 +508,8 @@ main{margin-left:var(--sidebar-w);padding:0}
 .badge.gray{background:var(--bg);color:var(--muted)}
 
 /* ===== EMPTY STATES ===== */
-.empty{display:flex;flex-direction:column;align-items:center;text-align:center;padding:44px 20px}
-.empty-art{margin-bottom:18px}
+.empty{display:flex;flex-direction:column;align-items:center;text-align:center;padding:30px 20px}
+.empty-art{margin-bottom:14px}
 .empty-title{font-family:'Cormorant Garamond',serif;font-size:24px;font-weight:600;color:var(--charcoal);margin-bottom:6px}
 .empty-sub{font-size:13.5px;color:var(--muted);max-width:340px;line-height:1.6;margin-bottom:20px}
 .empty-mini{display:flex;flex-direction:column;align-items:center;text-align:center;padding:30px 16px;color:var(--muted)}
@@ -452,6 +530,25 @@ main{margin-left:var(--sidebar-w);padding:0}
 .stack{display:flex;flex-direction:column;gap:24px}
 
 .foot-note{text-align:center;color:var(--muted);font-size:12.5px;padding:28px 0 4px}
+
+/* sub-abas (Itens / Fornecedores) */
+.subtabs{
+  display:inline-flex;gap:4px;background:#EFE9DC;
+  padding:4px;border-radius:12px;margin-bottom:22px;
+}
+.subtab{
+  display:inline-flex;align-items:center;gap:8px;
+  padding:9px 22px;border-radius:9px;border:none;cursor:pointer;
+  background:transparent;color:var(--muted);
+  font-family:inherit;font-size:13.5px;font-weight:500;
+  transition:all .18s ease;
+}
+.subtab svg{width:16px;height:16px;stroke-width:1.7}
+.subtab:hover{color:var(--charcoal)}
+.subtab.active{
+  background:var(--surface);color:var(--charcoal);font-weight:600;
+  box-shadow:0 1px 3px rgba(22,33,30,.08);
+}
 
 /* ===== FORNECEDORES ===== */
 .sup-card{
@@ -560,10 +657,6 @@ main{margin-left:var(--sidebar-w);padding:0}
       <svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M22 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
       Convidados
     </button>
-    <button id="btn-suppliers" onclick="showPage('suppliers')">
-      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><path d="M3 9l1-5h16l1 5"/><path d="M4 9v11a1 1 0 0 0 1 1h14a1 1 0 0 0 1-1V9"/><path d="M3 9h18"/><path d="M9 9v4"/><path d="M15 9v4"/></svg>
-      Fornecedores
-    </button>
   </nav>
 
   <div class="nav-foot">
@@ -611,140 +704,115 @@ main{margin-left:var(--sidebar-w);padding:0}
 
   <!-- ============ DASHBOARD ============ -->
   <section id="dashboardSection">
-    <div class="page-head">
-      <div>
-        <p class="eyebrow">Bem-vindo de volta!</p>
-        <h1 class="page-title"><span id="greetingText">Visão geral da formatura</span></h1>
-        <p class="page-sub">Acompanhe tudo o que importa para uma celebração inesquecível.</p>
-      </div>
-      <div class="countdown-card">
-        <div class="cc-ico">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
+
+    <!-- HERO -->
+    <div class="dash-hero-row">
+      <div class="dash-hero">
+        <div class="dash-hero-cap" aria-hidden="true">
+          <svg width="120" height="100" viewBox="0 0 52 44" fill="none"><path d="M26 6 L48 16 L26 26 L4 16 Z" fill="#C9A45C"/><path d="M11 20 L11 30 C11 34 18 37 26 37 C34 37 41 34 41 30 L41 20 L26 26 Z" fill="#C9A45C"/></svg>
         </div>
-        <div>
-          <div class="cc-label">Faltam para a formatura</div>
-          <div class="cc-clock" id="heroCountdown">
-            <div class="cc-unit"><div class="cc-num">—</div><div class="cc-den">Dias</div></div>
+        <div class="dash-hero-eyebrow" id="heroDate">Sua formatura</div>
+        <h1 class="dash-hero-title" id="greetingText">Boa noite.</h1>
+        <p class="dash-hero-sub">Aqui está tudo o que importa para o seu grande dia, em um só lugar.</p>
+        <div class="dash-hero-clock" id="heroCountdown">
+          <div class="hc-unit"><div class="hc-num">—</div><div class="hc-den">Dias</div></div>
+        </div>
+      </div>
+
+      <div class="dash-progress section-card">
+        <div class="dp-label">Progresso da organização</div>
+        <div class="dp-body">
+          <div class="dp-ring" id="dpRing"><div class="dp-hole"><div class="dp-pct" id="dpPct">0%</div></div></div>
+          <div class="dp-legend">
+            <div class="dp-row"><span class="dp-dot a"></span><span>Itens definidos</span></div>
+            <div class="dp-row"><span class="dp-dot b"></span><span>Convidados</span></div>
+            <div class="dp-row"><span class="dp-dot c"></span><span>Pagamentos</span></div>
           </div>
         </div>
       </div>
     </div>
 
-    <!-- KPIs -->
-    <div class="kpi-row">
-      <div class="kpi">
-        <div class="kpi-ico forest"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"/><path d="m3.3 7 8.7 5 8.7-5"/><path d="M12 22V12"/></svg></div>
-        <div class="kpi-body">
-          <div class="kpi-label">Itens cadastrados</div>
-          <div class="kpi-value" id="totalItems">0</div>
-          <div class="kpi-foot" id="itemsFootHint">de 0 itens</div>
-        </div>
+    <!-- FAIXA DE MÉTRICAS -->
+    <div class="metric-strip">
+      <div class="ms-cell">
+        <div class="ms-top"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"/><path d="m3.3 7 8.7 5 8.7-5"/></svg><span>Itens</span></div>
+        <div class="ms-value" id="totalItems">0</div>
+        <div class="ms-foot" id="itemsFootHint">de 0 itens</div>
       </div>
-      <div class="kpi">
-        <div class="kpi-ico gold"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><path d="M9 11H5a2 2 0 0 0-2 2v7a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7a2 2 0 0 0-2-2h-4"/><rect x="9" y="2" width="6" height="6" rx="1"/><path d="M9 14h6"/></svg></div>
-        <div class="kpi-body">
-          <div class="kpi-label">Pendências</div>
-          <div class="kpi-value" id="pendingItems">0</div>
-          <div class="kpi-foot">itens a resolver</div>
-        </div>
+      <div class="ms-cell">
+        <div class="ms-top"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" style="color:var(--danger)"><path d="M19 7V4a1 1 0 0 0-1-1H5a2 2 0 0 0 0 4h15a1 1 0 0 1 1 1v4h-3a2 2 0 0 0 0 4h3a1 1 0 0 0 1-1v-2a1 1 0 0 0-1-1"/><path d="M3 5v14a2 2 0 0 0 2 2h15a1 1 0 0 0 1-1v-4"/></svg><span>Gasto</span></div>
+        <div class="ms-value" id="totalSpent">R$ 0,00</div>
+        <div class="ms-foot" id="spentPct">0% do orçamento</div>
       </div>
-      <div class="kpi">
-        <div class="kpi-ico rose"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><path d="M19 7V4a1 1 0 0 0-1-1H5a2 2 0 0 0 0 4h15a1 1 0 0 1 1 1v4h-3a2 2 0 0 0 0 4h3a1 1 0 0 0 1-1v-2a1 1 0 0 0-1-1"/><path d="M3 5v14a2 2 0 0 0 2 2h15a1 1 0 0 0 1-1v-4"/></svg></div>
-        <div class="kpi-body">
-          <div class="kpi-label">Total gasto</div>
-          <div class="kpi-value" id="totalSpent">R$ 0,00</div>
-          <div class="kpi-foot" id="spentPct">0% do orçamento</div>
-        </div>
+      <div class="ms-cell">
+        <div class="ms-top"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" style="color:var(--emerald)"><circle cx="12" cy="12" r="8"/><path d="M12 8v8M9 10.5h4.5a1.5 1.5 0 0 1 0 3H9"/></svg><span>Disponível</span></div>
+        <div class="ms-value" id="available">R$ 0,00</div>
+        <div class="ms-foot">do orçamento total</div>
       </div>
-      <div class="kpi">
-        <div class="kpi-ico sage"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><path d="M19 5c-1.5 0-2.8 1.4-3 2-3.5-1.5-11-.3-11 5 0 1.8 0 3 2 4.5V20h4v-2h3v2h4v-4c1-.5 1.4-1 2-2h2v-4h-2c0-1-.5-1.5-1-2V5z"/><path d="M2 9v1"/><path d="M16 11h.01"/></svg></div>
-        <div class="kpi-body">
-          <div class="kpi-label">Disponível</div>
-          <div class="kpi-value" id="available">R$ 0,00</div>
-          <div class="kpi-foot">do orçamento total</div>
-        </div>
+      <div class="ms-cell">
+        <div class="ms-top"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" style="color:#8a6d2f"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/></svg><span>Convidados</span></div>
+        <div class="ms-value"><span id="dashGuestConfirmed">0</span> / <span id="dashGuestLimit">—</span></div>
+        <div class="ms-foot"><span id="dashGuestRemaining">—</span> senhas livres</div>
       </div>
     </div>
 
-    <!-- linha 1: orçamento / afazeres / ações rápidas -->
-    <div class="dash-grid">
+    <!-- GRID INFERIOR -->
+    <div class="dash-bottom">
+      <!-- ORÇAMENTO -->
       <div class="section-card">
-        <div class="sc-head"><div class="sc-title">Resumo do orçamento</div></div>
+        <div class="sc-head"><div class="sc-title">Orçamento</div><button class="sc-link" onclick="showPage('finance')">Detalhes <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="9 18 15 12 9 6"/></svg></button></div>
         <div class="budget-wrap">
-          <div class="donut"><div class="donut-hole"><div class="donut-pct" id="budgetPercent">0%</div><div class="donut-cap">utilizado</div></div></div>
+          <div class="donut"><div class="donut-hole"><div class="donut-pct" id="budgetPercent">0%</div><div class="donut-cap">usado</div></div></div>
           <div class="budget-legend">
-            <div class="bl-row"><span class="bl-dot total"></span><span class="bl-label">Total do orçamento</span><span class="bl-val" id="budgetTotalView">—</span></div>
+            <div class="bl-row"><span class="bl-dot total"></span><span class="bl-label">Total</span><span class="bl-val" id="budgetTotalView">—</span></div>
             <div class="bl-row"><span class="bl-dot used"></span><span class="bl-label">Comprometido</span><span class="bl-val" id="budgetUsedView">—</span></div>
             <div class="bl-row"><span class="bl-dot free"></span><span class="bl-label">Disponível</span><span class="bl-val" id="budgetFreeView">—</span></div>
           </div>
         </div>
-        <button class="btn btn-ghost" style="margin-top:18px" onclick="showPage('finance')">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><line x1="18" y1="20" x2="18" y2="10"/><line x1="12" y1="20" x2="12" y2="4"/><line x1="6" y1="20" x2="6" y2="14"/></svg>
-          Ver detalhes do financeiro
-        </button>
       </div>
 
+      <!-- A FAZERES -->
       <div class="section-card">
-        <div class="sc-head"><div class="sc-title">A fazeres</div><span class="sc-pill" id="todoCount">0 pendente</span></div>
+        <div class="sc-head"><div class="sc-title">A fazeres</div><span class="sc-pill" id="todoCount">0 pendentes</span></div>
         <div class="todo-input-row">
           <input class="input" id="todoInput" placeholder="Adicionar nova tarefa..." onkeydown="if(event.key==='Enter')addTodo()">
-          <button class="btn btn-primary btn-sq" onclick="addTodo()">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
-          </button>
+          <button class="btn btn-primary btn-sq" onclick="addTodo()"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg></button>
         </div>
         <ul class="todo-list" id="todoList"></ul>
       </div>
 
-      <div class="section-card">
-        <div class="sc-head"><div class="sc-title">Ações rápidas</div></div>
-        <div class="qa-grid">
-          <button class="qa" onclick="showPage('items')">
-            <span class="qa-ico dark"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"/></svg></span>
-            <span class="qa-txt"><b>Adicionar item</b><small>Bens, serviços, decoração...</small></span>
-          </button>
-          <button class="qa" onclick="showPage('finance')">
-            <span class="qa-ico gold"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><rect x="2" y="5" width="20" height="14" rx="2"/><path d="M2 10h20"/></svg></span>
-            <span class="qa-txt"><b>Checar financeiro</b><small>Ver orçamento e despesas</small></span>
-          </button>
-          <button class="qa" onclick="showPage('guests')">
-            <span class="qa-ico dark"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/></svg></span>
-            <span class="qa-txt"><b>Ver lista de convidados</b><small>Gerenciar confirmações</small></span>
-          </button>
-          <button class="qa" onclick="showPage('dashboard')">
-            <span class="qa-ico gold"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><path d="M9 11H5a2 2 0 0 0-2 2v7a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7a2 2 0 0 0-2-2h-4"/><rect x="9" y="2" width="6" height="6" rx="1"/></svg></span>
-            <span class="qa-txt"><b>Ver afazeres</b><small>Acompanhe tarefas pendentes</small></span>
-          </button>
+      <!-- CONVIDADOS + ATALHOS empilhados -->
+      <div class="stack">
+        <div class="section-card">
+          <div class="sc-head"><div class="sc-title">Convidados</div><button class="sc-link" onclick="showPage('guests')">Ver todos <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="9 18 15 12 9 6"/></svg></button></div>
+          <div class="guest-blocks">
+            <div class="gb"><div class="gb-num" id="gbTotal">—</div><div class="gb-lbl">Senhas</div></div>
+            <div class="gb green"><div class="gb-num" id="gbConfirmed">0</div><div class="gb-lbl">Confirm.</div></div>
+            <div class="gb gold"><div class="gb-num" id="gbRemaining">—</div><div class="gb-lbl">Restam</div></div>
+          </div>
+          <div class="progress"><div class="progress-fill" id="dashGuestProgress" style="width:0%"></div></div>
+        </div>
+
+        <div class="section-card shortcuts">
+          <div class="sc-title" style="margin-bottom:14px">Atalhos</div>
+          <button class="sc-row" onclick="showPage('items')"><span class="sc-row-ico dark"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg></span> Adicionar item</button>
+          <button class="sc-row" onclick="showPage('guests')"><span class="sc-row-ico gold"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><line x1="19" y1="8" x2="19" y2="14"/><line x1="22" y1="11" x2="16" y2="11"/></svg></span> Novo convidado</button>
+          <button class="sc-row" onclick="goToSuppliers()"><span class="sc-row-ico green"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><path d="M3 9l1-5h16l1 5"/><path d="M4 9v11a1 1 0 0 0 1 1h14a1 1 0 0 0 1-1V9"/><path d="M3 9h18"/></svg></span> Fornecedor</button>
         </div>
       </div>
     </div>
 
-    <!-- linha 2: convidados / itens pendentes / config rápidas -->
-    <div class="dash-grid bottom">
-      <div class="section-card">
-        <div class="sc-head"><div class="sc-title">Convidados</div><button class="sc-link" onclick="showPage('guests')">Ver lista completa <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg></button></div>
-        <div class="mini-cluster">
-          <div class="mc-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/></svg></div>
-          <div class="mc-item"><span class="mc-label">Total de senhas</span><span class="mc-num" id="dashGuestLimit">—</span></div>
-          <div class="mc-item"><span class="mc-label">Confirmados</span><span class="mc-num" id="dashGuestConfirmed">0</span><span class="mc-sub" id="dashGuestConfirmedPct">0% do total</span></div>
-          <div class="mc-item"><span class="mc-label">Senhas restantes</span><span class="mc-num" id="dashGuestRemaining">—</span><span class="mc-sub" id="dashGuestRemainingPct"></span></div>
-        </div>
-        <div class="progress"><div class="progress-fill" id="dashGuestProgress" style="width:0%"></div></div>
-      </div>
-
-      <div class="section-card">
-        <div class="sc-head"><div class="sc-title">Itens pendentes</div><span class="sc-pill" id="pendingCount">0 itens</span></div>
-        <ul class="todo-list" id="pendingList"></ul>
-      </div>
-
-      <div class="section-card">
-        <div class="sc-head"><div class="sc-title">Configurações rápidas</div></div>
+    <!-- CONFIGURAÇÕES RÁPIDAS -->
+    <div class="section-card" style="margin-top:24px">
+      <div class="sc-head"><div class="sc-title">Configurações rápidas</div></div>
+      <div class="cfg-grid">
         <div class="cfg-row">
           <div class="cfg-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><rect x="2" y="5" width="20" height="14" rx="2"/><path d="M2 10h20"/></svg></div>
           <div class="cfg-info"><b>Orçamento definido</b><small id="budgetConfigHint">Não definido</small></div>
           <button class="cfg-act" onclick="showPage('finance')">Editar <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="9 18 15 12 9 6"/></svg></button>
         </div>
         <div class="cfg-row">
-          <div class="cfg-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/></svg></div>
+          <div class="cfg-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><path d="M2 9a3 3 0 0 1 0 6v2a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2v-2a3 3 0 0 1 0-6V7a2 2 0 0 0-2-2H4a2 2 0 0 0-2 2Z"/><path d="M13 5v14"/></svg></div>
           <div class="cfg-info"><b>Senhas restantes</b><small id="guestConfigHint">Não definido</small></div>
           <button class="cfg-act" onclick="showPage('guests')">Gerenciar <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="9 18 15 12 9 6"/></svg></button>
         </div>
@@ -764,11 +832,23 @@ main{margin-left:var(--sidebar-w);padding:0}
     <div class="page-head">
       <div>
         <p class="eyebrow">Bem-vindo de volta!</p>
-        <h1 class="page-title">Itens da formatura</h1>
-        <p class="page-sub">Cadastre tudo que precisa contratar e acompanhe os pagamentos.</p>
+        <h1 class="page-title" id="itemsPageTitle">Itens da formatura</h1>
+        <p class="page-sub" id="itemsPageSub">Cadastre tudo que precisa contratar e acompanhe os pagamentos.</p>
       </div>
     </div>
 
+    <div class="subtabs">
+      <button class="subtab active" id="subtab-items" onclick="setItemsTab('items')">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"/><path d="m3.3 7 8.7 5 8.7-5"/><path d="M12 22V12"/></svg>
+        Itens
+      </button>
+      <button class="subtab" id="subtab-suppliers" onclick="setItemsTab('suppliers')">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><path d="M3 9l1-5h16l1 5"/><path d="M4 9v11a1 1 0 0 0 1 1h14a1 1 0 0 0 1-1V9"/><path d="M3 9h18"/></svg>
+        Fornecedores
+      </button>
+    </div>
+
+    <div id="itemsTab">
     <div class="split-3">
       <div class="kpi">
         <div class="kpi-ico forest"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"/><path d="m3.3 7 8.7 5 8.7-5"/><path d="M12 22V12"/></svg></div>
@@ -822,6 +902,81 @@ main{margin-left:var(--sidebar-w);padding:0}
           <tbody id="itemsTable"></tbody>
         </table>
       </div>
+    </div>
+    </div>
+
+    <div id="suppliersTab" class="hidden">
+    <div class="split-3">
+      <div class="kpi">
+        <div class="kpi-ico forest"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><path d="M3 9l1-5h16l1 5"/><path d="M4 9v11a1 1 0 0 0 1 1h14a1 1 0 0 0 1-1V9"/><path d="M3 9h18"/></svg></div>
+        <div class="kpi-body"><div class="kpi-label">Fornecedores</div><div class="kpi-value" id="msSuppliersTotal">0</div><div class="kpi-foot">cadastrados</div></div>
+      </div>
+      <div class="kpi">
+        <div class="kpi-ico gold"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><rect x="3" y="3" width="7" height="7" rx="1.5"/><rect x="14" y="3" width="7" height="7" rx="1.5"/><rect x="3" y="14" width="7" height="7" rx="1.5"/><rect x="14" y="14" width="7" height="7" rx="1.5"/></svg></div>
+        <div class="kpi-body"><div class="kpi-label">Categorias</div><div class="kpi-value" id="msSuppliersCats">0</div><div class="kpi-foot">em uso</div></div>
+      </div>
+      <div class="kpi">
+        <div class="kpi-ico sage"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><line x1="19" y1="5" x2="5" y2="19"/><circle cx="6.5" cy="6.5" r="2.5"/><circle cx="17.5" cy="17.5" r="2.5"/></svg></div>
+        <div class="kpi-body"><div class="kpi-label">Com desconto</div><div class="kpi-value" id="msSuppliersDisc">0</div><div class="kpi-foot">parceiros</div></div>
+      </div>
+    </div>
+
+    <div class="work-grid">
+      <div class="section-card form-aside">
+        <div class="sc-head"><div class="sc-title">Novo fornecedor</div></div>
+        <p class="page-sub" style="margin:-12px 0 18px">Cadastre um parceiro e suas condições.</p>
+
+        <div class="field"><label>Nome</label><input class="input" id="supName" placeholder="Ex: Doces da Ana"></div>
+
+        <div class="field">
+          <label>Categoria</label>
+          <div class="chips" id="supCatChips" style="margin-top:2px"></div>
+        </div>
+
+        <div class="field">
+          <label>Links</label>
+          <div style="display:flex;gap:8px">
+            <input class="input" id="supLinkInput" placeholder="Cole um link (site, WhatsApp...)" onkeydown="if(event.key==='Enter'){event.preventDefault();addSupLink();}">
+            <button class="btn btn-primary btn-sq" type="button" onclick="addSupLink()"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg></button>
+          </div>
+          <div id="supLinksPending" style="display:flex;flex-wrap:wrap;gap:6px;margin-top:10px"></div>
+          <div style="font-size:11px;color:var(--muted);margin-top:7px;display:flex;align-items:center;gap:5px"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M12 16v-4M12 8h.01"/></svg> Clique no <b style="color:var(--forest)">+</b> para adicionar cada link.</div>
+        </div>
+
+        <div class="field">
+          <label>Formas de pagamento</label>
+          <div class="chips" id="supPayChips" style="margin-top:2px">
+            <button type="button" class="chip" data-pay="Pix" onclick="toggleSupPay('Pix')">Pix</button>
+            <button type="button" class="chip" data-pay="Boleto" onclick="toggleSupPay('Boleto')">Boleto</button>
+            <button type="button" class="chip" data-pay="Cartão" onclick="toggleSupPay('Cartão')">Cartão</button>
+          </div>
+        </div>
+
+        <div class="field" style="display:flex;align-items:center;gap:11px;background:var(--bg);border:1px solid var(--border);border-radius:12px;padding:12px 14px">
+          <input type="checkbox" class="check" id="supHasDiscount" onchange="toggleDiscountFields()">
+          <label for="supHasDiscount" style="margin:0;cursor:pointer">Tem desconto à vista</label>
+        </div>
+
+        <div id="supDiscountRow" style="display:none;gap:12px;margin-bottom:16px">
+          <div class="field" style="flex:1;margin:0"><label>Desconto (%)</label><input class="input" id="supDiscount" type="number" placeholder="Ex: 10"></div>
+          <div class="field" style="flex:1;margin:0"><label>Parcelas (Nx)</label><input class="input" id="supInstallments" type="number" placeholder="Ex: 12"></div>
+        </div>
+
+        <button class="btn btn-primary btn-block" id="supSubmitBtn" onclick="addSupplier()">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+          Adicionar fornecedor
+        </button>
+      </div>
+
+      <div class="section-card">
+        <div class="table-toolbar">
+          <div class="sc-title" style="margin-right:auto">Meus fornecedores</div>
+          <div class="tt-search"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.3-4.3"/></svg><input id="supSearch" placeholder="Buscar fornecedor..." oninput="renderSuppliers()"></div>
+        </div>
+        <div class="chips" id="supFilterChips" style="margin-bottom:18px"></div>
+        <div id="suppliersList"></div>
+      </div>
+    </div>
     </div>
   </section>
 
@@ -977,87 +1132,6 @@ main{margin-left:var(--sidebar-w);padding:0}
     </div>
   </section>
 
-  <!-- ============ FORNECEDORES ============ -->
-  <section id="suppliersSection" class="hidden">
-    <div class="page-head">
-      <div>
-        <p class="eyebrow">Bem-vindo de volta!</p>
-        <h1 class="page-title">Fornecedores</h1>
-        <p class="page-sub">Guarde contatos, links e condições de pagamento de cada parceiro.</p>
-      </div>
-    </div>
-
-    <div class="split-3">
-      <div class="kpi">
-        <div class="kpi-ico forest"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><path d="M3 9l1-5h16l1 5"/><path d="M4 9v11a1 1 0 0 0 1 1h14a1 1 0 0 0 1-1V9"/><path d="M3 9h18"/></svg></div>
-        <div class="kpi-body"><div class="kpi-label">Fornecedores</div><div class="kpi-value" id="msSuppliersTotal">0</div><div class="kpi-foot">cadastrados</div></div>
-      </div>
-      <div class="kpi">
-        <div class="kpi-ico gold"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><rect x="3" y="3" width="7" height="7" rx="1.5"/><rect x="14" y="3" width="7" height="7" rx="1.5"/><rect x="3" y="14" width="7" height="7" rx="1.5"/><rect x="14" y="14" width="7" height="7" rx="1.5"/></svg></div>
-        <div class="kpi-body"><div class="kpi-label">Categorias</div><div class="kpi-value" id="msSuppliersCats">0</div><div class="kpi-foot">em uso</div></div>
-      </div>
-      <div class="kpi">
-        <div class="kpi-ico sage"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><line x1="19" y1="5" x2="5" y2="19"/><circle cx="6.5" cy="6.5" r="2.5"/><circle cx="17.5" cy="17.5" r="2.5"/></svg></div>
-        <div class="kpi-body"><div class="kpi-label">Com desconto</div><div class="kpi-value" id="msSuppliersDisc">0</div><div class="kpi-foot">parceiros</div></div>
-      </div>
-    </div>
-
-    <div class="work-grid">
-      <div class="section-card form-aside">
-        <div class="sc-head"><div class="sc-title">Novo fornecedor</div></div>
-        <p class="page-sub" style="margin:-12px 0 18px">Cadastre um parceiro e suas condições.</p>
-
-        <div class="field"><label>Nome</label><input class="input" id="supName" placeholder="Ex: Doces da Ana"></div>
-
-        <div class="field">
-          <label>Categoria</label>
-          <div class="chips" id="supCatChips" style="margin-top:2px"></div>
-        </div>
-
-        <div class="field">
-          <label>Links</label>
-          <div style="display:flex;gap:8px">
-            <input class="input" id="supLinkInput" placeholder="Cole um link (site, WhatsApp...)" onkeydown="if(event.key==='Enter'){event.preventDefault();addSupLink();}">
-            <button class="btn btn-primary btn-sq" type="button" onclick="addSupLink()"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg></button>
-          </div>
-          <div id="supLinksPending" style="display:flex;flex-wrap:wrap;gap:6px;margin-top:10px"></div>
-        </div>
-
-        <div class="field">
-          <label>Formas de pagamento</label>
-          <div class="chips" id="supPayChips" style="margin-top:2px">
-            <button type="button" class="chip" data-pay="Pix" onclick="toggleSupPay('Pix')">Pix</button>
-            <button type="button" class="chip" data-pay="Boleto" onclick="toggleSupPay('Boleto')">Boleto</button>
-            <button type="button" class="chip" data-pay="Cartão" onclick="toggleSupPay('Cartão')">Cartão</button>
-          </div>
-        </div>
-
-        <div class="field" style="display:flex;align-items:center;gap:11px;background:var(--bg);border:1px solid var(--border);border-radius:12px;padding:12px 14px">
-          <input type="checkbox" class="check" id="supHasDiscount" onchange="toggleDiscountFields()">
-          <label for="supHasDiscount" style="margin:0;cursor:pointer">Tem desconto à vista</label>
-        </div>
-
-        <div id="supDiscountRow" style="display:none;gap:12px;margin-bottom:16px">
-          <div class="field" style="flex:1;margin:0"><label>Desconto (%)</label><input class="input" id="supDiscount" type="number" placeholder="Ex: 10"></div>
-          <div class="field" style="flex:1;margin:0"><label>Parcelas (Nx)</label><input class="input" id="supInstallments" type="number" placeholder="Ex: 12"></div>
-        </div>
-
-        <button class="btn btn-primary btn-block" onclick="addSupplier()">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
-          Adicionar fornecedor
-        </button>
-      </div>
-
-      <div class="section-card">
-        <div class="table-toolbar">
-          <div class="sc-title" style="margin-right:auto">Meus fornecedores</div>
-          <div class="tt-search"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.3-4.3"/></svg><input id="supSearch" placeholder="Buscar fornecedor..." oninput="renderSuppliers()"></div>
-        </div>
-        <div class="chips" id="supFilterChips" style="margin-bottom:18px"></div>
-        <div id="suppliersList"></div>
-      </div>
-    </div>
-  </section>
 
 </div>
 </main>
@@ -1344,7 +1418,24 @@ async function save() {
 
 /* DASHBOARD */
 function setGreeting() {
-  if (el.greetingText) el.greetingText.textContent = "Visão geral da formatura";
+  if (el.greetingText) {
+    const h = new Date().getHours();
+    let s = "Boa noite";
+    if (h >= 5 && h < 12) s = "Bom dia";
+    else if (h >= 12 && h < 18) s = "Boa tarde";
+    el.greetingText.textContent = s + ".";
+  }
+  // eyebrow com a data da formatura
+  const hd = document.getElementById("heroDate");
+  if (hd) {
+    if (state.date) {
+      const dt = new Date(state.date + "T00:00:00");
+      const meses = ["Janeiro","Fevereiro","Março","Abril","Maio","Junho","Julho","Agosto","Setembro","Outubro","Novembro","Dezembro"];
+      hd.textContent = `Sua formatura · ${meses[dt.getMonth()]} ${dt.getFullYear()}`;
+    } else {
+      hd.textContent = "Sua formatura";
+    }
+  }
 }
 
 let countdownTimer = null;
@@ -1353,14 +1444,14 @@ function calcCountdown() {
   if (!holder) return;
   const render = () => {
     if (!state.date) {
-      holder.innerHTML = `<div class="cc-unit"><div class="cc-num">—</div><div class="cc-den">Defina a data</div></div>`;
+      holder.innerHTML = `<div class="hc-unit"><div class="hc-num">—</div><div class="hc-den">Defina a data</div></div>`;
       return;
     }
     const now = new Date();
     const target = new Date(state.date + "T00:00:00");
     let ms = target - now;
     if (ms < 0) {
-      holder.innerHTML = `<div class="cc-unit"><div class="cc-num">&#9733;</div><div class="cc-den">Realizada</div></div>`;
+      holder.innerHTML = `<div class="hc-unit"><div class="hc-num">&#9733;</div><div class="hc-den">Realizada</div></div>`;
       return;
     }
     const d = Math.floor(ms / 86400000); ms -= d * 86400000;
@@ -1369,13 +1460,13 @@ function calcCountdown() {
     const s = Math.floor(ms / 1000);
     const pad = n => String(n).padStart(2, "0");
     holder.innerHTML = `
-      <div class="cc-unit"><div class="cc-num">${d}</div><div class="cc-den">Dias</div></div>
-      <div class="cc-sep">:</div>
-      <div class="cc-unit"><div class="cc-num">${pad(h)}</div><div class="cc-den">Horas</div></div>
-      <div class="cc-sep">:</div>
-      <div class="cc-unit"><div class="cc-num">${pad(m)}</div><div class="cc-den">Min</div></div>
-      <div class="cc-sep">:</div>
-      <div class="cc-unit"><div class="cc-num">${pad(s)}</div><div class="cc-den">Seg</div></div>`;
+      <div class="hc-unit"><div class="hc-num">${d}</div><div class="hc-den">Dias</div></div>
+      <div class="hc-sep">:</div>
+      <div class="hc-unit"><div class="hc-num">${pad(h)}</div><div class="hc-den">Horas</div></div>
+      <div class="hc-sep">:</div>
+      <div class="hc-unit"><div class="hc-num">${pad(m)}</div><div class="hc-den">Min</div></div>
+      <div class="hc-sep">:</div>
+      <div class="hc-unit"><div class="hc-num">${pad(s)}</div><div class="hc-den">Seg</div></div>`;
   };
   render();
   if (countdownTimer) clearInterval(countdownTimer);
@@ -1429,6 +1520,28 @@ function renderAll() {
   if (dGr) dGr.textContent = lim > 0 ? String(Math.max(lim - confirmedGuests, 0)) : "—";
   if (dGrp) dGrp.textContent = lim > 0 ? Math.round((Math.max(lim - confirmedGuests, 0) / lim) * 100) + "% do total" : "";
   if (dGpr) dGpr.style.width = (lim > 0 ? Math.min((confirmedGuests / lim) * 100, 100) : 0) + "%";
+
+  /* blocos de convidados (novo card) */
+  const gbT = document.getElementById("gbTotal");
+  const gbC = document.getElementById("gbConfirmed");
+  const gbR = document.getElementById("gbRemaining");
+  if (gbT) gbT.textContent = lim > 0 ? String(lim) : "—";
+  if (gbC) gbC.textContent = String(confirmedGuests);
+  if (gbR) gbR.textContent = lim > 0 ? String(Math.max(lim - confirmedGuests, 0)) : "—";
+
+  /* anel de progresso geral da formatura */
+  const itemsDone = state.items.length > 0 ? (state.items.filter(i => i.paid).length / state.items.length) : 0;
+  const guestsDone = lim > 0 ? Math.min(confirmedGuests / lim, 1) : 0;
+  const payDone = state.budget > 0 ? Math.min(spent / state.budget, 1) : 0;
+  const parts = [];
+  if (state.items.length > 0) parts.push(itemsDone);
+  if (lim > 0) parts.push(guestsDone);
+  if (state.budget > 0) parts.push(payDone);
+  const progress = parts.length ? Math.round((parts.reduce((a, b) => a + b, 0) / parts.length) * 100) : 0;
+  const dpPct = document.getElementById("dpPct");
+  const dpRing = document.getElementById("dpRing");
+  if (dpPct) dpPct.textContent = progress + "%";
+  if (dpRing) dpRing.style.setProperty("--progress", (progress * 3.6) + "deg");
 
   /* hint de itens no kpi do dashboard */
   const ifh = document.getElementById("itemsFootHint");
@@ -1735,6 +1848,24 @@ window.removeGuest = (i) => {
   save();
 };
 
+window.editGuest = (i) => {
+  const g = state.guests[i];
+  if (!g) return;
+  const novoNome = prompt("Editar nome do convidado:", g.name);
+  if (novoNome === null) return;
+  const nome = novoNome.trim();
+  if (!nome) { showToast("O nome não pode ficar vazio.", "error"); return; }
+  const tags = ["Família", "Amigo", "Acompanhante"];
+  let novaTag = prompt(`Etiqueta (${tags.join(" / ")}):`, g.tag);
+  if (novaTag === null) novaTag = g.tag;
+  novaTag = novaTag.trim();
+  const tagFinal = tags.find(t => t.toLowerCase() === novaTag.toLowerCase()) || g.tag;
+  g.name = nome;
+  g.tag = tagFinal;
+  showToast("Convidado atualizado.");
+  save();
+};
+
 window.setGuestFilter = (f) => {
   ui.guestFilter = f;
   document.querySelectorAll("#guestChips .chip").forEach(c =>
@@ -1782,7 +1913,7 @@ function renderGuests() {
       <td><b>${escapeHtml(r.name)}</b></td>
       <td><span class="badge ${badgeClass}">${escapeHtml(r.tag)}</span></td>
       <td class="center"><input type="checkbox" class="check" ${r.confirmed ? "checked" : ""} onchange="toggleGuest(${r.idx})"></td>
-      <td class="center"><button class="icon-btn" title="Remover" onclick="removeGuest(${r.idx})"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><path d="M3 6h18"/><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"/></svg></button></td>
+      <td class="center"><div class="row-actions"><button class="icon-btn edit" title="Editar" onclick="editGuest(${r.idx})"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"/><path d="M18.5 2.5a2.12 2.12 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"/></svg></button><button class="icon-btn" title="Remover" onclick="removeGuest(${r.idx})"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><path d="M3 6h18"/><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"/></svg></button></div></td>
     </tr>`;
   }).join("");
 }
@@ -1846,15 +1977,11 @@ window.showPage = (page) => {
   el.itemsSection.classList.add("hidden");
   el.financeSection.classList.add("hidden");
   el.guestsSection.classList.add("hidden");
-  const supSec = document.getElementById("suppliersSection");
-  if (supSec) supSec.classList.add("hidden");
 
   el.btnDashboard.classList.remove("active");
   el.btnItems.classList.remove("active");
   el.btnFinance.classList.remove("active");
   el.btnGuests.classList.remove("active");
-  const btnSup = document.getElementById("btn-suppliers");
-  if (btnSup) btnSup.classList.remove("active");
 
   if (page === "dashboard") {
     el.dashboardSection.classList.remove("hidden");
@@ -1870,14 +1997,35 @@ window.showPage = (page) => {
     el.guestsSection.classList.remove("hidden");
     el.btnGuests.classList.add("active");
     setTimeout(renderGuests, 30);
-  } else if (page === "suppliers") {
-    if (supSec) supSec.classList.remove("hidden");
-    if (btnSup) btnSup.classList.add("active");
-    renderSuppliers();
   }
 
   /* fecha a sidebar no mobile ao navegar */
   window.toggleSidebar(false);
+};
+
+/* sub-abas dentro de Itens */
+window.setItemsTab = (tab) => {
+  const itemsTab = document.getElementById("itemsTab");
+  const supTab = document.getElementById("suppliersTab");
+  const stItems = document.getElementById("subtab-items");
+  const stSup = document.getElementById("subtab-suppliers");
+  const title = document.getElementById("itemsPageTitle");
+  const sub = document.getElementById("itemsPageSub");
+  const isItems = tab === "items";
+  if (itemsTab) itemsTab.classList.toggle("hidden", !isItems);
+  if (supTab) supTab.classList.toggle("hidden", isItems);
+  if (stItems) stItems.classList.toggle("active", isItems);
+  if (stSup) stSup.classList.toggle("active", !isItems);
+  if (title) title.textContent = isItems ? "Itens da formatura" : "Fornecedores";
+  if (sub) sub.textContent = isItems
+    ? "Cadastre tudo que precisa contratar e acompanhe os pagamentos."
+    : "Guarde contatos, links e condições de pagamento de cada parceiro.";
+  if (!isItems) renderSuppliers();
+};
+
+window.goToSuppliers = () => {
+  window.showPage("items");
+  window.setItemsTab("suppliers");
 };
 
 /* ===== FORNECEDORES ===== */
@@ -1963,15 +2111,37 @@ window.addSupplier = () => {
   const name = (document.getElementById("supName").value || "").trim();
   if (!name) { showToast("Informe o nome do fornecedor.", "error"); return; }
   if (!supForm.category) { showToast("Escolha uma categoria.", "error"); return; }
+
+  // captura link digitado mas não adicionado com "+"
+  const linkInput = document.getElementById("supLinkInput");
+  const pendingLink = (linkInput.value || "").trim();
+  if (pendingLink) {
+    supForm.links.push(normalizeUrl(pendingLink));
+    linkInput.value = "";
+  }
+
   const hasDiscount = document.getElementById("supHasDiscount").checked;
   const discount = Number(document.getElementById("supDiscount").value) || 0;
   const installments = Number(document.getElementById("supInstallments").value) || 0;
 
-  state.suppliers.push({
+  const supplierData = {
     name, category: supForm.category,
     links: [...supForm.links], pay: [...supForm.pay],
     hasDiscount, discount, installments,
-  });
+  };
+
+  if (editingSupplier >= 0 && state.suppliers[editingSupplier]) {
+    state.suppliers[editingSupplier] = supplierData;
+    showToast("Fornecedor atualizado.");
+  } else {
+    state.suppliers.push(supplierData);
+    showToast("Fornecedor adicionado.");
+  }
+  editingSupplier = -1;
+
+  // restaura o botão
+  const btn = document.getElementById("supSubmitBtn");
+  if (btn) btn.innerHTML = `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg> Adicionar fornecedor`;
 
   // limpa o form
   document.getElementById("supName").value = "";
@@ -1982,11 +2152,36 @@ window.addSupplier = () => {
   supForm.category = ""; supForm.links = []; supForm.pay = [];
   syncSupCatChips(); syncSupLinksPending(); syncSupPayChips();
 
-  showToast("Fornecedor adicionado.");
   save();
 };
 
 window.removeSupplier = (i) => { state.suppliers.splice(i, 1); save(); };
+
+let editingSupplier = -1;
+window.editSupplier = (i) => {
+  const s = state.suppliers[i];
+  if (!s) return;
+  editingSupplier = i;
+
+  // carrega no formulário
+  document.getElementById("supName").value = s.name || "";
+  supForm.category = s.category || "";
+  supForm.links = [...(s.links || [])];
+  supForm.pay = [...(s.pay || [])];
+  document.getElementById("supHasDiscount").checked = !!s.hasDiscount;
+  document.getElementById("supDiscount").value = s.discount || "";
+  document.getElementById("supInstallments").value = s.installments || "";
+  document.getElementById("supDiscountRow").style.display = s.hasDiscount ? "flex" : "none";
+  syncSupCatChips(); syncSupLinksPending(); syncSupPayChips();
+
+  // muda o botão para "Salvar alterações"
+  const btn = document.getElementById("supSubmitBtn");
+  if (btn) btn.innerHTML = `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 6 9 17l-5-5"/></svg> Salvar alterações`;
+
+  // rola até o formulário
+  document.getElementById("supName").scrollIntoView({ behavior: "smooth", block: "center" });
+  document.getElementById("supName").focus();
+};
 
 let supFilter = "all";
 window.setSupFilter = (f) => { supFilter = f; renderSuppliers(); };
@@ -2057,6 +2252,7 @@ function renderSuppliers() {
           </div>
         </div>
         <div class="sup-actions">
+          <button class="icon-btn edit" title="Editar" onclick="editSupplier(${r.idx})"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"/><path d="M18.5 2.5a2.12 2.12 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"/></svg></button>
           <button class="icon-btn" title="Remover" onclick="removeSupplier(${r.idx})"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><path d="M3 6h18"/><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"/></svg></button>
         </div>
       </div>
