@@ -1,25 +1,35 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
-<meta charset="UTF-8" />
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Formatura360</title>
-<meta name="viewport" content="width=device-width, initial-scale=1.0" />
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Plus+Jakarta+Sans:wght@500;600;700;800&display=swap" rel="stylesheet">
-
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@500;600;700&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 <style>
 :root{
-  /* Identidade formatura medicina — verde esmeralda */
-  --primary:#0b2a23;        /* verde escuro quase preto */
-  --secondary:#5b7c72;      /* sage */
-  --accent:#047857;         /* esmeralda */
-  --accent2:#10b981;        /* esmeralda claro */
-  --accent-deep:#065f46;    /* esmeralda profundo */
-  --border:#e3eae7;
-  --surface:#ffffff;
-  --bg1:#f4f9f7;
-  --bg2:#eaf5f0;
-  --danger:#ef4444;
-  --success:#16a34a;
+  /* Paleta premium editorial */
+  --bg:#F8F5EE;
+  --bg-warm:#FAF7F0;
+  --surface:#FFFCF7;
+  --surface-plain:#FFFFFF;
+  --forest:#053D32;
+  --deep:#012E27;
+  --emerald:#0F7A5A;
+  --champagne:#C9A45C;
+  --gold-soft:#E8D7B1;
+  --charcoal:#16211E;
+  --muted:#6F7772;
+  --border:#E6DED0;
+  --danger-soft:#F5D7D7;
+  --danger:#C0584F;
+
+  --sidebar-w:248px;
+  --radius:20px;
+  --radius-sm:14px;
+  --shadow-soft:0 1px 2px rgba(22,33,30,.04), 0 8px 24px rgba(22,33,30,.05);
+  --shadow-card:0 1px 3px rgba(22,33,30,.04), 0 12px 32px rgba(22,33,30,.06);
 
   --percent:0deg;
 }
@@ -28,1086 +38,879 @@
 html,body{height:100%}
 body{
   margin:0;
-  font-family:Inter,sans-serif;
-  background:linear-gradient(180deg,var(--bg1),var(--bg2));
-  color:var(--primary);
+  font-family:'Inter',sans-serif;
+  background:var(--bg);
+  color:var(--charcoal);
+  -webkit-font-smoothing:antialiased;
+  font-size:14px;
 }
-h1,h2,h3,h4,.brand-title,.dash-greeting{
-  font-family:'Plus Jakarta Sans',Inter,sans-serif;
-}
+.serif{font-family:'Cormorant Garamond',serif}
+.hidden{display:none !important}
 
-/* ===== SIDEBAR (menu lateral escuro) ===== */
-:root{
-  --sidebar-w:248px;
-  --sidebar-bg:#06251d;       /* verde escuro profundo */
-  --sidebar-bg2:#0a3329;
-  --sidebar-text:#a7c4ba;     /* sage claro */
-}
+/* tipografia editorial */
+h1,h2,h3{font-family:'Cormorant Garamond',serif;font-weight:600;color:var(--charcoal);margin:0}
+.page-title{font-size:46px;line-height:1.05;letter-spacing:-.5px;font-weight:600}
+.eyebrow{font-size:13px;color:var(--muted);font-weight:400;margin:0 0 6px}
+.page-sub{font-size:14px;color:var(--muted);margin:10px 0 0;font-weight:400}
 
+::selection{background:var(--gold-soft)}
+
+/* ===== SIDEBAR ===== */
 .sidebar{
-  position:fixed;
-  top:0; left:0;
-  width:var(--sidebar-w);
-  height:100vh;
-  background:linear-gradient(180deg,var(--sidebar-bg),var(--sidebar-bg2));
-  border-right:1px solid rgba(255,255,255,.06);
-  display:flex;
-  flex-direction:column;
-  padding:22px 16px;
+  position:fixed;top:0;left:0;
+  width:var(--sidebar-w);height:100vh;
+  background:linear-gradient(180deg,var(--forest),var(--deep));
+  display:flex;flex-direction:column;
+  padding:30px 18px 22px;
   z-index:50;
-  transition:transform .26s ease;
+  transition:transform .28s cubic-bezier(.4,0,.2,1);
 }
-
 .brand{
-  display:flex; gap:12px; align-items:center;
-  padding:6px 8px 22px 8px;
-  margin-bottom:8px;
-  border-bottom:1px solid rgba(255,255,255,.07);
+  display:flex;flex-direction:column;align-items:center;
+  text-align:center;gap:10px;
+  padding:0 8px 26px;
+  border-bottom:1px solid rgba(255,255,255,.08);
+  margin-bottom:22px;
 }
-.brand-badge{
-  width:38px;height:38px;border-radius:11px;
-  background:linear-gradient(135deg,var(--accent),var(--accent2));
+.brand-mark{
+  width:64px;height:64px;border-radius:16px;
+  border:1.5px solid var(--champagne);
   display:grid;place-items:center;
-  color:#fff;font-weight:800;flex-shrink:0;
-  box-shadow:0 10px 20px rgba(29,78,216,.30);
+  position:relative;
+  background:rgba(255,255,255,.02);
 }
-.brand-title{
-  margin:0;font-size:15px;font-weight:800;
-  color:#fff;letter-spacing:.3px;line-height:1.2;
+.brand-mark .mono{
+  font-family:'Cormorant Garamond',serif;
+  font-size:30px;font-weight:700;color:#fff;
+  line-height:1;
 }
-.brand h2{margin:0;font-size:18px;letter-spacing:.2px;color:#fff}
-
-nav{
-  display:flex;
-  flex-direction:column;
-  gap:6px;
-  margin-top:14px;
-  flex:1;
+.brand-mark .laurel{position:absolute;top:-9px;font-size:13px;color:var(--champagne)}
+.brand-name{
+  font-family:'Cormorant Garamond',serif;
+  font-size:22px;font-weight:600;color:#fff;letter-spacing:.3px;
 }
-
+nav{display:flex;flex-direction:column;gap:4px;flex:1}
 nav button{
-  display:flex;
-  align-items:center;
-  gap:12px;
-  width:100%;
-  text-align:left;
-  padding:12px 14px;
-  border-radius:12px;
-  border:1px solid transparent;
-  background:transparent;
+  display:flex;align-items:center;gap:13px;
+  width:100%;text-align:left;
+  padding:12px 14px;border-radius:12px;
+  border:1px solid transparent;background:transparent;
   cursor:pointer;
-  color:var(--sidebar-text);
-  font-weight:600;
-  font-size:14.5px;
-  font-family:inherit;
-  transition:background .2s ease,color .2s ease,transform .08s ease;
+  color:rgba(255,255,255,.66);
+  font-family:inherit;font-size:14.5px;font-weight:500;
+  transition:all .18s ease;
+  position:relative;
 }
-nav button .nav-ico{
-  font-size:17px;width:20px;text-align:center;flex-shrink:0;
-}
-nav button:hover{
-  background:rgba(255,255,255,.06);
-  color:#fff;
-}
-nav button:active{transform:scale(.98)}
+nav button svg{width:19px;height:19px;flex-shrink:0;stroke-width:1.6}
+nav button:hover{color:#fff;background:rgba(255,255,255,.05)}
 nav button.active{
-  background:linear-gradient(135deg,var(--accent),var(--accent2));
   color:#fff;
-  box-shadow:0 12px 26px rgba(29,78,216,.30);
+  background:rgba(255,255,255,.08);
 }
-.nav-logout{
-  margin-top:auto;
-  color:#fca5a5 !important;
+nav button.active::before{
+  content:"";position:absolute;left:0;top:50%;transform:translateY(-50%);
+  width:3px;height:20px;border-radius:0 3px 3px 0;background:var(--champagne);
 }
-.nav-logout:hover{
-  background:rgba(239,68,68,.12) !important;
-  color:#fecaca !important;
-}
+.nav-sep{height:1px;background:rgba(255,255,255,.08);margin:14px 6px}
+.nav-foot{display:flex;flex-direction:column;gap:4px}
+.nav-logout{color:rgba(255,255,255,.55) !important}
+.nav-logout:hover{color:#fff !important;background:rgba(255,255,255,.05) !important}
 
-/* Topbar mobile (hambúrguer) */
-.topbar{
-  display:none;
-  position:sticky;top:0;z-index:40;
+/* topbar mobile */
+.topbar-mobile{
+  display:none;position:sticky;top:0;z-index:40;
   align-items:center;gap:14px;
-  padding:14px 18px;
-  background:rgba(255,255,255,.92);
-  backdrop-filter:blur(10px);
+  padding:14px 18px;background:var(--bg-warm);
   border-bottom:1px solid var(--border);
 }
 .hamburger{
   width:42px;height:42px;border-radius:11px;
-  border:1px solid var(--border);
-  background:#fff;cursor:pointer;
-  display:grid;place-items:center;
-  font-size:20px;color:var(--primary);
+  border:1px solid var(--border);background:var(--surface);
+  cursor:pointer;display:grid;place-items:center;color:var(--forest);
 }
-.topbar-title{font-weight:800;font-size:16px}
-
-/* overlay escuro quando sidebar abre no mobile */
-.sidebar-overlay{
-  display:none;
-  position:fixed;inset:0;
-  background:rgba(0,0,0,.45);
-  z-index:45;
-}
+.hamburger svg{width:20px;height:20px}
+.sidebar-overlay{display:none;position:fixed;inset:0;background:rgba(1,46,39,.4);z-index:45}
 .sidebar-overlay.show{display:block}
 
-main{
-  margin-left:var(--sidebar-w);
-  padding:40px 48px;
-}
-.main-inner{
-  max-width:1700px;
-  margin:auto;
-}
+/* ===== LAYOUT PRINCIPAL ===== */
+main{margin-left:var(--sidebar-w);padding:0}
+.main-inner{max-width:1640px;margin:auto;padding:28px 40px 40px}
 
-.hidden{display:none}
-
-section{
-  animation: fadeIn .16s ease;
+/* TOPBAR (desktop) */
+.topbar{
+  display:flex;align-items:center;gap:18px;
+  margin-bottom:26px;
 }
-@keyframes fadeIn{
-  from{opacity:.0; transform:translateY(4px)}
-  to{opacity:1; transform:translateY(0)}
+.topsearch{
+  flex:1;max-width:460px;position:relative;
 }
-
-.cards{
-  display:grid;
-  grid-template-columns:repeat(auto-fit,minmax(220px,1fr));
-  gap:18px;
+.topsearch input{
+  width:100%;padding:11px 14px 11px 42px;
+  border-radius:12px;border:1px solid var(--border);
+  background:var(--surface);font-family:inherit;font-size:13.5px;
+  outline:none;color:var(--charcoal);
+  transition:border-color .2s,box-shadow .2s;
 }
-
-.card{
-  background:var(--surface);
-  padding:22px;
-  border-radius:16px;
-  border:1px solid var(--border);
-  box-shadow:0 10px 24px rgba(0,0,0,.05);
+.topsearch input::placeholder{color:var(--muted)}
+.topsearch input:focus{border-color:var(--emerald);box-shadow:0 0 0 4px rgba(15,122,90,.1)}
+.topsearch svg{position:absolute;left:14px;top:50%;transform:translateY(-50%);width:17px;height:17px;color:var(--muted)}
+.topsearch kbd{
+  position:absolute;right:12px;top:50%;transform:translateY(-50%);
+  font-family:inherit;font-size:11px;color:var(--muted);
+  border:1px solid var(--border);border-radius:6px;padding:2px 7px;background:var(--bg);
 }
-
-.card h3, .card h4{margin:0 0 10px 0}
-.card h4{color:var(--secondary); font-weight:600}
-.card strong{font-size:22px}
-
-.dashboard-grid{
-  display:grid;
-  grid-template-columns:1fr 1fr;
-  gap:30px;
-  margin-top:0
+.top-status{
+  display:inline-flex;align-items:center;gap:8px;margin-left:auto;
+  padding:8px 15px;border-radius:999px;
+  background:rgba(15,122,90,.08);color:var(--emerald);
+  font-size:13px;font-weight:500;
 }
-
-@media (max-width: 920px){
-  .dashboard-grid{grid-template-columns:1fr}
-  .hero{grid-template-columns:1fr}
-  .config-grid{grid-template-columns:1fr}
-  .page-grid{grid-template-columns:1fr}
-  .fin-top{grid-template-columns:1fr}
-  .form-card{position:static}
-  .mini-stats.cols-3,.mini-stats.cols-2{grid-template-columns:1fr}
-  main{padding:18px;margin-left:0}
-  .sidebar{transform:translateX(-100%)}
-  .sidebar.open{transform:translateX(0)}
-  .topbar{display:flex}
+.top-status .dot{width:7px;height:7px;border-radius:50%;background:var(--emerald)}
+.top-bell{
+  width:42px;height:42px;border-radius:12px;
+  border:1px solid var(--border);background:var(--surface);
+  display:grid;place-items:center;color:var(--charcoal);position:relative;cursor:pointer;
 }
-
-.countdown-box{
-  display:flex;
-  justify-content:space-between;
-  align-items:center;
-  gap:16px;
+.top-bell svg{width:18px;height:18px}
+.top-bell .badge-dot{
+  position:absolute;top:8px;right:9px;width:7px;height:7px;border-radius:50%;
+  background:var(--champagne);border:2px solid var(--surface);
 }
-.countdown-icon{
-  font-size:64px;
-  opacity:.12
-}
-
-/* 1) Contagem regressiva maior */
-.countdown-text{
-  margin:10px 0 0 0;
-  font-size:18px;
-  font-weight:800;
-  color:var(--primary);
-  letter-spacing:.2px;
-}
-
-/* ===== DASHBOARD MODERNO ===== */
-
-/* Hero / banner */
-.hero{
-  display:grid;
-  grid-template-columns:1.5fr 1fr;
-  gap:26px;
-  margin-bottom:30px;
-}
-.hero-left{
-  background:linear-gradient(135deg,var(--accent-deep),var(--accent) 55%,var(--accent2));
-  border-radius:24px;
-  padding:42px 46px;
-  color:#fff;
-  position:relative;
-  overflow:hidden;
-  box-shadow:0 18px 40px rgba(4,120,87,.22);
-}
-.hero-left::after{
-  content:"";
-  position:absolute;
-  right:-60px;top:-60px;
-  width:220px;height:220px;
-  background:radial-gradient(circle,rgba(255,255,255,.16),transparent 70%);
-  border-radius:50%;
-}
-.hero-eyebrow{
-  margin:0;
-  text-transform:uppercase;
-  letter-spacing:1.4px;
-  font-size:11.5px;
-  font-weight:700;
-  color:rgba(255,255,255,.82);
-}
-.dash-greeting{
-  margin:10px 0 8px;
-  font-size:38px;
-  font-weight:800;
-  line-height:1.1;
-}
-.hero-quote{
-  margin:0 0 18px;
-  font-style:italic;
-  color:rgba(255,255,255,.88);
-  font-size:14.5px;
-}
-.hero-countpill{
-  display:inline-flex;
-  align-items:center;
-  gap:9px;
-  background:rgba(255,255,255,.16);
-  border:1px solid rgba(255,255,255,.22);
-  padding:9px 15px;
-  border-radius:999px;
-  font-size:13.5px;
-  font-weight:600;
-  backdrop-filter:blur(4px);
-}
-.hero-countpill-ico{font-size:15px}
-
-.hero-card{
-  background:var(--surface);
-  border:1px solid var(--border);
-  border-radius:24px;
-  padding:26px;
-  box-shadow:0 14px 34px rgba(11,42,35,.06);
-  display:flex;
-  flex-direction:column;
-  gap:12px;
-  justify-content:center;
-}
-.hero-card-head{
-  display:flex;align-items:center;gap:12px;
-  margin-bottom:4px;
-}
-.hero-avatar{
-  width:52px;height:52px;border-radius:14px;flex-shrink:0;
-  background:linear-gradient(135deg,var(--accent),var(--accent2));
-  display:grid;place-items:center;
-  box-shadow:0 10px 20px rgba(4,120,87,.25);
-}
-.hero-card-title{font-weight:800;font-size:15px;color:var(--primary)}
-.hero-card-sub{font-size:12.5px;color:var(--secondary)}
-
-.quick-btn{
+.top-profile{
   display:flex;align-items:center;gap:11px;
-  width:100%;text-align:left;
-  padding:13px 14px;
-  border-radius:14px;
-  border:1px solid var(--border);
-  background:var(--bg1);
-  cursor:pointer;
-  font-family:inherit;font-size:14px;font-weight:600;
-  color:var(--primary);
-  transition:transform .08s ease,background .18s ease,border-color .18s ease;
+  padding:6px 8px 6px 6px;border-radius:12px;cursor:pointer;
+  transition:background .18s;
 }
-.quick-btn span{font-size:16px}
-.quick-btn i{margin-left:auto;font-style:normal;font-size:20px;color:var(--accent);font-weight:700}
-.quick-btn:hover{background:#fff;border-color:var(--accent2);transform:translateX(2px)}
-.quick-btn:active{transform:scale(.99)}
+.top-profile:hover{background:var(--surface)}
+.top-avatar{
+  width:38px;height:38px;border-radius:10px;flex-shrink:0;
+  background:linear-gradient(135deg,var(--forest),var(--emerald));
+  display:grid;place-items:center;color:#fff;font-weight:600;font-size:14px;
+}
+.top-profile .pname{font-size:13.5px;font-weight:600;color:var(--charcoal);line-height:1.2;max-width:150px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.top-profile .prole{font-size:11.5px;color:var(--muted)}
 
-/* Stat cards */
-.cards{
-  display:grid;
-  grid-template-columns:repeat(auto-fit,minmax(240px,1fr));
-  gap:22px;
-  margin-bottom:30px;
-}
-.stat-card{
-  background:var(--surface);
-  border:1px solid var(--border);
-  border-radius:20px;
-  padding:24px;
-  display:flex;align-items:center;gap:16px;
-  box-shadow:0 10px 26px rgba(11,42,35,.05);
-  transition:transform .12s ease,box-shadow .18s ease;
-}
-.stat-card:hover{transform:translateY(-2px);box-shadow:0 16px 32px rgba(11,42,35,.09)}
-.stat-ico{
-  width:48px;height:48px;border-radius:14px;flex-shrink:0;
-  display:grid;place-items:center;font-size:22px;
-}
-.s-emerald{background:#d1fae5}
-.s-amber{background:#fef3c7}
-.s-rose{background:#ffe4e6}
-.s-teal{background:#ccfbf1}
-.stat-info{display:flex;flex-direction:column;min-width:0}
-.stat-label{font-size:12.5px;color:var(--secondary);font-weight:600}
-.stat-info strong{font-size:23px;font-weight:800;color:var(--primary);line-height:1.2}
-.stat-pct{font-size:11.5px;color:var(--accent);font-weight:700;margin-top:2px}
+/* ===== HEADER DE PÁGINA ===== */
+.page-head{display:flex;align-items:flex-start;justify-content:space-between;gap:26px;margin-bottom:30px;flex-wrap:wrap}
 
-/* Panels */
-.panel{
-  background:var(--surface);
-  border:1px solid var(--border);
-  border-radius:22px;
-  padding:28px;
-  box-shadow:0 10px 26px rgba(11,42,35,.05);
-}
-.dash-col{display:flex;flex-direction:column;gap:30px}
-.panel-title{margin:0;font-size:16px;font-weight:800;color:var(--primary)}
-.panel-head{display:flex;align-items:center;justify-content:space-between;margin-bottom:14px}
-.panel-count{
-  background:#d1fae5;color:var(--accent-deep);
-  font-weight:800;font-size:13px;
-  padding:3px 11px;border-radius:999px;
-}
-.panel-count.amber{background:#fef3c7;color:#92400e}
-
-/* Budget */
-.budget-flex{display:flex;align-items:center;gap:22px;flex-wrap:wrap}
-.budget-lines{display:flex;flex-direction:column;gap:10px;flex:1;min-width:160px}
-.budget-line{display:flex;align-items:center;gap:9px;font-size:14px;color:var(--secondary)}
-.budget-line b{margin-left:auto;color:var(--primary);font-weight:800}
-.dot{width:10px;height:10px;border-radius:50%;flex-shrink:0}
-.d-total{background:var(--secondary)}
-.d-used{background:var(--accent)}
-.d-free{background:var(--accent2)}
-
-/* Config */
-.config-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:14px}
-.config-pill{
-  display:flex;align-items:center;gap:11px;
-  background:var(--bg1);border:1px solid var(--border);
-  border-radius:14px;padding:12px 14px;
-}
-.config-pill-ico{font-size:20px}
-.config-pill small{display:block;font-size:11.5px;color:var(--secondary);font-weight:600}
-.config-pill b{font-size:14px;color:var(--primary)}
-.config-actions{display:flex;gap:10px;flex-wrap:wrap}
-.ghost-btn{
-  flex:1;min-width:130px;
-  padding:11px 12px;border-radius:12px;
-  border:1px solid var(--accent2);background:transparent;
-  color:var(--accent-deep);font-family:inherit;font-weight:700;font-size:13px;
-  cursor:pointer;transition:background .18s ease;
-}
-.ghost-btn:hover{background:#d1fae5}
-.date-row{margin-top:14px;padding-top:14px;border-top:1px solid var(--border)}
-.date-row label{margin:0 0 6px;font-weight:700;color:var(--primary)}
-.date-row input{width:100%}
-
-/* Todo list */
-.todo-add{display:flex;gap:8px;margin-bottom:14px}
-.todo-add input{flex:1}
-.primary.mini{padding:0 16px;font-size:20px;line-height:1}
-.todo-list,.pending-list{list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:8px}
-.todo-item{
-  display:flex;align-items:center;gap:11px;
-  background:var(--bg1);border:1px solid var(--border);
-  border-radius:12px;padding:11px 13px;
-}
-.todo-item input[type=checkbox]{width:18px;height:18px;accent-color:var(--accent);cursor:pointer;flex-shrink:0}
-.todo-item span{flex:1;font-size:14px;color:var(--primary)}
-.todo-item.done span{text-decoration:line-through;color:var(--secondary)}
-.todo-item button{
-  background:none;border:none;cursor:pointer;font-size:15px;opacity:.5;flex-shrink:0;
-}
-.todo-item button:hover{opacity:1}
-.empty-msg{font-size:13.5px;color:var(--secondary);padding:8px 2px;font-style:italic}
-.pending-item{
-  display:flex;align-items:center;gap:11px;
-  background:var(--bg1);border:1px solid var(--border);
-  border-radius:12px;padding:11px 13px;font-size:14px;
-}
-.pending-item .pi-name{font-weight:700;color:var(--primary)}
-.pending-item .pi-val{margin-left:auto;font-weight:800;color:#92400e}
-
-.budget-circle{
-  width:130px;
-  height:130px;
-  border-radius:50%;
-  flex-shrink:0;
-  background:conic-gradient(
-    var(--accent) 0deg,
-    var(--accent) var(--percent),
-    #e3eae7 var(--percent)
-  );
-  display:flex;
-  align-items:center;
-  justify-content:center;
-}
-.budget-circle span{
-  background:#fff;
-  width:96px;
-  height:96px;
-  border-radius:50%;
-  display:flex;
-  align-items:center;
-  justify-content:center;
-  font-weight:800;
-  font-size:22px;
-  color:var(--primary);
-}
-
-/* ===== TELAS INTERNAS (itens/financeiro/convidados) ===== */
-.page-header{
-  display:flex;align-items:flex-end;justify-content:space-between;
-  gap:18px;flex-wrap:wrap;margin-bottom:26px;
-}
-.page-header h1{
-  margin:0;font-size:28px;font-weight:800;color:var(--primary);
-}
-.page-header p{
-  margin:4px 0 0;color:var(--secondary);font-size:14px;
-}
-.page-grid{
-  display:grid;
-  grid-template-columns:340px 1fr;
-  gap:26px;
-  align-items:start;
-}
-.form-card{
-  background:var(--surface);
-  border:1px solid var(--border);
-  border-radius:22px;
-  padding:26px;
-  box-shadow:0 10px 26px rgba(11,42,35,.05);
-  position:sticky;
-  top:24px;
-}
-.form-card h3{margin:0 0 4px;font-size:17px;font-weight:800;color:var(--primary)}
-.form-card .sub{margin:0 0 16px;font-size:13px;color:var(--secondary)}
-
-/* mini stats row */
-.mini-stats{display:grid;gap:14px;margin-bottom:22px}
-.mini-stats.cols-3{grid-template-columns:repeat(3,1fr)}
-.mini-stats.cols-2{grid-template-columns:repeat(2,1fr)}
-.mini-stat{
+/* countdown card */
+.countdown-card{
+  display:flex;align-items:center;gap:18px;
   background:var(--surface);border:1px solid var(--border);
-  border-radius:16px;padding:18px 20px;
-  box-shadow:0 8px 20px rgba(11,42,35,.04);
+  border-radius:var(--radius);padding:18px 24px;
+  box-shadow:var(--shadow-soft);flex-shrink:0;
 }
-.mini-stat .ms-label{font-size:12.5px;color:var(--secondary);font-weight:600}
-.mini-stat .ms-value{font-size:24px;font-weight:800;color:var(--primary);margin-top:3px}
-.mini-stat .ms-value.green{color:var(--accent)}
-.mini-stat .ms-value.amber{color:#b45309}
-.mini-stat .ms-value.rose{color:#be123c}
+.countdown-card .cc-ico{
+  width:46px;height:46px;border-radius:12px;
+  background:var(--bg);border:1px solid var(--border);
+  display:grid;place-items:center;color:var(--forest);
+}
+.countdown-card .cc-ico svg{width:20px;height:20px;stroke-width:1.5}
+.cc-label{font-size:10.5px;letter-spacing:1.2px;text-transform:uppercase;color:var(--muted);font-weight:600;margin-bottom:7px}
+.cc-clock{display:flex;align-items:baseline;gap:9px}
+.cc-unit{text-align:center;min-width:34px}
+.cc-num{font-family:'Cormorant Garamond',serif;font-size:30px;font-weight:600;color:var(--charcoal);line-height:1}
+.cc-den{font-size:9px;letter-spacing:1px;text-transform:uppercase;color:var(--muted);margin-top:3px;font-weight:600}
+.cc-sep{font-family:'Cormorant Garamond',serif;font-size:24px;color:var(--border);align-self:flex-start;margin-top:2px}
 
-/* content card que envolve tabela + toolbar */
-.content-card{
-  background:var(--surface);
-  border:1px solid var(--border);
-  border-radius:22px;
-  padding:22px;
-  box-shadow:0 10px 26px rgba(11,42,35,.05);
+/* ===== KPI CARDS ===== */
+.kpi-row{display:grid;grid-template-columns:repeat(4,1fr);gap:20px;margin-bottom:30px}
+.kpi{
+  background:var(--surface);border:1px solid var(--border);
+  border-radius:var(--radius);padding:22px 24px;
+  box-shadow:var(--shadow-soft);
+  display:flex;align-items:center;gap:18px;
+  transition:transform .15s ease, box-shadow .2s ease;
 }
-.toolbar{
-  display:flex;align-items:center;gap:12px;flex-wrap:wrap;
-  margin-bottom:16px;
+.kpi:hover{transform:translateY(-2px);box-shadow:var(--shadow-card)}
+.kpi-ico{
+  width:54px;height:54px;border-radius:14px;flex-shrink:0;
+  display:grid;place-items:center;
 }
-.toolbar h3{margin:0;font-size:17px;font-weight:800;color:var(--primary);margin-right:auto}
-.search-box{
-  position:relative;flex:1;min-width:180px;max-width:320px;
+.kpi-ico svg{width:22px;height:22px;stroke-width:1.5}
+.kpi-ico.forest{background:var(--forest);color:#fff}
+.kpi-ico.gold{background:var(--gold-soft);color:#8a6d2f}
+.kpi-ico.rose{background:var(--danger-soft);color:var(--danger)}
+.kpi-ico.sage{background:rgba(15,122,90,.12);color:var(--emerald)}
+.kpi-body{min-width:0;flex:1}
+.kpi-label{font-size:10.5px;letter-spacing:1.1px;text-transform:uppercase;color:var(--muted);font-weight:600}
+.kpi-value{font-family:'Cormorant Garamond',serif;font-size:32px;font-weight:600;color:var(--charcoal);line-height:1.1;margin:3px 0}
+.kpi-foot{font-size:12px;color:var(--muted)}
+
+/* ===== SECTION CARDS ===== */
+.section-card{
+  background:var(--surface);border:1px solid var(--border);
+  border-radius:var(--radius);padding:26px;
+  box-shadow:var(--shadow-soft);
 }
-.search-box input{margin:0;padding-left:38px}
-.search-box::before{
-  content:"🔍";position:absolute;left:13px;top:50%;transform:translateY(-50%);
-  font-size:13px;opacity:.6;pointer-events:none;
+.sc-head{display:flex;align-items:center;justify-content:space-between;gap:12px;margin-bottom:20px}
+.sc-title{font-family:'Cormorant Garamond',serif;font-size:24px;font-weight:600;color:var(--charcoal)}
+.sc-link{font-size:13px;color:var(--emerald);font-weight:500;cursor:pointer;text-decoration:none;display:inline-flex;align-items:center;gap:5px;background:none;border:none;font-family:inherit}
+.sc-link:hover{color:var(--forest)}
+.sc-pill{font-size:11.5px;color:var(--muted);background:var(--bg);border:1px solid var(--border);padding:3px 11px;border-radius:999px;font-weight:500}
+
+/* grid dashboard */
+.dash-grid{display:grid;grid-template-columns:1fr 1fr 1fr;gap:24px;margin-bottom:24px;align-items:start}
+.dash-grid.bottom{margin-bottom:0}
+
+/* ===== BUDGET DONUT ===== */
+.budget-wrap{display:flex;align-items:center;gap:26px;flex-wrap:wrap}
+.donut{
+  width:150px;height:150px;border-radius:50%;flex-shrink:0;
+  background:conic-gradient(var(--forest) 0deg, var(--forest) var(--percent), var(--gold-soft) var(--percent));
+  display:grid;place-items:center;
 }
-.filter-chips{display:flex;gap:7px;flex-wrap:wrap}
+.donut-hole{
+  width:104px;height:104px;border-radius:50%;background:var(--surface);
+  display:flex;flex-direction:column;align-items:center;justify-content:center;
+}
+.donut-pct{font-family:'Cormorant Garamond',serif;font-size:30px;font-weight:600;color:var(--charcoal);line-height:1}
+.donut-cap{font-size:10.5px;letter-spacing:.5px;text-transform:uppercase;color:var(--muted);margin-top:2px}
+.budget-legend{flex:1;min-width:180px;display:flex;flex-direction:column;gap:2px}
+.bl-row{display:flex;align-items:center;gap:10px;padding:9px 0;border-bottom:1px solid var(--border);font-size:13.5px}
+.bl-row:last-of-type{border-bottom:none}
+.bl-dot{width:9px;height:9px;border-radius:50%;flex-shrink:0}
+.bl-dot.total{background:var(--forest)}
+.bl-dot.used{background:var(--champagne)}
+.bl-dot.free{background:var(--emerald)}
+.bl-label{color:var(--muted)}
+.bl-val{margin-left:auto;font-weight:600;color:var(--charcoal)}
+
+/* ===== BUTTONS ===== */
+.btn{
+  display:inline-flex;align-items:center;justify-content:center;gap:8px;
+  padding:11px 18px;border-radius:12px;cursor:pointer;
+  font-family:inherit;font-size:14px;font-weight:500;
+  border:1px solid transparent;transition:all .18s ease;
+}
+.btn svg{width:17px;height:17px;stroke-width:1.7}
+.btn-primary{background:var(--forest);color:#fff;box-shadow:0 8px 20px rgba(5,61,50,.18)}
+.btn-primary:hover{background:var(--deep);box-shadow:0 10px 24px rgba(5,61,50,.24)}
+.btn-primary:active{transform:scale(.99)}
+.btn-ghost{background:var(--surface);color:var(--charcoal);border-color:var(--border)}
+.btn-ghost:hover{border-color:var(--emerald);color:var(--forest)}
+.btn-block{width:100%}
+.btn-sq{width:46px;height:46px;padding:0;flex-shrink:0}
+
+/* ===== FORM FIELDS ===== */
+.field{margin-bottom:16px}
+.field label, .form-label{
+  display:block;font-size:12px;font-weight:600;color:var(--charcoal);
+  margin-bottom:8px;letter-spacing:.2px;
+}
+.input, input.input, select.input{
+  width:100%;padding:13px 15px;border-radius:12px;
+  border:1px solid var(--border);background:var(--surface-plain);
+  font-family:inherit;font-size:14px;color:var(--charcoal);
+  outline:none;transition:border-color .2s,box-shadow .2s;
+}
+.input::placeholder{color:#A9AFA8}
+.input:focus, input.input:focus, select.input:focus{
+  border-color:var(--emerald);box-shadow:0 0 0 4px rgba(15,122,90,.1);
+}
+.field-hint{
+  display:flex;gap:11px;align-items:flex-start;
+  background:var(--bg);border:1px solid var(--border);border-radius:12px;
+  padding:13px 15px;margin-top:4px;
+}
+.field-hint .fh-ico{color:var(--champagne);flex-shrink:0;margin-top:1px}
+.field-hint .fh-ico svg{width:16px;height:16px}
+.field-hint-txt{font-size:12.5px;color:var(--muted);line-height:1.5}
+.field-hint-txt b{color:var(--charcoal);font-weight:600}
+
+/* ===== TODO / LISTS ===== */
+.todo-input-row{display:flex;gap:10px;margin-bottom:16px}
+.todo-input-row .input{flex:1}
+.todo-list{list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:10px}
+.todo-item{
+  display:flex;align-items:center;gap:13px;
+  background:var(--bg);border:1px solid var(--border);
+  border-radius:12px;padding:14px 16px;
+}
+.check{
+  width:20px;height:20px;border-radius:6px;flex-shrink:0;cursor:pointer;
+  border:1.5px solid var(--border);background:var(--surface-plain);
+  display:grid;place-items:center;transition:all .15s;
+  appearance:none;-webkit-appearance:none;
+}
+.check:checked{background:var(--forest);border-color:var(--forest)}
+.check:checked::after{content:"";width:5px;height:9px;border:solid #fff;border-width:0 2px 2px 0;transform:rotate(45deg) translateY(-1px)}
+.todo-item span{flex:1;font-size:14px;color:var(--charcoal)}
+.todo-item.done span{text-decoration:line-through;color:var(--muted)}
+.icon-btn{background:none;border:none;cursor:pointer;color:var(--muted);padding:4px;display:grid;place-items:center;border-radius:8px;transition:all .15s}
+.icon-btn:hover{color:var(--danger);background:var(--danger-soft)}
+.icon-btn svg{width:16px;height:16px;stroke-width:1.6}
+
+/* progress bar (convidados resumo) */
+.progress{height:7px;border-radius:999px;background:var(--gold-soft);overflow:hidden;margin-top:4px}
+.progress-fill{height:100%;background:var(--forest);border-radius:999px;transition:width .5s ease}
+
+/* mini stat cluster (dashboard convidados) */
+.mini-cluster{display:flex;align-items:center;gap:22px;margin-bottom:14px}
+.mini-cluster .mc-ico{width:46px;height:46px;border-radius:50%;background:var(--bg);border:1px solid var(--border);display:grid;place-items:center;color:var(--forest);flex-shrink:0}
+.mini-cluster .mc-ico svg{width:20px;height:20px}
+.mc-item{display:flex;flex-direction:column}
+.mc-label{font-size:10px;letter-spacing:1px;text-transform:uppercase;color:var(--muted);font-weight:600}
+.mc-num{font-family:'Cormorant Garamond',serif;font-size:26px;font-weight:600;color:var(--charcoal);line-height:1.1}
+.mc-sub{font-size:11px;color:var(--muted)}
+
+/* quick actions */
+.qa-grid{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+.qa{
+  display:flex;align-items:flex-start;gap:13px;text-align:left;
+  background:var(--bg);border:1px solid var(--border);border-radius:14px;
+  padding:16px;cursor:pointer;font-family:inherit;transition:all .16s ease;
+}
+.qa:hover{border-color:var(--emerald);background:var(--surface-plain);transform:translateY(-1px)}
+.qa-ico{width:40px;height:40px;border-radius:11px;flex-shrink:0;display:grid;place-items:center}
+.qa-ico svg{width:18px;height:18px;stroke-width:1.6}
+.qa-ico.dark{background:var(--forest);color:#fff}
+.qa-ico.gold{background:var(--gold-soft);color:#8a6d2f}
+.qa-txt b{display:block;font-size:13.5px;font-weight:600;color:var(--charcoal);margin-bottom:2px}
+.qa-txt small{font-size:11.5px;color:var(--muted);line-height:1.4}
+
+/* config rows */
+.cfg-row{
+  display:flex;align-items:center;gap:14px;
+  padding:15px 0;border-bottom:1px solid var(--border);
+}
+.cfg-row:last-child{border-bottom:none}
+.cfg-ico{width:42px;height:42px;border-radius:11px;background:var(--bg);border:1px solid var(--border);display:grid;place-items:center;color:var(--forest);flex-shrink:0}
+.cfg-ico svg{width:18px;height:18px}
+.cfg-info{flex:1}
+.cfg-info b{display:block;font-size:13.5px;color:var(--charcoal);font-weight:600}
+.cfg-info small{font-size:12px;color:var(--muted)}
+.cfg-act{font-size:13px;color:var(--emerald);font-weight:500;cursor:pointer;display:inline-flex;align-items:center;gap:5px;background:none;border:none;font-family:inherit}
+.cfg-act svg{width:15px;height:15px}
+
+/* ===== DATA TABLE ===== */
+.table-toolbar{display:flex;align-items:center;gap:14px;margin-bottom:18px;flex-wrap:wrap}
+.tt-search{position:relative;flex:1;min-width:200px;max-width:360px}
+.tt-search input{width:100%;padding:11px 14px 11px 40px;border-radius:11px;border:1px solid var(--border);background:var(--surface-plain);font-family:inherit;font-size:13.5px;outline:none;transition:border-color .2s,box-shadow .2s}
+.tt-search input:focus{border-color:var(--emerald);box-shadow:0 0 0 4px rgba(15,122,90,.1)}
+.tt-search svg{position:absolute;left:13px;top:50%;transform:translateY(-50%);width:16px;height:16px;color:var(--muted)}
+.chips{display:flex;gap:8px;flex-wrap:wrap}
 .chip{
-  padding:8px 14px;border-radius:999px;cursor:pointer;
-  border:1px solid var(--border);background:var(--bg1);
-  font-family:inherit;font-size:13px;font-weight:600;color:var(--secondary);
+  padding:9px 16px;border-radius:999px;cursor:pointer;
+  border:1px solid var(--border);background:var(--surface-plain);
+  font-family:inherit;font-size:13px;font-weight:500;color:var(--muted);
   transition:all .16s ease;
 }
-.chip:hover{border-color:var(--accent2)}
-.chip.active{background:var(--accent);color:#fff;border-color:var(--accent)}
+.chip:hover{border-color:var(--emerald);color:var(--forest)}
+.chip.active{background:var(--forest);color:#fff;border-color:var(--forest)}
 
-/* tabela moderna */
 .tbl{width:100%;border-collapse:separate;border-spacing:0}
 .tbl thead th{
-  background:transparent;color:var(--secondary);
-  text-align:left;font-weight:700;font-size:12px;
-  text-transform:uppercase;letter-spacing:.5px;
-  padding:10px 14px;border-bottom:2px solid var(--border);
+  text-align:left;padding:0 16px 14px;
+  font-size:10.5px;letter-spacing:1px;text-transform:uppercase;
+  color:var(--muted);font-weight:600;
+  border-bottom:1px solid var(--border);
   cursor:pointer;user-select:none;white-space:nowrap;
 }
 .tbl thead th.no-sort{cursor:default}
-.tbl thead th .arrow{opacity:.4;font-size:10px;margin-left:3px}
-.tbl thead th.sorted .arrow{opacity:1;color:var(--accent)}
-.tbl tbody td{
-  padding:14px;border-bottom:1px solid var(--border);
-  font-size:14px;color:var(--primary);vertical-align:middle;
-}
-.tbl tbody tr{transition:background .14s ease}
-.tbl tbody tr:hover{background:var(--bg1)}
+.tbl thead th .arrow{opacity:.35;margin-left:4px;font-size:9px}
+.tbl thead th.sorted .arrow{opacity:1;color:var(--emerald)}
+.tbl tbody td{padding:18px 16px;border-bottom:1px solid var(--border);font-size:14px;color:var(--charcoal);vertical-align:middle}
 .tbl tbody tr:last-child td{border-bottom:none}
+.tbl tbody tr{transition:background .14s ease}
+.tbl tbody tr:hover{background:var(--bg)}
 .tbl .center{text-align:center}
-.tbl .val{font-weight:800;white-space:nowrap}
-.tbl .row-del{
-  background:none;border:none;color:var(--danger);
-  cursor:pointer;font-size:16px;opacity:.55;
-}
-.tbl .row-del:hover{opacity:1}
-.tbl input[type=checkbox]{width:19px;height:19px;accent-color:var(--accent);cursor:pointer}
-.status-pill{
-  display:inline-flex;align-items:center;gap:6px;
-  padding:4px 11px;border-radius:999px;font-size:12px;font-weight:700;
-}
-.status-pill.paid{background:#d1fae5;color:#065f46}
-.status-pill.pending{background:#fef3c7;color:#92400e}
-.tbl-empty{padding:34px;text-align:center;color:var(--secondary);font-style:italic;font-size:14px}
+.tbl .val{font-weight:600;white-space:nowrap;font-variant-numeric:tabular-nums}
+.tbl .strong{font-weight:600}
+.tbl .check{display:inline-grid}
+.row-actions{display:inline-flex;gap:6px;align-items:center;justify-content:center}
 
-/* gráfico */
-.chart-card{
-  background:var(--surface);border:1px solid var(--border);
-  border-radius:22px;padding:24px;box-shadow:0 10px 26px rgba(11,42,35,.05);
-}
-.chart-card h3{margin:0 0 16px;font-size:17px;font-weight:800;color:var(--primary)}
-.chart-holder{position:relative;height:260px}
-.fin-top{display:grid;grid-template-columns:1fr 1fr;gap:26px;margin-bottom:26px;align-items:start}
+/* status pill & badges */
+.status-pill{display:inline-flex;align-items:center;gap:6px;padding:5px 12px;border-radius:999px;font-size:12px;font-weight:600}
+.status-pill::before{content:"";width:6px;height:6px;border-radius:50%}
+.status-pill.paid{background:rgba(15,122,90,.1);color:var(--emerald)}
+.status-pill.paid::before{background:var(--emerald)}
+.status-pill.pending{background:var(--gold-soft);color:#8a6d2f}
+.status-pill.pending::before{background:#b8902f}
+.badge{display:inline-flex;align-items:center;padding:5px 12px;border-radius:999px;font-size:12px;font-weight:500;border:1px solid var(--border)}
+.badge.blue{background:rgba(5,61,50,.06);color:var(--forest);border-color:rgba(5,61,50,.18)}
+.badge.cyan{background:rgba(15,122,90,.08);color:var(--emerald);border-color:rgba(15,122,90,.22)}
+.badge.gray{background:var(--bg);color:var(--muted)}
 
-label{
-  display:block;
-  font-size:12px;
-  color:var(--secondary);
-  margin-top:10px;
-  font-weight:600;
-}
+/* ===== EMPTY STATES ===== */
+.empty{display:flex;flex-direction:column;align-items:center;text-align:center;padding:44px 20px}
+.empty-art{margin-bottom:18px}
+.empty-title{font-family:'Cormorant Garamond',serif;font-size:24px;font-weight:600;color:var(--charcoal);margin-bottom:6px}
+.empty-sub{font-size:13.5px;color:var(--muted);max-width:340px;line-height:1.6;margin-bottom:20px}
+.empty-mini{display:flex;flex-direction:column;align-items:center;text-align:center;padding:30px 16px;color:var(--muted)}
+.empty-mini .em-ico{width:54px;height:54px;border-radius:50%;background:rgba(15,122,90,.1);display:grid;place-items:center;color:var(--emerald);margin-bottom:14px}
+.empty-mini .em-ico svg{width:24px;height:24px}
+.empty-mini b{font-size:14px;color:var(--charcoal);font-family:'Cormorant Garamond',serif;font-size:18px;font-weight:600;margin-bottom:4px}
+.empty-mini small{font-size:12.5px}
+.tbl-empty{padding:0 !important;border:none !important}
 
-input, select{
-  width:100%;
-  padding:12px 12px;
-  border-radius:12px;
-  border:1px solid var(--border);
-  margin-top:8px;
-  font-family:inherit;
-  outline:none;
-  transition:border-color .2s ease, box-shadow .2s ease;
-  background:#fff;
-}
-input:focus, select:focus{
-  border-color:rgba(4,120,87,.55);
-  box-shadow:0 0 0 4px rgba(4,120,87,.12);
-}
+/* chart holder */
+.chart-holder{position:relative;height:230px}
 
-.actions-row{
-  display:grid;
-  grid-template-columns:1fr 1fr;
-  gap:16px;
-}
-@media (max-width: 920px){
-  .actions-row{grid-template-columns:1fr}
-}
+/* page layout: itens/financeiro/convidados */
+.work-grid{display:grid;grid-template-columns:360px 1fr;gap:24px;align-items:start}
+.split-2{display:grid;grid-template-columns:1fr 1fr;gap:24px;align-items:start;margin-bottom:24px}
+.split-3{display:grid;grid-template-columns:1fr 1fr 1fr;gap:24px;align-items:start;margin-bottom:24px}
+.form-aside{position:sticky;top:24px}
+.stack{display:flex;flex-direction:column;gap:24px}
 
-button.primary{
-  margin-top:12px;
-  background:linear-gradient(135deg,var(--accent),var(--accent2));
-  color:#fff;
-  border:none;
-  border-radius:12px;
-  padding:12px 14px;
-  font-weight:800;
-  cursor:pointer;
-  transition:transform .08s ease, filter .2s ease, box-shadow .2s ease;
-  box-shadow:0 12px 26px rgba(4,120,87,.20);
-}
-button.primary:hover{filter:brightness(1.02)}
-button.primary:active{transform:scale(.98)}
+.foot-note{text-align:center;color:var(--muted);font-size:12.5px;padding:28px 0 4px}
 
-.table-wrap{
-  margin-top:22px;
-  border-radius:16px;
-  overflow:hidden;
-  border:1px solid var(--border);
-  box-shadow:0 10px 24px rgba(0,0,0,.05);
-  background:#fff;
-}
-table{
-  width:100%;
-  border-collapse:collapse;
-}
-th,td{
-  padding:14px;
-  border-bottom:1px solid var(--border);
-}
-th{
-  background:#f1f5f9;
-  color:var(--secondary);
-  text-align:left;
-  font-weight:700;
-  font-size:13px;
-  letter-spacing:.2px;
-}
-td button{
-  background:none;
-  border:none;
-  color:var(--danger);
-  cursor:pointer;
-  font-size:16px
-}
-td input[type="checkbox"]{
-  transform:scale(1.15);
-  cursor:pointer;
-}
-
-/* 3) Checkbox centralizada */
-td.center{
-  text-align:center;
-  vertical-align:middle;
-}
-td.center input[type="checkbox"]{
-  margin:0;
-  display:inline-block;
-}
-
-.badge{
-  display:inline-flex;
-  align-items:center;
-  gap:8px;
-  padding:6px 10px;
-  border-radius:999px;
-  font-weight:700;
-  font-size:12px;
-  border:1px solid var(--border);
-  background:#f8fafc;
-  color:var(--primary);
-}
-.badge.blue{border-color:rgba(4,120,87,.25); background:rgba(4,120,87,.08); color:#065f46}
-.badge.cyan{border-color:rgba(16,185,129,.3); background:rgba(16,185,129,.1); color:#047857}
-.badge.gray{border-color:rgba(100,116,139,.25); background:rgba(100,116,139,.08); color:#475569}
-
-/* 2) Configurações maior */
-.config-line{
-  display:flex;
-  align-items:center;
-  gap:10px;
-  flex-wrap:wrap;
-  margin-bottom:10px;
-}
-.config-line .config-value{
-  font-size:14px;
-  font-weight:800;
-  color:var(--primary);
-}
-.badge.big{
-  padding:8px 12px;
-  font-size:13px;
-}
-
-/* 4) Convidados: números maiores em confirmados/restantes */
-.guest-stats{
-  margin-top:12px;
-  display:flex;
-  gap:12px;
-  flex-wrap:wrap;
-  align-items:baseline;
-}
-.guest-stats .label{
-  font-size:12px;
-  font-weight:800;
-  color:var(--secondary);
-}
-.guest-stats .num{
-  font-size:20px;
-  font-weight:900;
-  color:var(--primary);
-  letter-spacing:.2px;
-}
-
-.hint{
-  margin-top:10px;
-  font-size:12px;
-  color:var(--secondary);
-}
-
+/* ===== TOAST ===== */
 .toast{
-  position:fixed;
-  right:18px;
-  bottom:18px;
-  min-width:240px;
-  max-width:320px;
-  background:#0b1220;
-  color:#fff;
-  border-radius:14px;
-  padding:12px 14px;
-  border:1px solid rgba(255,255,255,.08);
-  box-shadow:0 18px 40px rgba(0,0,0,.25);
-  opacity:0;
-  transform:translateY(8px);
-  pointer-events:none;
-  transition:opacity .18s ease, transform .18s ease;
-  z-index:999;
+  position:fixed;left:50%;bottom:28px;transform:translateX(-50%) translateY(20px);
+  background:var(--charcoal);color:#fff;padding:13px 22px;border-radius:12px;
+  font-size:13.5px;font-weight:500;opacity:0;pointer-events:none;
+  transition:all .3s ease;z-index:100;box-shadow:0 12px 30px rgba(0,0,0,.2);
 }
-.toast.show{opacity:1; transform:translateY(0)}
-.toast small{display:block; opacity:.8; margin-top:4px}
-.toast.success{background:linear-gradient(135deg,#071a41,#0f172a)}
-.toast.error{background:linear-gradient(135deg,#2a0b0b,#240b0b)}
+.toast.show{opacity:1;transform:translateX(-50%) translateY(0)}
+.toast.error{background:var(--danger)}
+
+/* ===== RESPONSIVO ===== */
+@media (max-width:1100px){
+  .kpi-row{grid-template-columns:1fr 1fr}
+  .dash-grid,.split-3{grid-template-columns:1fr}
+  .split-2{grid-template-columns:1fr}
+  .work-grid{grid-template-columns:1fr}
+  .form-aside{position:static}
+}
+@media (max-width:760px){
+  .sidebar{transform:translateX(-100%)}
+  .sidebar.open{transform:translateX(0)}
+  .topbar-mobile{display:flex}
+  main{margin-left:0}
+  .main-inner{padding:18px}
+  .topbar{display:none}
+  .page-title{font-size:34px}
+  .kpi-row{grid-template-columns:1fr}
+  .page-head{flex-direction:column}
+  .countdown-card{width:100%}
+}
 </style>
 </head>
-
 <body>
 
 <aside class="sidebar" id="sidebar">
   <div class="brand">
-    <div class="brand-badge" aria-label="Formatura">
-      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" aria-hidden="true">
-        <path d="M12 3L1.5 8.25 12 13.5 22.5 8.25 12 3Z" fill="white"/>
-        <path d="M5.5 10.2V15.2C5.5 16.9 8.4 18.3 12 18.3C15.6 18.3 18.5 16.9 18.5 15.2V10.2L12 13.5L5.5 10.2Z" fill="white" opacity="0.95"/>
-        <path d="M22.5 8.25V13.8" stroke="white" stroke-width="1.7" stroke-linecap="round"/>
-        <circle cx="22.5" cy="14.9" r="1.1" fill="white"/>
-      </svg>
+    <div class="brand-mark">
+      <span class="laurel">&#127881;</span>
+      <span class="mono">F</span>
     </div>
-    <div class="brand-title">Formatura360</div>
+    <div class="brand-name">Formatura360</div>
   </div>
 
   <nav>
-    <button id="btn-dashboard" class="active" onclick="showPage('dashboard')"><span class="nav-ico">📊</span> Dashboard</button>
-    <button id="btn-items" onclick="showPage('items')"><span class="nav-ico">📦</span> Itens</button>
-    <button id="btn-finance" onclick="showPage('finance')"><span class="nav-ico">💰</span> Financeiro</button>
-    <button id="btn-guests" onclick="showPage('guests')"><span class="nav-ico">👥</span> Convidados</button>
-    <button class="nav-logout" onclick="logout()"><span class="nav-ico">🚪</span> Sair</button>
+    <button id="btn-dashboard" class="active" onclick="showPage('dashboard')">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><rect x="3" y="3" width="7" height="7" rx="1.5"/><rect x="14" y="3" width="7" height="7" rx="1.5"/><rect x="3" y="14" width="7" height="7" rx="1.5"/><rect x="14" y="14" width="7" height="7" rx="1.5"/></svg>
+      Dashboard
+    </button>
+    <button id="btn-items" onclick="showPage('items')">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"/><path d="m3.3 7 8.7 5 8.7-5"/><path d="M12 22V12"/></svg>
+      Itens
+    </button>
+    <button id="btn-finance" onclick="showPage('finance')">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><rect x="2" y="5" width="20" height="14" rx="2"/><path d="M2 10h20"/></svg>
+      Financeiro
+    </button>
+    <button id="btn-guests" onclick="showPage('guests')">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M22 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+      Convidados
+    </button>
   </nav>
+
+  <div class="nav-foot">
+    <div class="nav-sep"></div>
+    <button onclick="showPage('finance')">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 1 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-4 0v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 1 1-2.83-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1 0-4h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 1 1 2.83-2.83l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 4 0v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 1 1 2.83 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1z"/></svg>
+      Configurações
+    </button>
+    <button class="nav-logout" onclick="logout()">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"/><polyline points="16 17 21 12 16 7"/><line x1="21" y1="12" x2="9" y2="12"/></svg>
+      Sair
+    </button>
+  </div>
 </aside>
 
 <div class="sidebar-overlay" id="sidebarOverlay" onclick="toggleSidebar(false)"></div>
 
-<div class="topbar">
-  <button class="hamburger" onclick="toggleSidebar(true)" aria-label="Abrir menu">☰</button>
-  <div class="topbar-title">Formatura360</div>
+<div class="topbar-mobile">
+  <button class="hamburger" onclick="toggleSidebar(true)" aria-label="Menu">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="18" x2="21" y2="18"/></svg>
+  </button>
+  <div class="brand-name" style="color:var(--charcoal);font-size:19px">Formatura360</div>
 </div>
 
 <main id="app" class="hidden">
 <div class="main-inner">
 
-  <!-- DASHBOARD -->
+  <!-- TOPBAR -->
+  <div class="topbar">
+    <div class="topsearch">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.3-4.3"/></svg>
+      <input placeholder="Buscar no Formatura360..." onkeydown="if(event.key==='Enter')globalSearch(this.value)">
+      <kbd>&#8984; K</kbd>
+    </div>
+    <div class="top-status"><span class="dot"></span> Tudo em dia</div>
+    <div class="top-bell"><span class="badge-dot"></span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><path d="M6 8a6 6 0 0 1 12 0c0 7 3 9 3 9H3s3-2 3-9"/><path d="M10.3 21a1.94 1.94 0 0 0 3.4 0"/></svg></div>
+    <div class="top-profile">
+      <div class="top-avatar" id="userInitial">F</div>
+      <div>
+        <div class="pname" id="userEmail">Organizador</div>
+        <div class="prole">Organizador(a)</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ============ DASHBOARD ============ -->
   <section id="dashboardSection">
-
-    <!-- BANNER DE BOAS-VINDAS -->
-    <div class="hero">
-      <div class="hero-left">
-        <p class="hero-eyebrow">Acompanhe sua formatura</p>
-        <h1 class="dash-greeting"><span id="greetingText">Olá</span> 🎓</h1>
-        <p class="hero-quote">"Cada passo te aproxima do grande dia."</p>
-        <div class="hero-countpill">
-          <span class="hero-countpill-ico">⏳</span>
-          <span id="heroCountdown">Defina a data da formatura</span>
-        </div>
+    <div class="page-head">
+      <div>
+        <p class="eyebrow">Bem-vindo de volta!</p>
+        <h1 class="page-title"><span id="greetingText">Visão geral da formatura</span></h1>
+        <p class="page-sub">Acompanhe tudo o que importa para uma celebração inesquecível.</p>
       </div>
-
-      <div class="hero-card">
-        <div class="hero-card-head">
-          <div class="hero-avatar" aria-hidden="true">
-            <svg viewBox="0 0 64 64" width="46" height="46" fill="none">
-              <circle cx="32" cy="32" r="32" fill="#ffffff" opacity="0.18"/>
-              <path d="M32 18L13 26l19 8 15-6.3V40h3V26L32 18Z" fill="#fff"/>
-              <path d="M20 34v6c0 3.3 5.4 6 12 6s12-2.7 12-6v-6l-12 5-12-5Z" fill="#fff" opacity="0.92"/>
-              <circle cx="32" cy="50" r="2.4" fill="#fff"/>
-            </svg>
+      <div class="countdown-card">
+        <div class="cc-ico">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
+        </div>
+        <div>
+          <div class="cc-label">Faltam para a formatura</div>
+          <div class="cc-clock" id="heroCountdown">
+            <div class="cc-unit"><div class="cc-num">—</div><div class="cc-den">Dias</div></div>
           </div>
-          <div>
-            <div class="hero-card-title">Atalhos rápidos</div>
-            <div class="hero-card-sub">O que você quer fazer agora?</div>
-          </div>
-        </div>
-        <button class="quick-btn" onclick="showPage('items')"><span>➕</span> Adicionar item <i>›</i></button>
-        <button class="quick-btn" onclick="showPage('finance')"><span>💰</span> Checar financeiro <i>›</i></button>
-        <button class="quick-btn" onclick="showPage('guests')"><span>👥</span> Ver lista de convidados <i>›</i></button>
-      </div>
-    </div>
-
-    <!-- CARDS DE MÉTRICAS -->
-    <div class="cards">
-      <div class="stat-card">
-        <div class="stat-ico s-emerald">📦</div>
-        <div class="stat-info">
-          <span class="stat-label">Total de Itens</span>
-          <strong id="totalItems">0</strong>
-        </div>
-      </div>
-      <div class="stat-card">
-        <div class="stat-ico s-amber">⏱</div>
-        <div class="stat-info">
-          <span class="stat-label">Pendências</span>
-          <strong id="pendingItems">0</strong>
-        </div>
-      </div>
-      <div class="stat-card">
-        <div class="stat-ico s-rose">💸</div>
-        <div class="stat-info">
-          <span class="stat-label">Total Gasto</span>
-          <strong id="totalSpent">R$ 0,00</strong>
-          <span class="stat-pct" id="spentPct">0% do orçamento</span>
-        </div>
-      </div>
-      <div class="stat-card">
-        <div class="stat-ico s-teal">✅</div>
-        <div class="stat-info">
-          <span class="stat-label">Disponível</span>
-          <strong id="available">R$ 0,00</strong>
         </div>
       </div>
     </div>
 
-    <!-- GRID PRINCIPAL -->
-    <div class="dashboard-grid">
-
-      <!-- COLUNA ESQUERDA -->
-      <div class="dash-col">
-        <!-- Orçamento -->
-        <div class="panel">
-          <h3 class="panel-title">Visão geral do orçamento</h3>
-          <div class="budget-flex">
-            <div class="budget-circle"><span id="budgetPercent">0%</span></div>
-            <div class="budget-lines">
-              <div class="budget-line"><span class="dot d-total"></span> Total <b id="budgetTotalView">—</b></div>
-              <div class="budget-line"><span class="dot d-used"></span> Comprometido <b id="budgetUsedView">—</b></div>
-              <div class="budget-line"><span class="dot d-free"></span> Livre <b id="budgetFreeView">—</b></div>
-            </div>
-          </div>
-        </div>
-
-        <!-- Configurações rápidas -->
-        <div class="panel">
-          <h3 class="panel-title">Configurações</h3>
-          <div class="config-grid">
-            <div class="config-pill">
-              <span class="config-pill-ico">💰</span>
-              <div>
-                <small>Orçamento</small>
-                <b id="budgetConfigHint">Não definido</b>
-              </div>
-            </div>
-            <div class="config-pill">
-              <span class="config-pill-ico">🎟</span>
-              <div>
-                <small>Senhas restantes</small>
-                <b id="guestConfigHint">Não definido</b>
-              </div>
-            </div>
-          </div>
-          <div class="config-actions">
-            <button class="ghost-btn" onclick="showPage('finance')">Definir orçamento</button>
-            <button class="ghost-btn" onclick="showPage('guests')">Definir senhas</button>
-          </div>
-          <div class="date-row">
-            <label for="date">📅 Data da formatura</label>
-            <input type="date" id="date">
-          </div>
+    <!-- KPIs -->
+    <div class="kpi-row">
+      <div class="kpi">
+        <div class="kpi-ico forest"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"/><path d="m3.3 7 8.7 5 8.7-5"/><path d="M12 22V12"/></svg></div>
+        <div class="kpi-body">
+          <div class="kpi-label">Itens cadastrados</div>
+          <div class="kpi-value" id="totalItems">0</div>
+          <div class="kpi-foot" id="itemsFootHint">de 0 itens</div>
         </div>
       </div>
-
-      <!-- COLUNA DIREITA -->
-      <div class="dash-col">
-        <!-- Checklist de afazeres -->
-        <div class="panel">
-          <div class="panel-head">
-            <h3 class="panel-title">Afazeres</h3>
-            <span class="panel-count" id="todoCount">0</span>
-          </div>
-          <div class="todo-add">
-            <input id="todoInput" placeholder="Ex: Fechar contrato do buffet" onkeydown="if(event.key==='Enter')addTodo()">
-            <button class="primary mini" onclick="addTodo()">＋</button>
-          </div>
-          <ul class="todo-list" id="todoList"></ul>
+      <div class="kpi">
+        <div class="kpi-ico gold"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><path d="M9 11H5a2 2 0 0 0-2 2v7a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7a2 2 0 0 0-2-2h-4"/><rect x="9" y="2" width="6" height="6" rx="1"/><path d="M9 14h6"/></svg></div>
+        <div class="kpi-body">
+          <div class="kpi-label">Pendências</div>
+          <div class="kpi-value" id="pendingItems">0</div>
+          <div class="kpi-foot">itens a resolver</div>
         </div>
-
-        <!-- Pendências dos itens -->
-        <div class="panel">
-          <div class="panel-head">
-            <h3 class="panel-title">Itens pendentes</h3>
-            <span class="panel-count amber" id="pendingCount">0</span>
-          </div>
-          <ul class="pending-list" id="pendingList"></ul>
+      </div>
+      <div class="kpi">
+        <div class="kpi-ico rose"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><path d="M19 7V4a1 1 0 0 0-1-1H5a2 2 0 0 0 0 4h15a1 1 0 0 1 1 1v4h-3a2 2 0 0 0 0 4h3a1 1 0 0 0 1-1v-2a1 1 0 0 0-1-1"/><path d="M3 5v14a2 2 0 0 0 2 2h15a1 1 0 0 0 1-1v-4"/></svg></div>
+        <div class="kpi-body">
+          <div class="kpi-label">Total gasto</div>
+          <div class="kpi-value" id="totalSpent">R$ 0,00</div>
+          <div class="kpi-foot" id="spentPct">0% do orçamento</div>
+        </div>
+      </div>
+      <div class="kpi">
+        <div class="kpi-ico sage"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><path d="M19 7V4a1 1 0 0 0-1-1H5a2 2 0 0 0 0 4h15a1 1 0 0 1 1 1v4h-3a2 2 0 0 0 0 4h3a1 1 0 0 0 1-1v-2a1 1 0 0 0-1-1"/><path d="M3 5v14a2 2 0 0 0 2 2h15a1 1 0 0 0 1-1v-4"/></svg></div>
+        <div class="kpi-body">
+          <div class="kpi-label">Disponível</div>
+          <div class="kpi-value" id="available">R$ 0,00</div>
+          <div class="kpi-foot">do orçamento total</div>
         </div>
       </div>
     </div>
+
+    <!-- linha 1: orçamento / afazeres / ações rápidas -->
+    <div class="dash-grid">
+      <div class="section-card">
+        <div class="sc-head"><div class="sc-title">Resumo do orçamento</div></div>
+        <div class="budget-wrap">
+          <div class="donut"><div class="donut-hole"><div class="donut-pct" id="budgetPercent">0%</div><div class="donut-cap">utilizado</div></div></div>
+          <div class="budget-legend">
+            <div class="bl-row"><span class="bl-dot total"></span><span class="bl-label">Total do orçamento</span><span class="bl-val" id="budgetTotalView">—</span></div>
+            <div class="bl-row"><span class="bl-dot used"></span><span class="bl-label">Comprometido</span><span class="bl-val" id="budgetUsedView">—</span></div>
+            <div class="bl-row"><span class="bl-dot free"></span><span class="bl-label">Disponível</span><span class="bl-val" id="budgetFreeView">—</span></div>
+          </div>
+        </div>
+        <button class="btn btn-ghost" style="margin-top:18px" onclick="showPage('finance')">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><line x1="18" y1="20" x2="18" y2="10"/><line x1="12" y1="20" x2="12" y2="4"/><line x1="6" y1="20" x2="6" y2="14"/></svg>
+          Ver detalhes do financeiro
+        </button>
+      </div>
+
+      <div class="section-card">
+        <div class="sc-head"><div class="sc-title">A fazeres</div><span class="sc-pill" id="todoCount">0 pendente</span></div>
+        <div class="todo-input-row">
+          <input class="input" id="todoInput" placeholder="Adicionar nova tarefa..." onkeydown="if(event.key==='Enter')addTodo()">
+          <button class="btn btn-primary btn-sq" onclick="addTodo()">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+          </button>
+        </div>
+        <ul class="todo-list" id="todoList"></ul>
+      </div>
+
+      <div class="section-card">
+        <div class="sc-head"><div class="sc-title">Ações rápidas</div></div>
+        <div class="qa-grid">
+          <button class="qa" onclick="showPage('items')">
+            <span class="qa-ico dark"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"/></svg></span>
+            <span class="qa-txt"><b>Adicionar item</b><small>Bens, serviços, decoração...</small></span>
+          </button>
+          <button class="qa" onclick="showPage('finance')">
+            <span class="qa-ico gold"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><rect x="2" y="5" width="20" height="14" rx="2"/><path d="M2 10h20"/></svg></span>
+            <span class="qa-txt"><b>Checar financeiro</b><small>Ver orçamento e despesas</small></span>
+          </button>
+          <button class="qa" onclick="showPage('guests')">
+            <span class="qa-ico dark"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/></svg></span>
+            <span class="qa-txt"><b>Ver lista de convidados</b><small>Gerenciar confirmações</small></span>
+          </button>
+          <button class="qa" onclick="showPage('dashboard')">
+            <span class="qa-ico gold"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><path d="M9 11H5a2 2 0 0 0-2 2v7a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7a2 2 0 0 0-2-2h-4"/><rect x="9" y="2" width="6" height="6" rx="1"/></svg></span>
+            <span class="qa-txt"><b>Ver afazeres</b><small>Acompanhe tarefas pendentes</small></span>
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <!-- linha 2: convidados / itens pendentes / config rápidas -->
+    <div class="dash-grid bottom">
+      <div class="section-card">
+        <div class="sc-head"><div class="sc-title">Convidados</div><button class="sc-link" onclick="showPage('guests')">Ver lista completa <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg></button></div>
+        <div class="mini-cluster">
+          <div class="mc-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/></svg></div>
+          <div class="mc-item"><span class="mc-label">Total de senhas</span><span class="mc-num" id="dashGuestLimit">—</span></div>
+          <div class="mc-item"><span class="mc-label">Confirmados</span><span class="mc-num" id="dashGuestConfirmed">0</span><span class="mc-sub" id="dashGuestConfirmedPct">0% do total</span></div>
+          <div class="mc-item"><span class="mc-label">Senhas restantes</span><span class="mc-num" id="dashGuestRemaining">—</span><span class="mc-sub" id="dashGuestRemainingPct"></span></div>
+        </div>
+        <div class="progress"><div class="progress-fill" id="dashGuestProgress" style="width:0%"></div></div>
+      </div>
+
+      <div class="section-card">
+        <div class="sc-head"><div class="sc-title">Itens pendentes</div><span class="sc-pill" id="pendingCount">0 itens</span></div>
+        <ul class="todo-list" id="pendingList"></ul>
+      </div>
+
+      <div class="section-card">
+        <div class="sc-head"><div class="sc-title">Configurações rápidas</div></div>
+        <div class="cfg-row">
+          <div class="cfg-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><rect x="2" y="5" width="20" height="14" rx="2"/><path d="M2 10h20"/></svg></div>
+          <div class="cfg-info"><b>Orçamento definido</b><small id="budgetConfigHint">Não definido</small></div>
+          <button class="cfg-act" onclick="showPage('finance')">Editar <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="9 18 15 12 9 6"/></svg></button>
+        </div>
+        <div class="cfg-row">
+          <div class="cfg-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/></svg></div>
+          <div class="cfg-info"><b>Senhas restantes</b><small id="guestConfigHint">Não definido</small></div>
+          <button class="cfg-act" onclick="showPage('guests')">Gerenciar <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="9 18 15 12 9 6"/></svg></button>
+        </div>
+        <div class="cfg-row">
+          <div class="cfg-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg></div>
+          <div class="cfg-info"><b>Data da formatura</b><small>Usada na contagem regressiva</small></div>
+          <input type="date" id="date" class="input" style="width:auto;padding:8px 12px">
+        </div>
+      </div>
+    </div>
+
+    <div class="foot-note">Formatura360 &mdash; seu parceiro em cada detalhe dessa conquista.</div>
   </section>
 
-  <!-- ITENS -->
+  <!-- ============ ITENS ============ -->
   <section id="itemsSection" class="hidden">
-    <div class="page-header">
+    <div class="page-head">
       <div>
-        <h1>Itens da formatura</h1>
-        <p>Cadastre tudo que precisa contratar e acompanhe os pagamentos.</p>
+        <p class="eyebrow">Bem-vindo de volta!</p>
+        <h1 class="page-title">Itens da formatura</h1>
+        <p class="page-sub">Cadastre tudo que precisa contratar e acompanhe os pagamentos.</p>
       </div>
     </div>
 
-    <div class="mini-stats cols-3">
-      <div class="mini-stat"><div class="ms-label">Itens cadastrados</div><div class="ms-value" id="msItemsTotal">0</div></div>
-      <div class="mini-stat"><div class="ms-label">Pagos</div><div class="ms-value green" id="msItemsPaid">0</div></div>
-      <div class="mini-stat"><div class="ms-label">Pendentes</div><div class="ms-value amber" id="msItemsPending">0</div></div>
+    <div class="split-3">
+      <div class="kpi">
+        <div class="kpi-ico forest"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"/><path d="m3.3 7 8.7 5 8.7-5"/><path d="M12 22V12"/></svg></div>
+        <div class="kpi-body"><div class="kpi-label">Itens cadastrados</div><div class="kpi-value" id="msItemsTotal">0</div><div class="kpi-foot" id="msItemsFoot">de 0 itens</div></div>
+      </div>
+      <div class="kpi">
+        <div class="kpi-ico gold"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><path d="M20 6 9 17l-5-5"/></svg></div>
+        <div class="kpi-body"><div class="kpi-label">Pagos</div><div class="kpi-value" id="msItemsPaid">0</div><div class="kpi-foot" id="msItemsPaidPct">0% do total</div></div>
+      </div>
+      <div class="kpi">
+        <div class="kpi-ico rose"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg></div>
+        <div class="kpi-body"><div class="kpi-label">Pendentes</div><div class="kpi-value" id="msItemsPending">0</div><div class="kpi-foot" id="msItemsPendingPct">0% do total</div></div>
+      </div>
     </div>
 
-    <div class="page-grid">
-      <div class="form-card">
-        <h3>Adicionar item</h3>
-        <p class="sub">Becas, buffet, fotos, decoração...</p>
-        <label>Item</label>
-        <input id="itemName" placeholder="Ex: Buffet">
-        <label>Fornecedor</label>
-        <input id="itemSupplier" placeholder="Ex: Empresa X">
-        <label>Valor (R$)</label>
-        <input id="itemValue" type="number" placeholder="Ex: 1200">
-        <button class="primary" onclick="addItem()">Adicionar item</button>
-        <div class="hint">Marque como <b>Pago</b> na tabela para entrar no total gasto.</div>
+    <div class="work-grid">
+      <div class="section-card form-aside">
+        <div class="sc-head"><div class="sc-title">Adicionar novo item</div></div>
+        <p class="page-sub" style="margin:-12px 0 18px">Registre fornecedores e valores para manter tudo organizado.</p>
+        <div class="field"><label>Item</label><input class="input" id="itemName" placeholder="Ex: Buffet"></div>
+        <div class="field"><label>Fornecedor</label><input class="input" id="itemSupplier" placeholder="Ex: Empresa X"></div>
+        <div class="field"><label>Valor (R$)</label><input class="input" id="itemValue" type="number" placeholder="Ex: 1.200,00"></div>
+        <button class="btn btn-primary btn-block" onclick="addItem()">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+          Adicionar item
+        </button>
+        <div class="field-hint" style="margin-top:18px">
+          <span class="fh-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M9 18h6"/><path d="M10 22h4"/><path d="M15.09 14c.18-.98.65-1.74 1.41-2.5A4.65 4.65 0 0 0 18 8 6 6 0 0 0 6 8c0 1 .23 2.23 1.5 3.5A4.61 4.61 0 0 1 8.91 14"/></svg></span>
+          <span class="field-hint-txt">Marque como <b>Pago</b> na tabela para entrar no total gasto.</span>
+        </div>
       </div>
 
-      <div class="content-card">
-        <div class="toolbar">
-          <h3>Lista de itens</h3>
-          <div class="search-box"><input id="itemSearch" placeholder="Buscar item ou fornecedor..." oninput="renderItems()"></div>
-          <div class="filter-chips" id="itemChips">
+      <div class="section-card">
+        <div class="table-toolbar">
+          <div class="sc-title" style="margin-right:auto">Lista de itens</div>
+          <div class="tt-search"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.3-4.3"/></svg><input id="itemSearch" placeholder="Buscar item ou fornecedor..." oninput="renderItems()"></div>
+          <div class="chips" id="itemChips">
             <button class="chip active" data-f="all" onclick="setItemFilter('all')">Todos</button>
             <button class="chip" data-f="paid" onclick="setItemFilter('paid')">Pagos</button>
             <button class="chip" data-f="pending" onclick="setItemFilter('pending')">Pendentes</button>
           </div>
         </div>
         <table class="tbl">
-          <thead>
-            <tr>
-              <th onclick="sortItems('name')" data-c="name">Item <span class="arrow">▾</span></th>
-              <th onclick="sortItems('supplier')" data-c="supplier">Fornecedor <span class="arrow">▾</span></th>
-              <th onclick="sortItems('value')" data-c="value">Valor <span class="arrow">▾</span></th>
-              <th class="no-sort center">Status</th>
-              <th class="no-sort"></th>
-            </tr>
-          </thead>
+          <thead><tr>
+            <th data-c="name" onclick="sortItems('name')">Item <span class="arrow">&#9662;</span></th>
+            <th data-c="supplier" onclick="sortItems('supplier')">Fornecedor <span class="arrow">&#9662;</span></th>
+            <th data-c="value" onclick="sortItems('value')">Valor <span class="arrow">&#9662;</span></th>
+            <th class="no-sort center">Status</th>
+            <th class="no-sort center">Ações</th>
+          </tr></thead>
           <tbody id="itemsTable"></tbody>
         </table>
       </div>
     </div>
   </section>
 
-  <!-- FINANCEIRO -->
+  <!-- ============ FINANCEIRO ============ -->
   <section id="financeSection" class="hidden">
-    <div class="page-header">
+    <div class="page-head">
       <div>
-        <h1>Financeiro</h1>
-        <p>Defina o orçamento e acompanhe pra onde o dinheiro está indo.</p>
+        <h1 class="page-title">Financeiro</h1>
+        <p class="page-sub">Defina o orçamento e acompanhe pra onde o dinheiro está indo.</p>
       </div>
     </div>
 
-    <div class="mini-stats cols-3">
-      <div class="mini-stat"><div class="ms-label">Orçamento total</div><div class="ms-value" id="msBudget">R$ 0,00</div></div>
-      <div class="mini-stat"><div class="ms-label">Total gasto</div><div class="ms-value rose" id="msSpent">R$ 0,00</div></div>
-      <div class="mini-stat"><div class="ms-label">Disponível</div><div class="ms-value green" id="msFree">R$ 0,00</div></div>
+    <div class="split-3">
+      <div class="kpi">
+        <div class="kpi-ico forest"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><rect x="2" y="5" width="20" height="14" rx="2"/><path d="M2 10h20"/></svg></div>
+        <div class="kpi-body"><div class="kpi-label">Orçamento total</div><div class="kpi-value" id="msBudget">R$ 0,00</div><div class="kpi-foot">Meta definida</div></div>
+      </div>
+      <div class="kpi">
+        <div class="kpi-ico rose"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><line x1="12" y1="5" x2="12" y2="19"/><polyline points="19 12 12 19 5 12"/></svg></div>
+        <div class="kpi-body"><div class="kpi-label">Total gasto</div><div class="kpi-value" id="msSpent">R$ 0,00</div><div class="kpi-foot" id="msSpentPct">0% do orçamento</div></div>
+      </div>
+      <div class="kpi">
+        <div class="kpi-ico sage"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><rect x="2" y="5" width="20" height="14" rx="2"/><path d="M2 10h20"/></svg></div>
+        <div class="kpi-body"><div class="kpi-label">Disponível</div><div class="kpi-value" id="msFree">R$ 0,00</div><div class="kpi-foot">do orçamento total</div></div>
+      </div>
     </div>
 
-    <div class="fin-top">
-      <div class="chart-card">
-        <h3>Distribuição do orçamento</h3>
+    <div class="split-2">
+      <div class="section-card">
+        <div class="sc-head"><div class="sc-title">Distribuição do orçamento</div></div>
         <div class="chart-holder"><canvas id="budgetChart"></canvas></div>
       </div>
 
-      <div class="dash-col">
-        <div class="form-card" style="position:static">
-          <h3>Orçamento total</h3>
-          <p class="sub">Esse valor alimenta o dashboard.</p>
-          <label>Defina seu orçamento (R$)</label>
-          <input type="number" id="budgetInputFinance" placeholder="Ex: 15000">
-          <button class="primary" onclick="setBudget()">Salvar orçamento</button>
+      <div class="stack">
+        <div class="section-card">
+          <div class="sc-head"><div class="sc-title">Orçamento total</div></div>
+          <p class="page-sub" style="margin:-12px 0 16px">Esse valor alimenta o dashboard e os relatórios.</p>
+          <div class="field"><label>Defina seu orçamento (R$)</label><input class="input" type="number" id="budgetInputFinance" placeholder="Ex: 8.000,00"></div>
+          <button class="btn btn-primary" onclick="setBudget()">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
+            Salvar orçamento
+          </button>
         </div>
-
-        <div class="form-card" style="position:static">
-          <h3>Adicionar despesa</h3>
-          <p class="sub">Taxas, convites, reservas...</p>
-          <label>Descrição</label>
-          <input id="financeName" placeholder="Ex: Taxa de reserva">
-          <label>Valor (R$)</label>
-          <input id="financeValue" type="number" placeholder="Ex: 300">
-          <button class="primary" onclick="addFinance()">Adicionar despesa</button>
+        <div class="section-card">
+          <div class="sc-head"><div class="sc-title">Adicionar despesa</div></div>
+          <p class="page-sub" style="margin:-12px 0 16px">Taxas, convites, reservas e outros gastos.</p>
+          <div class="split-2" style="margin-bottom:0;gap:14px">
+            <div class="field" style="margin-bottom:0"><label>Descrição</label><input class="input" id="financeName" placeholder="Ex: Taxa de reserva"></div>
+            <div class="field" style="margin-bottom:0"><label>Valor (R$)</label><input class="input" id="financeValue" type="number" placeholder="Ex: 300,00"></div>
+          </div>
+          <button class="btn btn-primary btn-block" style="margin-top:16px" onclick="addFinance()">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+            Adicionar despesa
+          </button>
         </div>
       </div>
     </div>
 
-    <div class="content-card">
-      <div class="toolbar">
-        <h3>Despesas avulsas</h3>
-        <div class="search-box"><input id="financeSearch" placeholder="Buscar despesa..." oninput="renderFinance()"></div>
+    <div class="section-card">
+      <div class="table-toolbar">
+        <div class="sc-title" style="margin-right:auto">Despesas registradas</div>
+        <div class="tt-search"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.3-4.3"/></svg><input id="financeSearch" placeholder="Buscar despesa..." oninput="renderFinance()"></div>
       </div>
       <table class="tbl">
-        <thead>
-          <tr>
-            <th onclick="sortFinance('name')" data-c="name">Descrição <span class="arrow">▾</span></th>
-            <th onclick="sortFinance('value')" data-c="value">Valor <span class="arrow">▾</span></th>
-            <th class="no-sort"></th>
-          </tr>
-        </thead>
+        <thead><tr>
+          <th data-c="name" onclick="sortFinance('name')">Descrição <span class="arrow">&#9662;</span></th>
+          <th data-c="value" onclick="sortFinance('value')">Valor <span class="arrow">&#9662;</span></th>
+          <th class="no-sort center">Ações</th>
+        </tr></thead>
         <tbody id="financeTable"></tbody>
       </table>
     </div>
   </section>
 
-  <!-- CONVIDADOS -->
+  <!-- ============ CONVIDADOS ============ -->
   <section id="guestsSection" class="hidden">
-    <div class="page-header">
+    <div class="page-head">
       <div>
-        <h1>Convidados</h1>
-        <p>Controle as senhas e quem já confirmou presença.</p>
+        <p class="eyebrow">Bem-vindo de volta!</p>
+        <h1 class="page-title">Convidados</h1>
+        <p class="page-sub">Gerencie suas senhas, convide suas pessoas e acompanhe quem já confirmou presença.</p>
       </div>
     </div>
 
-    <div class="mini-stats cols-3">
-      <div class="mini-stat"><div class="ms-label">Total de senhas</div><div class="ms-value" id="msGuestLimit">—</div></div>
-      <div class="mini-stat"><div class="ms-label">Confirmados</div><div class="ms-value green" id="guestConfirmedCount">0</div></div>
-      <div class="mini-stat"><div class="ms-label">Senhas restantes</div><div class="ms-value amber" id="guestRemaining">—</div></div>
+    <div class="split-3">
+      <div class="kpi">
+        <div class="kpi-ico forest"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><path d="M2 9a3 3 0 0 1 0 6v2a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2v-2a3 3 0 0 1 0-6V7a2 2 0 0 0-2-2H4a2 2 0 0 0-2 2Z"/><path d="M13 5v14"/></svg></div>
+        <div class="kpi-body"><div class="kpi-label">Total de senhas</div><div class="kpi-value" id="msGuestLimit">—</div><div class="kpi-foot">Defina o total de senhas</div></div>
+      </div>
+      <div class="kpi">
+        <div class="kpi-ico gold"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="m22 11-3 3-1.5-1.5"/></svg></div>
+        <div class="kpi-body"><div class="kpi-label">Confirmados</div><div class="kpi-value" id="guestConfirmedCount">0</div><div class="kpi-foot">Presença confirmada</div></div>
+      </div>
+      <div class="kpi">
+        <div class="kpi-ico rose"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><path d="M2 9a3 3 0 0 1 0 6v2a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2v-2a3 3 0 0 1 0-6V7a2 2 0 0 0-2-2H4a2 2 0 0 0-2 2Z"/><path d="M13 5v14"/></svg></div>
+        <div class="kpi-body"><div class="kpi-label">Senhas restantes</div><div class="kpi-value" id="guestRemaining">—</div><div class="kpi-foot">Ainda disponíveis</div></div>
+      </div>
     </div>
 
-    <div class="fin-top">
-      <div class="chart-card">
-        <h3>Convidados por etiqueta</h3>
-        <div class="chart-holder"><canvas id="guestChart"></canvas></div>
+    <div class="split-3">
+      <div class="section-card">
+        <div class="sc-head"><div class="sc-title">Distribuição por etiqueta</div></div>
+        <div class="chart-holder" style="height:210px"><canvas id="guestChart"></canvas></div>
       </div>
-
-      <div class="dash-col">
-        <div class="form-card" style="position:static">
-          <h3>Senhas disponíveis</h3>
-          <p class="sub">Defina o total de senhas da formatura.</p>
-          <label>Total de senhas</label>
-          <input type="number" id="guestLimit" placeholder="Ex: 120">
-          <button class="primary" onclick="setGuestLimit()">Salvar senhas</button>
-          <div class="hint">Sem total definido, mostramos <b>—</b> e não bloqueamos confirmações.</div>
+      <div class="section-card">
+        <div class="sc-head"><div class="sc-title">Senhas disponíveis</div></div>
+        <p class="page-sub" style="margin:-12px 0 16px">Defina o total de senhas da formatura.</p>
+        <div class="field"><label>Total de senhas</label><input class="input" type="number" id="guestLimit" placeholder="Ex: 50"></div>
+        <button class="btn btn-primary" onclick="setGuestLimit()">Salvar senhas</button>
+        <div class="field-hint" style="margin-top:18px">
+          <span class="fh-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="12" cy="12" r="10"/><path d="M12 16v-4"/><path d="M12 8h.01"/></svg></span>
+          <span class="field-hint-txt">Sem total definido, mostramos <b>&mdash;</b> e não bloqueamos confirmações.</span>
         </div>
-
-        <div class="form-card" style="position:static">
-          <h3>Adicionar convidado</h3>
-          <p class="sub">Cadastre e marque a presença depois.</p>
-          <label>Nome</label>
-          <input id="guestName" placeholder="Ex: Maria Silva">
-          <label>Etiqueta</label>
-          <select id="guestTag">
+      </div>
+      <div class="section-card">
+        <div class="sc-head"><div class="sc-title">Adicionar convidado</div></div>
+        <p class="page-sub" style="margin:-12px 0 16px">Cadastre e marque a presença depois.</p>
+        <div class="field"><label>Nome</label><input class="input" id="guestName" placeholder="Ex.: Maria Silva"></div>
+        <div class="field"><label>Etiqueta</label>
+          <select class="input" id="guestTag">
             <option value="Família">Família</option>
             <option value="Amigo">Amigo</option>
             <option value="Acompanhante">Acompanhante</option>
           </select>
-          <button class="primary" onclick="addGuest()">Adicionar convidado</button>
         </div>
+        <button class="btn btn-primary" onclick="addGuest()">
+          Adicionar convidado
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+        </button>
       </div>
     </div>
 
-    <div class="content-card">
-      <div class="toolbar">
-        <h3>Lista de convidados</h3>
-        <div class="search-box"><input id="guestSearch" placeholder="Buscar convidado..." oninput="renderGuests()"></div>
-        <div class="filter-chips" id="guestChips">
+    <div class="section-card">
+      <div class="table-toolbar">
+        <div class="sc-title" style="margin-right:auto">Lista de convidados</div>
+        <div class="tt-search"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.3-4.3"/></svg><input id="guestSearch" placeholder="Buscar convidado..." oninput="renderGuests()"></div>
+        <div class="chips" id="guestChips">
           <button class="chip active" data-f="all" onclick="setGuestFilter('all')">Todos</button>
           <button class="chip" data-f="Família" onclick="setGuestFilter('Família')">Família</button>
           <button class="chip" data-f="Amigo" onclick="setGuestFilter('Amigo')">Amigos</button>
@@ -1115,14 +918,12 @@ td.center input[type="checkbox"]{
         </div>
       </div>
       <table class="tbl">
-        <thead>
-          <tr>
-            <th onclick="sortGuests('name')" data-c="name">Nome <span class="arrow">▾</span></th>
-            <th class="no-sort">Etiqueta</th>
-            <th class="no-sort center">Confirmado</th>
-            <th class="no-sort"></th>
-          </tr>
-        </thead>
+        <thead><tr>
+          <th data-c="name" onclick="sortGuests('name')">Nome <span class="arrow">&#9662;</span></th>
+          <th class="no-sort">Etiqueta</th>
+          <th class="no-sort center">Confirmação</th>
+          <th class="no-sort center">Ações</th>
+        </tr></thead>
         <tbody id="guestsTable"></tbody>
       </table>
     </div>
@@ -1132,7 +933,6 @@ td.center input[type="checkbox"]{
 </main>
 
 <div id="toast" class="toast"></div>
-
 <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.1/dist/chart.umd.min.js"></script>
 <script type="module">
 import { initializeApp } from "https://www.gstatic.com/firebasejs/12.8.0/firebase-app.js";
@@ -1175,7 +975,6 @@ const el = {
   totalSpent: $("totalSpent"),
   available: $("available"),
   date: $("date"),
-  countdown: $("countdown"),
   budgetPercent: $("budgetPercent"),
   budgetTotalView: $("budgetTotalView"),
   budgetUsedView: $("budgetUsedView"),
@@ -1313,6 +1112,12 @@ onAuthStateChanged(auth, async (user) => {
 
   state = normalizeState(snap.exists() ? snap.data() : defaults);
 
+  const em = user.email || "Organizador";
+  const ue = document.getElementById("userEmail");
+  const ui_ = document.getElementById("userInitial");
+  if (ue) ue.textContent = em;
+  if (ui_) ui_.textContent = (em[0] || "F").toUpperCase();
+
   el.app.classList.remove("hidden");
   renderAll();
   window.showPage("dashboard");
@@ -1321,26 +1126,23 @@ onAuthStateChanged(auth, async (user) => {
 /* LOGIN */
 function showLogin() {
   document.body.innerHTML = `
-    <div style="min-height:100vh;display:flex;align-items:center;justify-content:center;padding:18px;background:linear-gradient(135deg,#06251d,#065f46 60%,#047857);font-family:'Plus Jakarta Sans',Inter,sans-serif">
-      <div style="width:380px;max-width:100%;background:#fff;border-radius:24px;box-shadow:0 30px 70px rgba(0,0,0,.28);padding:36px 32px;font-family:Inter,sans-serif">
-        <div style="display:flex;flex-direction:column;align-items:center;text-align:center;margin-bottom:22px">
-          <div style="width:62px;height:62px;border-radius:18px;background:linear-gradient(135deg,#047857,#10b981);display:grid;place-items:center;box-shadow:0 14px 30px rgba(4,120,87,.32);margin-bottom:14px">
-            <svg viewBox="0 0 64 64" width="38" height="38" fill="none">
-              <path d="M32 16L10 25l22 9 18-7.4V42h3.5V25L32 16Z" fill="#fff"/>
-              <path d="M18 33v7c0 3.8 6.3 7 14 7s14-3.2 14-7v-7l-14 5.7L18 33Z" fill="#fff" opacity="0.92"/>
-              <circle cx="53.5" cy="44" r="1.6" fill="#fff"/>
-            </svg>
+    <div style="min-height:100vh;display:flex;align-items:center;justify-content:center;padding:18px;background:radial-gradient(1200px 600px at 50% -10%, #0a4438 0%, #053D32 45%, #012E27 100%);font-family:'Inter',sans-serif">
+      <div style="width:400px;max-width:100%;background:#FFFCF7;border-radius:24px;box-shadow:0 40px 90px rgba(0,0,0,.35);padding:42px 38px;border:1px solid rgba(201,164,92,.25)">
+        <div style="display:flex;flex-direction:column;align-items:center;text-align:center;margin-bottom:28px">
+          <div style="width:70px;height:70px;border-radius:18px;border:1.5px solid #C9A45C;display:grid;place-items:center;position:relative;margin-bottom:16px;background:rgba(5,61,50,.03)">
+            <span style="position:absolute;top:-10px;font-size:14px">&#127881;</span>
+            <span style="font-family:'Cormorant Garamond',serif;font-size:34px;font-weight:700;color:#053D32;line-height:1">F</span>
           </div>
-          <div style="font-family:'Plus Jakarta Sans',Inter,sans-serif;font-weight:800;color:#0b2a23;font-size:24px">Formatura360</div>
-          <div style="color:#5b7c72;font-size:13px;font-weight:600;margin-top:2px">Organize a sua formatura</div>
+          <div style="font-family:'Cormorant Garamond',serif;font-weight:600;color:#16211E;font-size:30px;line-height:1.1">Formatura360</div>
+          <div style="color:#6F7772;font-size:13.5px;margin-top:4px">Organize cada detalhe da sua conquista</div>
         </div>
 
-        <label style="display:block;font-size:12px;color:#5b7c72;font-weight:700;margin-top:6px">E-mail</label>
-        <input id="email" placeholder="seuemail@exemplo.com" style="width:100%;padding:13px;border-radius:13px;border:1px solid #e3eae7;margin-top:7px;font-family:inherit;outline:none;font-size:14px">
-        <label style="display:block;font-size:12px;color:#5b7c72;font-weight:700;margin-top:14px">Senha</label>
-        <input id="password" type="password" placeholder="••••••••" style="width:100%;padding:13px;border-radius:13px;border:1px solid #e3eae7;margin-top:7px;font-family:inherit;outline:none;font-size:14px">
-        <button id="loginBtn" style="margin-top:20px;width:100%;padding:14px;border-radius:13px;border:none;cursor:pointer;color:#fff;font-weight:800;font-size:15px;font-family:inherit;background:linear-gradient(135deg,#047857,#10b981);box-shadow:0 14px 30px rgba(4,120,87,.30)">Entrar</button>
-        <div style="margin-top:14px;color:#94a3b8;font-size:12px;text-align:center">Se não conseguir entrar, verifique e-mail e senha.</div>
+        <label style="display:block;font-size:12px;color:#16211E;font-weight:600;margin-bottom:8px">E-mail</label>
+        <input id="email" placeholder="seuemail@exemplo.com" style="width:100%;padding:14px 15px;border-radius:12px;border:1px solid #E6DED0;font-family:inherit;outline:none;font-size:14px;background:#fff;color:#16211E">
+        <label style="display:block;font-size:12px;color:#16211E;font-weight:600;margin:18px 0 8px">Senha</label>
+        <input id="password" type="password" placeholder="••••••••" style="width:100%;padding:14px 15px;border-radius:12px;border:1px solid #E6DED0;font-family:inherit;outline:none;font-size:14px;background:#fff;color:#16211E">
+        <button id="loginBtn" style="margin-top:24px;width:100%;padding:15px;border-radius:12px;border:none;cursor:pointer;color:#fff;font-weight:600;font-size:15px;font-family:inherit;background:#053D32;box-shadow:0 14px 30px rgba(5,61,50,.28);letter-spacing:.2px">Entrar</button>
+        <div style="margin-top:16px;color:#A9AFA8;font-size:12px;text-align:center">Se não conseguir entrar, verifique e-mail e senha.</div>
       </div>
     </div>
   `;
@@ -1368,6 +1170,25 @@ function showLogin() {
 
 window.logout = () => signOut(auth);
 
+window.globalSearch = (q) => {
+  q = (q || "").trim();
+  if (!q) return;
+  const ql = q.toLowerCase();
+  // decide a melhor aba pela ocorrência
+  if (state.items.some(i => (i.name||"").toLowerCase().includes(ql) || (i.supplier||"").toLowerCase().includes(ql))) {
+    window.showPage("items");
+    setTimeout(() => { if (el.itemSearch){ el.itemSearch.value = q; renderItems(); } }, 60);
+  } else if (state.guests.some(g => (g.name||"").toLowerCase().includes(ql))) {
+    window.showPage("guests");
+    setTimeout(() => { if (el.guestSearch){ el.guestSearch.value = q; renderGuests(); } }, 60);
+  } else if (state.finances.some(f => (f.name||"").toLowerCase().includes(ql))) {
+    window.showPage("finance");
+    setTimeout(() => { if (el.financeSearch){ el.financeSearch.value = q; renderFinance(); } }, 60);
+  } else {
+    showToast("Nada encontrado para \"" + q + "\".");
+  }
+};
+
 /* SAVE */
 async function save() {
   if (!userRef) return;
@@ -1377,27 +1198,42 @@ async function save() {
 
 /* DASHBOARD */
 function setGreeting() {
-  const h = new Date().getHours();
-  let saud = "Boa noite";
-  if (h >= 5 && h < 12) saud = "Bom dia";
-  else if (h >= 12 && h < 18) saud = "Boa tarde";
-  if (el.greetingText) el.greetingText.textContent = saud + "!";
+  if (el.greetingText) el.greetingText.textContent = "Visão geral da formatura";
 }
 
+let countdownTimer = null;
 function calcCountdown() {
-  if (!state.date) {
-    if (el.heroCountdown) el.heroCountdown.textContent = "Defina a data da formatura";
-    return;
-  }
-  const today = new Date();
-  const target = new Date(state.date + "T00:00:00");
-  const diff = Math.ceil((target - today) / 86400000);
-  let txt;
-  if (diff > 1) txt = `Faltam ${diff} dias para a formatura`;
-  else if (diff === 1) txt = "Falta 1 dia para a formatura!";
-  else if (diff === 0) txt = "É hoje! 🎉";
-  else txt = "Formatura realizada 🎓";
-  if (el.heroCountdown) el.heroCountdown.textContent = txt;
+  const holder = el.heroCountdown;
+  if (!holder) return;
+  const render = () => {
+    if (!state.date) {
+      holder.innerHTML = `<div class="cc-unit"><div class="cc-num">—</div><div class="cc-den">Defina a data</div></div>`;
+      return;
+    }
+    const now = new Date();
+    const target = new Date(state.date + "T00:00:00");
+    let ms = target - now;
+    if (ms < 0) {
+      holder.innerHTML = `<div class="cc-unit"><div class="cc-num">&#9733;</div><div class="cc-den">Realizada</div></div>`;
+      return;
+    }
+    const d = Math.floor(ms / 86400000); ms -= d * 86400000;
+    const h = Math.floor(ms / 3600000); ms -= h * 3600000;
+    const m = Math.floor(ms / 60000); ms -= m * 60000;
+    const s = Math.floor(ms / 1000);
+    const pad = n => String(n).padStart(2, "0");
+    holder.innerHTML = `
+      <div class="cc-unit"><div class="cc-num">${d}</div><div class="cc-den">Dias</div></div>
+      <div class="cc-sep">:</div>
+      <div class="cc-unit"><div class="cc-num">${pad(h)}</div><div class="cc-den">Horas</div></div>
+      <div class="cc-sep">:</div>
+      <div class="cc-unit"><div class="cc-num">${pad(m)}</div><div class="cc-den">Min</div></div>
+      <div class="cc-sep">:</div>
+      <div class="cc-unit"><div class="cc-num">${pad(s)}</div><div class="cc-den">Seg</div></div>`;
+  };
+  render();
+  if (countdownTimer) clearInterval(countdownTimer);
+  if (state.date) countdownTimer = setInterval(render, 1000);
 }
 
 /* RENDER */
@@ -1433,7 +1269,26 @@ function renderAll() {
     el.guestConfigHint.textContent = "Não definido";
   }
 
-  el.date.value = state.date || "";
+  /* resumo de convidados no dashboard */
+  const dGl = document.getElementById("dashGuestLimit");
+  const dGc = document.getElementById("dashGuestConfirmed");
+  const dGcp = document.getElementById("dashGuestConfirmedPct");
+  const dGr = document.getElementById("dashGuestRemaining");
+  const dGrp = document.getElementById("dashGuestRemainingPct");
+  const dGpr = document.getElementById("dashGuestProgress");
+  const lim = state.guestLimit;
+  if (dGl) dGl.textContent = lim > 0 ? String(lim) : "—";
+  if (dGc) dGc.textContent = String(confirmedGuests);
+  if (dGcp) dGcp.textContent = lim > 0 ? Math.round((confirmedGuests / lim) * 100) + "% do total" : "";
+  if (dGr) dGr.textContent = lim > 0 ? String(Math.max(lim - confirmedGuests, 0)) : "—";
+  if (dGrp) dGrp.textContent = lim > 0 ? Math.round((Math.max(lim - confirmedGuests, 0) / lim) * 100) + "% do total" : "";
+  if (dGpr) dGpr.style.width = (lim > 0 ? Math.min((confirmedGuests / lim) * 100, 100) : 0) + "%";
+
+  /* hint de itens no kpi do dashboard */
+  const ifh = document.getElementById("itemsFootHint");
+  if (ifh) ifh.textContent = `de ${state.items.length} ${state.items.length === 1 ? "item" : "itens"}`;
+
+  if (el.date) el.date.value = state.date || "";
   setGreeting();
   calcCountdown();
   renderTodos();
@@ -1459,7 +1314,7 @@ window.setBudget = () => {
   save();
 };
 
-el.date.addEventListener("change", () => {
+if (el.date) el.date.addEventListener("change", () => {
   state.date = el.date.value;
   save();
 });
@@ -1506,12 +1361,38 @@ window.sortItems = (col) => {
   renderItems();
 };
 
+/* empty states ilustrados */
+function emptyBox(colspan, title, sub, btnLabel, btnAction) {
+  return `<tr><td colspan="${colspan}" class="tbl-empty"><div class="empty">
+    <div class="empty-art"><svg width="150" height="110" viewBox="0 0 150 110" fill="none">
+      <path d="M75 14l-9-7-9 7M75 14l9-7 9 7" stroke="#C9A45C" stroke-width="1.4" stroke-linecap="round"/>
+      <ellipse cx="66" cy="9" rx="2" ry="2" fill="#C9A45C"/><ellipse cx="84" cy="9" rx="2" ry="2" fill="#C9A45C"/>
+      <path d="M48 24l54 0 0 6-54 0z" fill="#053D32"/><path d="M75 30l0 5" stroke="#053D32" stroke-width="2"/>
+      <circle cx="75" cy="37" r="2.5" fill="#C9A45C"/>
+      <path d="M40 50l35-13 35 13-35 13-35-13z" fill="#FFFCF7" stroke="#E6DED0" stroke-width="1.5"/>
+      <path d="M40 50l0 28 35 13 0-28-35-13z" fill="#F8F5EE" stroke="#E6DED0" stroke-width="1.5"/>
+      <path d="M110 50l0 28-35 13 0-28 35-13z" fill="#FAF7F0" stroke="#E6DED0" stroke-width="1.5"/>
+      <path d="M30 60c4 6 8 8 14 9M120 60c-4 6-8 8-14 9" stroke="#0F7A5A" stroke-width="1.2" stroke-linecap="round" opacity="0.5"/>
+      <circle cx="34" cy="40" r="1.5" fill="#C9A45C"/><circle cx="116" cy="44" r="1.5" fill="#C9A45C"/><circle cx="125" cy="70" r="1.5" fill="#C9A45C"/>
+    </svg></div>
+    <div class="empty-title">${title}</div>
+    <div class="empty-sub">${sub}</div>
+    ${btnLabel ? `<button class="btn btn-primary" onclick="${btnAction}"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>${btnLabel}</button>` : ""}
+  </div></td></tr>`;
+}
+
 function renderItems() {
   const total = state.items.length;
   const paid = state.items.filter(i => i.paid).length;
   if (el.msItemsTotal) el.msItemsTotal.textContent = String(total);
   if (el.msItemsPaid) el.msItemsPaid.textContent = String(paid);
   if (el.msItemsPending) el.msItemsPending.textContent = String(total - paid);
+  const mf = document.getElementById("msItemsFoot");
+  const mpp = document.getElementById("msItemsPaidPct");
+  const mpd = document.getElementById("msItemsPendingPct");
+  if (mf) mf.textContent = `de ${total} ${total === 1 ? "item" : "itens"}`;
+  if (mpp) mpp.textContent = (total ? Math.round((paid / total) * 100) : 0) + "% do total";
+  if (mpd) mpd.textContent = (total ? Math.round(((total - paid) / total) * 100) : 0) + "% do total";
 
   if (!el.itemsTable) return;
   const q = (el.itemSearch?.value || "").toLowerCase().trim();
@@ -1534,7 +1415,9 @@ function renderItems() {
   syncArrows("itemsSection", ui.itemSort);
 
   if (rows.length === 0) {
-    el.itemsTable.innerHTML = `<tr><td colspan="5" class="tbl-empty">Nenhum item encontrado.</td></tr>`;
+    el.itemsTable.innerHTML = (state.items.length === 0 && !q && ui.itemFilter === "all")
+      ? emptyBox(5, "Nenhum item cadastrado ainda", "Comece adicionando fornecedores e serviços para a sua formatura.", "Adicionar primeiro item", "document.getElementById('itemName').focus()")
+      : `<tr><td colspan="5" class="tbl-empty"><div class="empty-mini"><b>Nenhum item encontrado</b><small>Tente ajustar a busca ou os filtros.</small></div></td></tr>`;
     return;
   }
   el.itemsTable.innerHTML = rows.map(r => `
@@ -1546,8 +1429,8 @@ function renderItems() {
         <span class="status-pill ${r.paid ? "paid" : "pending"}">${r.paid ? "Pago" : "Pendente"}</span>
       </td>
       <td class="center">
-        <input type="checkbox" ${r.paid ? "checked" : ""} onchange="toggleItem(${r.idx})" title="Marcar pago">
-        <button class="row-del" title="Remover" onclick="removeItem(${r.idx})">🗑</button>
+        <input type="checkbox" class="check" ${r.paid ? "checked" : ""} onchange="toggleItem(${r.idx})" title="Marcar pago">
+        <button class="icon-btn" title="Remover" onclick="removeItem(${r.idx})"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><path d="M3 6h18"/><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"/></svg></button>
       </td>
     </tr>`).join("");
 }
@@ -1589,6 +1472,8 @@ function renderFinance() {
   if (el.msBudget) el.msBudget.textContent = state.budget > 0 ? money(state.budget) : "—";
   if (el.msSpent) el.msSpent.textContent = money(spent);
   if (el.msFree) el.msFree.textContent = state.budget > 0 ? money(free) : "—";
+  const msp = document.getElementById("msSpentPct");
+  if (msp) msp.textContent = (state.budget > 0 ? Math.round((spent / state.budget) * 100) : 0) + "% do orçamento";
 
   drawBudgetChart(spent, free);
 
@@ -1605,14 +1490,16 @@ function renderFinance() {
   syncArrows("financeSection", ui.financeSort);
 
   if (rows.length === 0) {
-    el.financeTable.innerHTML = `<tr><td colspan="3" class="tbl-empty">Nenhuma despesa cadastrada.</td></tr>`;
+    el.financeTable.innerHTML = (state.finances.length === 0 && !q)
+      ? emptyBox(3, "Nenhuma despesa registrada ainda", "Adicione sua primeira despesa para começar a organizar seus gastos.", "", "")
+      : `<tr><td colspan="3" class="tbl-empty"><div class="empty-mini"><b>Nenhuma despesa encontrada</b><small>Tente outra busca.</small></div></td></tr>`;
     return;
   }
   el.financeTable.innerHTML = rows.map(r => `
     <tr>
       <td><b>${escapeHtml(r.name)}</b></td>
       <td class="val">${money(r.value)}</td>
-      <td class="center"><button class="row-del" title="Remover" onclick="removeFinance(${r.idx})">🗑</button></td>
+      <td class="center"><button class="icon-btn" title="Remover" onclick="removeFinance(${r.idx})"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><path d="M3 6h18"/><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"/></svg></button></td>
     </tr>`).join("");
 }
 
@@ -1624,8 +1511,8 @@ function drawBudgetChart(spent, free) {
   const data = state.budget > 0
     ? { labels: ["Gasto", "Disponível"].concat(over ? ["Acima do orçamento"] : []),
         values: [spent - over, freeVal].concat(over ? [over] : []),
-        colors: ["#047857", "#a7f3d0"].concat(over ? ["#ef4444"] : []) }
-    : { labels: ["Sem orçamento definido"], values: [1], colors: ["#e3eae7"] };
+        colors: ["#053D32", "#E8D7B1"].concat(over ? ["#C0584F"] : []) }
+    : { labels: ["Sem orçamento definido"], values: [1], colors: ["#E6DED0"] };
 
   if (budgetChart) budgetChart.destroy();
   budgetChart = new Chart(cv, {
@@ -1721,7 +1608,9 @@ function renderGuests() {
   syncArrows("guestsSection", ui.guestSort);
 
   if (rows.length === 0) {
-    el.guestsTable.innerHTML = `<tr><td colspan="4" class="tbl-empty">Nenhum convidado encontrado.</td></tr>`;
+    el.guestsTable.innerHTML = (state.guests.length === 0 && !q && ui.guestFilter === "all")
+      ? emptyBox(4, "Nenhum convidado ainda", "Cadastre as pessoas que você quer convidar para a sua celebração.", "Adicionar convidado", "document.getElementById('guestName').focus()")
+      : `<tr><td colspan="4" class="tbl-empty"><div class="empty-mini"><b>Nenhum convidado encontrado</b><small>Tente ajustar a busca ou os filtros.</small></div></td></tr>`;
     return;
   }
   el.guestsTable.innerHTML = rows.map(r => {
@@ -1730,8 +1619,8 @@ function renderGuests() {
     <tr>
       <td><b>${escapeHtml(r.name)}</b></td>
       <td><span class="badge ${badgeClass}">${escapeHtml(r.tag)}</span></td>
-      <td class="center"><input type="checkbox" ${r.confirmed ? "checked" : ""} onchange="toggleGuest(${r.idx})"></td>
-      <td class="center"><button class="row-del" title="Remover" onclick="removeGuest(${r.idx})">🗑</button></td>
+      <td class="center"><input type="checkbox" class="check" ${r.confirmed ? "checked" : ""} onchange="toggleGuest(${r.idx})"></td>
+      <td class="center"><button class="icon-btn" title="Remover" onclick="removeGuest(${r.idx})"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><path d="M3 6h18"/><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"/></svg></button></td>
     </tr>`;
   }).join("");
 }
@@ -1752,7 +1641,7 @@ function drawGuestChart() {
       labels: has ? labels : ["Sem convidados"],
       datasets: [{
         data: has ? values : [0],
-        backgroundColor: ["#047857", "#10b981", "#6ee7b7"],
+        backgroundColor: ["#053D32", "#C9A45C", "#0F7A5A"],
         borderRadius: 8, barThickness: 46,
       }]
     },
@@ -1837,16 +1726,16 @@ window.removeTodo = (i) => {
 function renderTodos() {
   if (!el.todoList) return;
   const pend = state.todos.filter(t => !t.done).length;
-  el.todoCount.textContent = String(pend);
+  el.todoCount.textContent = pend === 1 ? "1 pendente" : `${pend} pendentes`;
   if (state.todos.length === 0) {
-    el.todoList.innerHTML = `<li class="empty-msg">Nenhuma tarefa ainda. Adicione a primeira!</li>`;
+    el.todoList.innerHTML = `<li class="empty-mini"><div class="em-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><path d="M9 11l3 3L22 4"/><path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"/></svg></div><b>Tudo organizado!</b><small>Adicione tarefas para acompanhar.</small></li>`;
     return;
   }
   el.todoList.innerHTML = state.todos.map((t, i) => `
     <li class="todo-item ${t.done ? "done" : ""}">
-      <input type="checkbox" ${t.done ? "checked" : ""} onclick="toggleTodo(${i})">
+      <input type="checkbox" class="check" ${t.done ? "checked" : ""} onclick="toggleTodo(${i})">
       <span>${escapeHtml(t.text)}</span>
-      <button title="Remover" onclick="removeTodo(${i})">🗑</button>
+      <button class="icon-btn" title="Remover" onclick="removeTodo(${i})"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><path d="M3 6h18"/><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"/></svg></button>
     </li>`).join("");
 }
 
@@ -1854,15 +1743,16 @@ function renderTodos() {
 function renderPending() {
   if (!el.pendingList) return;
   const pend = state.items.filter(i => !i.paid);
-  el.pendingCount.textContent = String(pend.length);
+  el.pendingCount.textContent = pend.length === 1 ? "1 item" : `${pend.length} itens`;
   if (pend.length === 0) {
-    el.pendingList.innerHTML = `<li class="empty-msg">Tudo em dia! Nenhum item pendente. 🎉</li>`;
+    el.pendingList.innerHTML = `<li class="empty-mini"><div class="em-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><path d="M20 6 9 17l-5-5"/></svg></div><b>Tudo em dia!</b><small>Nenhum item pendente no momento.</small></li>`;
     return;
   }
   el.pendingList.innerHTML = pend.map(i => `
-    <li class="pending-item">
-      <span class="pi-name">${escapeHtml(i.name || "Item")}</span>
-      <span class="pi-val">${money(i.value)}</span>
+    <li class="todo-item">
+      <span class="strong" style="flex:1">${escapeHtml(i.name || "Item")}</span>
+      <span class="status-pill pending">Pendente</span>
+      <span class="val">${money(i.value)}</span>
     </li>`).join("");
 }
 
@@ -1884,3 +1774,5 @@ function escapeHtml(str) {
 
 
 
+</body>
+</html>
