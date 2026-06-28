@@ -258,17 +258,17 @@ main{margin-left:var(--sidebar-w);padding:0}
 .dash-shortcuts{display:flex;flex-direction:column;justify-content:center}
 .dash-hero{
   background:linear-gradient(135deg,var(--forest) 0%,var(--deep) 100%);
-  border-radius:24px;padding:34px 36px;position:relative;overflow:hidden;
-  display:flex;align-items:flex-end;justify-content:space-between;gap:20px;min-height:300px;
+  border-radius:24px;padding:34px 40px;position:relative;overflow:hidden;
+  display:flex;align-items:flex-end;gap:20px;min-height:300px;
 }
 .dash-hero::before{
   content:"";position:absolute;right:-40px;top:-40px;width:200px;height:200px;
   border-radius:50%;background:radial-gradient(circle,rgba(201,164,92,.18),transparent 70%);
 }
-.dash-hero-content{position:relative;z-index:2;align-self:center;padding:8px 0}
+.dash-hero-content{position:relative;z-index:2;align-self:center;padding:8px 0;flex:1}
 .dash-hero-avatar{
-  position:relative;z-index:1;align-self:flex-end;
-  height:330px;width:auto;margin:-34px -10px -34px 0;
+  position:relative;z-index:1;align-self:flex-end;flex-shrink:0;
+  height:360px;width:auto;margin:-34px -20px -34px 0;
   filter:drop-shadow(0 10px 30px rgba(0,0,0,.25));
   pointer-events:none;
 }
@@ -715,7 +715,7 @@ main{margin-left:var(--sidebar-w);padding:0}
 
   <div class="nav-foot">
     <div class="nav-sep"></div>
-    <button onclick="showPage('finance')">
+    <button onclick="openSettings()">
       <svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 1 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-4 0v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 1 1-2.83-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1 0-4h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 1 1 2.83-2.83l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 4 0v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 1 1 2.83 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1z"/></svg>
       Configurações
     </button>
@@ -1199,6 +1199,26 @@ main{margin-left:var(--sidebar-w);padding:0}
 
 </div>
 </main>
+
+<!-- MODAL DE CONFIGURAÇÕES -->
+<div id="settingsModal" class="modal-overlay hidden" onclick="if(event.target===this)closeSettings()">
+  <div class="modal-card" style="text-align:left;max-width:440px">
+    <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:6px">
+      <h2 class="modal-title" style="margin:0">Configurações</h2>
+      <button class="icon-btn" onclick="closeSettings()"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg></button>
+    </div>
+    <p class="modal-text" style="margin:0 0 22px">Ajuste suas informações pessoais e da formatura.</p>
+
+    <div class="field"><label>Seu nome</label><input class="input" id="setName" placeholder="Como você quer ser chamado(a)"></div>
+    <div class="field"><label>Data da formatura</label><input class="input" id="setDate" type="date"></div>
+    <div class="field"><label>Orçamento total (R$)</label><input class="input" id="setBudget" type="number" placeholder="Ex.: 8000"></div>
+
+    <button class="btn btn-primary btn-block" onclick="saveSettings()" style="margin-top:8px">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 6 9 17l-5-5"/></svg>
+      Salvar alterações
+    </button>
+  </div>
+</div>
 
 <div id="toast" class="toast"></div>
 
@@ -2139,6 +2159,35 @@ window.editDisplayName = () => {
   const nch = document.getElementById("nameConfigHint");
   if (nch) nch.textContent = state.displayName ? state.displayName : "Não definido";
   showToast(state.displayName ? "Nome atualizado." : "Nome removido.");
+  save();
+};
+
+/* ===== MODAL DE CONFIGURAÇÕES ===== */
+window.openSettings = () => {
+  document.getElementById("setName").value = state.displayName || "";
+  document.getElementById("setDate").value = state.date || "";
+  document.getElementById("setBudget").value = state.budget || "";
+  document.getElementById("settingsModal").classList.remove("hidden");
+  window.toggleSidebar(false);
+};
+window.closeSettings = () => {
+  document.getElementById("settingsModal").classList.add("hidden");
+};
+window.saveSettings = () => {
+  const nome = (document.getElementById("setName").value || "").trim();
+  const data = document.getElementById("setDate").value;
+  const orc = Number(document.getElementById("setBudget").value) || 0;
+
+  state.displayName = nome;
+  state.date = data;
+  state.budget = orc;
+
+  refreshHeader();
+  setGreeting();
+  calcCountdown();
+  renderAll();
+  closeSettings();
+  showToast("Configurações salvas.");
   save();
 };
 
