@@ -341,6 +341,9 @@ main{margin-left:var(--sidebar-w);padding:0}
 /* lembretes */
 .reminder-form{display:flex;align-items:center;gap:10px;flex-wrap:wrap;margin-bottom:18px}
 .reminder-form .input{width:auto}
+.todo-tabs{display:inline-flex;gap:4px;background:#EFE9DC;padding:3px;border-radius:10px;margin-bottom:14px}
+.todo-tab{padding:7px 16px;border-radius:8px;border:none;background:transparent;cursor:pointer;font-family:inherit;font-size:12.5px;font-weight:500;color:var(--muted);transition:all .16s}
+.todo-tab.active{background:var(--surface);color:var(--charcoal);font-weight:600;box-shadow:0 1px 3px rgba(22,33,30,.08)}
 .reminder-form #remName{flex:1;min-width:160px}
 .reminder-antec{display:inline-flex;align-items:center;gap:8px;font-size:13px;color:var(--muted);background:var(--bg);border:1px solid var(--border);border-radius:12px;padding:0 12px;height:44px}
 .reminder-add-label{font-size:13px;color:var(--muted);font-weight:500;margin-right:4px}
@@ -619,6 +622,11 @@ main{margin-left:var(--sidebar-w);padding:0}
 .sup-title-row{display:flex;align-items:center;gap:10px;flex-wrap:wrap}
 .sup-name{font-family:'Cormorant Garamond',serif;font-size:19px;font-weight:600;color:var(--charcoal)}
 .sup-links{display:flex;gap:7px;margin-top:10px;flex-wrap:wrap}
+.sup-link.wa{background:rgba(15,122,90,.1);border-color:rgba(15,122,90,.3);color:var(--emerald);font-weight:600}
+.sup-link.wa:hover{background:rgba(15,122,90,.18)}
+.sup-items{margin-top:12px;display:flex;flex-direction:column;gap:5px;background:var(--bg);border:1px solid var(--border);border-radius:10px;padding:10px 12px}
+.sup-item{display:flex;justify-content:space-between;align-items:center;font-size:12.5px;color:var(--charcoal)}
+.sup-item b{font-variant-numeric:lining-nums tabular-nums;color:var(--forest)}
 .sup-link{
   display:inline-flex;align-items:center;gap:5px;
   padding:5px 11px;border-radius:8px;background:var(--bg);
@@ -745,7 +753,6 @@ main{margin-left:var(--sidebar-w);padding:0}
       <input placeholder="Buscar no Formatura360..." onkeydown="if(event.key==='Enter')globalSearch(this.value)">
       <kbd>&#8984; K</kbd>
     </div>
-    <div class="top-status"><span class="dot"></span> Tudo em dia</div>
     <div class="top-bell"><span class="badge-dot"></span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><path d="M6 8a6 6 0 0 1 12 0c0 7 3 9 3 9H3s3-2 3-9"/><path d="M10.3 21a1.94 1.94 0 0 0 3.4 0"/></svg></div>
     <div class="top-profile">
       <div class="top-avatar" id="userInitial">F</div>
@@ -824,6 +831,10 @@ main{margin-left:var(--sidebar-w);padding:0}
       <!-- AFAZERES -->
       <div class="section-card">
         <div class="sc-head"><div class="sc-title">Afazeres</div><span class="sc-pill" id="todoCount">0 pendentes</span></div>
+        <div class="todo-tabs">
+          <button class="todo-tab active" id="todoTabPending" onclick="setTodoTab('pending')">A fazer</button>
+          <button class="todo-tab" id="todoTabDone" onclick="setTodoTab('done')">Concluídos</button>
+        </div>
         <div class="todo-input-row">
           <input class="input" id="todoInput" placeholder="Adicionar nova tarefa..." onkeydown="if(event.key==='Enter')addTodo()">
           <button class="btn btn-primary btn-sq" onclick="addTodo()"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg></button>
@@ -993,6 +1004,12 @@ main{margin-left:var(--sidebar-w);padding:0}
         <div class="field"><label>Nome</label><input class="input" id="supName" placeholder="Ex.: Doces da Ana"></div>
 
         <div class="field">
+          <label>WhatsApp / contato</label>
+          <input class="input" id="supWhatsapp" placeholder="Ex.: (83) 99999-9999" inputmode="tel">
+          <div style="font-size:11px;color:var(--muted);margin-top:6px;display:flex;align-items:center;gap:5px"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M12 16v-4M12 8h.01"/></svg> Vira um botão que abre a conversa direto.</div>
+        </div>
+
+        <div class="field">
           <label>Categoria</label>
           <div class="chips" id="supCatChips" style="margin-top:2px"></div>
         </div>
@@ -1005,6 +1022,16 @@ main{margin-left:var(--sidebar-w);padding:0}
           </div>
           <div id="supLinksPending" style="display:flex;flex-wrap:wrap;gap:6px;margin-top:10px"></div>
           <div style="font-size:11px;color:var(--muted);margin-top:7px;display:flex;align-items:center;gap:5px"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M12 16v-4M12 8h.01"/></svg> Clique no <b style="color:var(--forest)">+</b> para adicionar cada link.</div>
+        </div>
+
+        <div class="field">
+          <label>Itens / produtos</label>
+          <div style="display:flex;gap:8px">
+            <input class="input" id="supItemName" placeholder="Item (ex.: Brigadeiro)" style="flex:2">
+            <input class="input" id="supItemValue" type="number" step="0.01" placeholder="Valor un." style="flex:1;min-width:0">
+            <button class="btn btn-primary btn-sq" type="button" onclick="addSupItem()"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg></button>
+          </div>
+          <div id="supItemsPending" style="display:flex;flex-direction:column;gap:6px;margin-top:10px"></div>
         </div>
 
         <div class="field">
@@ -1411,7 +1438,12 @@ function normalizeState(raw) {
   merged.suppliers = merged.suppliers.map(s => ({
     name: String(s?.name ?? ""),
     category: String(s?.category ?? ""),
+    whatsapp: String(s?.whatsapp ?? ""),
     links: Array.isArray(s?.links) ? s.links.map(String) : [],
+    items: Array.isArray(s?.items) ? s.items.map(it => ({
+      name: String(it?.name ?? ""),
+      value: Number(it?.value) || 0,
+    })).filter(it => it.name) : [],
     pay: Array.isArray(s?.pay) ? s.pay.map(String) : [],
     hasDiscount: Boolean(s?.hasDiscount),
     discount: Number(s?.discount) || 0,
@@ -1538,12 +1570,18 @@ async function save() {
 /* DASHBOARD */
 function setGreeting() {
   if (el.greetingText) {
-    const h = new Date().getHours();
-    let s = "Boa noite";
-    if (h >= 5 && h < 12) s = "Bom dia";
-    else if (h >= 12 && h < 18) s = "Boa tarde";
     const nome = (state.displayName || "").trim();
-    el.greetingText.textContent = nome ? `${s}, ${nome}.` : `${s}.`;
+    if (nome) {
+      const frases = [
+        `Olá, ${nome}.`,
+        `Falta pouco, ${nome}! 🎓`,
+        `Que bom te ver, ${nome}.`,
+      ];
+      el.greetingText.textContent = frases[Math.floor(Math.random() * frases.length)];
+    } else {
+      const frasesSemNome = ["Olá!", "Falta pouco! 🎓", "Que bom te ver."];
+      el.greetingText.textContent = frasesSemNome[Math.floor(Math.random() * frasesSemNome.length)];
+    }
   }
   // eyebrow com a data da formatura
   const hd = document.getElementById("heroDate");
@@ -2305,7 +2343,7 @@ window.closeReminderModal = () => {
 };
 
 /* ===== FORNECEDORES ===== */
-const supForm = { category: "", links: [], pay: [] };
+const supForm = { category: "", links: [], pay: [], items: [] };
 const supIcons = {
   "Lembranças": '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><rect x="3" y="8" width="18" height="4" rx="1"/><path d="M12 8v13"/><path d="M19 12v7a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2v-7"/><path d="M7.5 8a2.5 2.5 0 0 1 0-5C11 3 12 8 12 8s1-5 4.5-5a2.5 2.5 0 0 1 0 5"/></svg>',
   "Drinks": '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><path d="M5 3h14l-2 4H7L5 3z"/><path d="M12 7v9"/><path d="M8 21h8"/><path d="M12 16a3 3 0 0 0 3-3"/></svg>',
@@ -2325,6 +2363,13 @@ function normalizeUrl(url) {
   if (/^https?:\/\//i.test(url)) return url;
   if (/^[\w.+-]+@[\w.-]+$/.test(url)) return "mailto:" + url;
   return "https://" + url;
+}
+
+function waLink(phone) {
+  // mantém só dígitos; assume Brasil (55) se não tiver código de país
+  let digits = String(phone).replace(/\D/g, "");
+  if (digits.length <= 11) digits = "55" + digits;
+  return "https://wa.me/" + digits;
 }
 
 window.toggleSupPay = (method) => {
@@ -2377,6 +2422,28 @@ function syncSupLinksPending() {
   }).join("");
 }
 
+window.addSupItem = () => {
+  const nameEl = document.getElementById("supItemName");
+  const valEl = document.getElementById("supItemValue");
+  const name = (nameEl.value || "").trim();
+  const value = Number(valEl.value) || 0;
+  if (!name) { showToast("Informe o nome do item.", "error"); return; }
+  supForm.items.push({ name, value });
+  nameEl.value = ""; valEl.value = "";
+  syncSupItemsPending();
+  nameEl.focus();
+};
+window.removeSupItem = (i) => { supForm.items.splice(i, 1); syncSupItemsPending(); };
+function syncSupItemsPending() {
+  const box = document.getElementById("supItemsPending");
+  if (!box) return;
+  box.innerHTML = supForm.items.map((it, i) => `
+    <div class="link-pending" style="justify-content:space-between;width:100%">
+      <span>${escapeHtml(it.name)}${it.value > 0 ? ` — ${money(it.value)}` : ""}</span>
+      <button type="button" onclick="removeSupItem(${i})"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg></button>
+    </div>`).join("");
+}
+
 window.toggleDiscountFields = () => {
   const on = document.getElementById("supHasDiscount").checked;
   const row = document.getElementById("supDiscountRow");
@@ -2396,13 +2463,22 @@ window.addSupplier = () => {
     linkInput.value = "";
   }
 
+  // captura item digitado mas não adicionado com "+"
+  const itName = document.getElementById("supItemName");
+  const itVal = document.getElementById("supItemValue");
+  if (itName && (itName.value || "").trim()) {
+    supForm.items.push({ name: itName.value.trim(), value: Number(itVal.value) || 0 });
+    itName.value = ""; itVal.value = "";
+  }
+
   const hasDiscount = document.getElementById("supHasDiscount").checked;
   const discount = Number(document.getElementById("supDiscount").value) || 0;
   const installments = Number(document.getElementById("supInstallments").value) || 0;
+  const whatsapp = (document.getElementById("supWhatsapp").value || "").trim();
 
   const supplierData = {
-    name, category: supForm.category,
-    links: [...supForm.links], pay: [...supForm.pay],
+    name, category: supForm.category, whatsapp,
+    links: [...supForm.links], items: [...supForm.items], pay: [...supForm.pay],
     hasDiscount, discount, installments,
   };
 
@@ -2421,12 +2497,13 @@ window.addSupplier = () => {
 
   // limpa o form
   document.getElementById("supName").value = "";
+  document.getElementById("supWhatsapp").value = "";
   document.getElementById("supDiscount").value = "";
   document.getElementById("supInstallments").value = "";
   document.getElementById("supHasDiscount").checked = false;
   document.getElementById("supDiscountRow").style.display = "none";
-  supForm.category = ""; supForm.links = []; supForm.pay = [];
-  syncSupCatChips(); syncSupLinksPending(); syncSupPayChips();
+  supForm.category = ""; supForm.links = []; supForm.pay = []; supForm.items = [];
+  syncSupCatChips(); syncSupLinksPending(); syncSupPayChips(); syncSupItemsPending();
 
   save();
 };
@@ -2440,14 +2517,16 @@ window.editSupplier = (i) => {
 
   // carrega no formulário
   document.getElementById("supName").value = s.name || "";
+  document.getElementById("supWhatsapp").value = s.whatsapp || "";
   supForm.category = s.category || "";
   supForm.links = [...(s.links || [])];
+  supForm.items = (s.items || []).map(it => ({ ...it }));
   supForm.pay = [...(s.pay || [])];
   document.getElementById("supHasDiscount").checked = !!s.hasDiscount;
   document.getElementById("supDiscount").value = s.discount || "";
   document.getElementById("supInstallments").value = s.installments || "";
   document.getElementById("supDiscountRow").style.display = s.hasDiscount ? "flex" : "none";
-  syncSupCatChips(); syncSupLinksPending(); syncSupPayChips();
+  syncSupCatChips(); syncSupLinksPending(); syncSupPayChips(); syncSupItemsPending();
 
   // muda o botão para "Salvar alterações"
   const btn = document.getElementById("supSubmitBtn");
@@ -2502,10 +2581,17 @@ function renderSuppliers() {
   }
 
   box.innerHTML = rows.map(r => {
+    const waButton = (r.whatsapp && r.whatsapp.trim())
+      ? `<a class="sup-link wa" href="${waLink(r.whatsapp)}" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z"/></svg> WhatsApp</a>`
+      : "";
     const links = (r.links || []).map(l => {
       const [ico, label] = linkIcon(l);
       return `<a class="sup-link" href="${escapeHtml(l)}" target="_blank" rel="noopener">${ico} ${label}</a>`;
     }).join("");
+    const linksHtml = (waButton + links);
+    const itemsHtml = (r.items && r.items.length)
+      ? `<div class="sup-items">${r.items.map(it => `<div class="sup-item"><span>${escapeHtml(it.name)}</span><b>${it.value > 0 ? money(it.value) : "—"}</b></div>`).join("")}</div>`
+      : "";
     const payTxt = (r.pay && r.pay.length) ? r.pay.join(" · ") : "Não informado";
     const discTag = r.hasDiscount && r.discount > 0
       ? `<span class="sup-tag disc">${r.discount}% à vista</span>`
@@ -2520,7 +2606,8 @@ function renderSuppliers() {
             <span class="sup-name">${escapeHtml(r.name)}</span>
             <span class="badge blue">${escapeHtml(r.category)}</span>
           </div>
-          ${links ? `<div class="sup-links">${links}</div>` : ""}
+          ${linksHtml ? `<div class="sup-links">${linksHtml}</div>` : ""}
+          ${itemsHtml}
           <div class="sup-pay">
             <span class="sup-pay-txt"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><rect x="2" y="5" width="20" height="14" rx="2"/><path d="M2 10h20"/></svg> ${escapeHtml(payTxt)}</span>
             ${discTag}${instTag}
@@ -2549,19 +2636,42 @@ window.removeTodo = (i) => {
   state.todos.splice(i, 1);
   save();
 };
+let todoTab = "pending";
+window.setTodoTab = (tab) => {
+  todoTab = tab;
+  const tp = document.getElementById("todoTabPending");
+  const td = document.getElementById("todoTabDone");
+  const input = document.getElementById("todoInput");
+  if (tp) tp.classList.toggle("active", tab === "pending");
+  if (td) td.classList.toggle("active", tab === "done");
+  // esconde o campo de adicionar na aba de concluídos
+  const row = input ? input.closest(".todo-input-row") : null;
+  if (row) row.style.display = tab === "done" ? "none" : "flex";
+  renderTodos();
+};
+
 function renderTodos() {
   if (!el.todoList) return;
   const pend = state.todos.filter(t => !t.done).length;
+  const done = state.todos.filter(t => t.done).length;
   el.todoCount.textContent = pend === 1 ? "1 pendente" : `${pend} pendentes`;
-  if (state.todos.length === 0) {
-    el.todoList.innerHTML = `<li class="empty-mini"><div class="em-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><path d="M9 11l3 3L22 4"/><path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"/></svg></div><b>Tudo organizado!</b><small>Adicione tarefas para acompanhar.</small></li>`;
+
+  const showDone = todoTab === "done";
+  const lista = state.todos
+    .map((t, i) => ({ ...t, i }))
+    .filter(t => showDone ? t.done : !t.done);
+
+  if (lista.length === 0) {
+    el.todoList.innerHTML = showDone
+      ? `<li class="empty-mini"><div class="em-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><path d="M9 11l3 3L22 4"/></svg></div><b>Nada concluído ainda</b><small>As tarefas que você marcar aparecem aqui.</small></li>`
+      : `<li class="empty-mini"><div class="em-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><path d="M9 11l3 3L22 4"/><path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"/></svg></div><b>Tudo organizado!</b><small>Adicione tarefas para acompanhar.</small></li>`;
     return;
   }
-  el.todoList.innerHTML = state.todos.map((t, i) => `
+  el.todoList.innerHTML = lista.map(t => `
     <li class="todo-item ${t.done ? "done" : ""}">
-      <input type="checkbox" class="check" ${t.done ? "checked" : ""} onclick="toggleTodo(${i})">
+      <input type="checkbox" class="check" ${t.done ? "checked" : ""} onclick="toggleTodo(${t.i})">
       <span>${escapeHtml(t.text)}</span>
-      <button class="icon-btn" title="Remover" onclick="removeTodo(${i})"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><path d="M3 6h18"/><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"/></svg></button>
+      <button class="icon-btn" title="Remover" onclick="removeTodo(${t.i})"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><path d="M3 6h18"/><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"/></svg></button>
     </li>`).join("");
 }
 
